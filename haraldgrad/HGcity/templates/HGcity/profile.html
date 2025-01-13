@@ -1,0 +1,18 @@
+{% extends 'HGcity/base.html' %}
+
+{% block content %}
+
+<h1>Профиль пользователя</h1>
+<p>Имя: {{ user.first_name }} {{ user.last_name }}</p>
+<p>Email: {{ user.email }}</p>
+<p>Социальный рейтинг: {{ user.social_rating }}</p>
+<p>HP: {{ user.hp }}</p>
+<p>Идеология: {{ user.ideology }}</p>
+{% if user.logo %}
+<img src="{{ user.logo.url }}" alt="Logo" width="100">
+{% else %}
+<p>Логотип не выбран</p>
+{% endif %}
+
+{% endblock %}
+

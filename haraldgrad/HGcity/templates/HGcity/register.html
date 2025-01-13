@@ -1,0 +1,41 @@
+{% extends 'HGcity/base.html' %}
+
+{% block content %}
+<h1>Регистрация</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <!-- Логин -->
+    <div>
+        <label for="id_username">ЛОГИН</label>
+        {{ form.username }}
+    </div>
+
+    <!-- Email -->
+    <div>
+        <label for="id_email">ПОЧТА</label>
+        {{ form.email }}
+    </div>
+
+    <!-- Пароль -->
+    <div>
+        <label for="id_password1">Пароль</label>
+        {{ form.password1 }}
+    </div>
+
+    <div>
+        <label for="id_password2">Подтверждение пароля</label>
+        {{ form.password2 }}
+    </div>
+
+    <!-- Идеология -->
+    <div>
+        <label for="id_ideology">Идеология</label>
+        {{ form.ideology }}
+    </div>
+
+    <button type="submit">Зарегистрироваться</button>
+</form>
+
+<p>Уже есть аккаунт? <a href="{% url 'HGcity:login' %}">Войти</a></p>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'HGcity/base.html' %}
+
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="logo">Выберите логотип:</label>
+    <input type="file" name="logo" accept="image/*">
+    <button type="submit">Сохранить логотип</button>
+</form>
+
+<h3>Предложенные логотипы:</h3>
+<ul>
+    {% for logo in logos %}
+        <li>
+            <img src="{{ logo.logo.url }}" alt="Logo" width="100">
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

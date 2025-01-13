@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HGcity</title>
+</head>
+<body>
+<!-- Навигационное меню -->
+<header>
+    <nav>
+        <ul>
+            <li><a href="{% url 'HGcity:home' %}">Главная</a></li>
+            <li><a href="{% url 'HGcity:rules' %}">Правила</a></li>
+            <li><a href="{% url 'HGcity:about' %}">О проекте</a></li>
+            <li><a href="{% url 'HGcity:contact' %}">Контакты</a></li>
+
+            {% if user.is_authenticated %}
+                <!-- Показываем ссылки для авторизованных пользователей -->
+                <li><a href="{% url 'HGcity:profile' %}">Профиль</a></li>
+                <li><a href="{% url 'HGcity:logout' %}">Выход</a></li>
+            {% else %}
+                <!-- Показываем ссылки для гостей -->
+                <li><a href="{% url 'HGcity:register' %}">Регистрация</a></li>
+                <li><a href="{% url 'HGcity:login' %}">Вход</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>
+
+<!-- Основной контент -->
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+
+<!-- Футер -->
+<footer>
+    <p>&copy; 2025 HGcity</p>
+</footer>
+</body>
+</html>

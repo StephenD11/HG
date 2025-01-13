@@ -1,0 +1,26 @@
+{% extends 'HGcity/base.html' %}
+
+{% block content %}
+<h1>Вход в аккаунт</h1>
+<form method="post">
+    {% csrf_token %}
+
+    <div>
+        <label for="{{ form.username.id_for_label }}">Логин</label>
+        {{ form.username }}
+    </div>
+
+    <div>
+        <label for="{{ form.password.id_for_label }}">Пароль</label>
+        {{ form.password }}
+    </div>
+
+    <button type="submit">Войти</button>
+</form>
+
+{% if error %}
+    <p style="color: red;">{{ error }}</p>
+{% endif %}
+
+<p>Нет аккаунта? <a href="{% url 'HGcity:register' %}">Зарегистрироваться</a></p>
+{% endblock %}
