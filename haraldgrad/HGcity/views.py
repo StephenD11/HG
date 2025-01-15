@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.forms import PasswordResetForm, AuthenticationForm
+from django.contrib.auth.forms import PasswordResetForm
 from .forms import UserRegisterForm, LoginForm
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from .models import User
+from django.contrib.auth.decorators import login_required
 
 def choose_logo(request):
     if request.method == 'POST' and 'logo' in request.FILES:
@@ -56,17 +57,6 @@ def register(request):
     return render(request, 'HGcity/register.html', {'form': form})
 
 
-def password_reset(request):
-    if request.method == 'POST':
-        form = PasswordResetForm(request.POST)
-        if form.is_valid():
-            form.save(request=request)
-            return redirect('password_reset_done')
-    else:
-        form = PasswordResetForm()
-    return render(request, 'HGcity/password_reset.html', {'form': form})
-
-
 def home(request):
     return render(request, 'HGcity/home.html')
 
@@ -85,3 +75,39 @@ def about(request):
 
 def contact(request):
     return render(request, 'HGcity/contact.html')
+
+
+@login_required
+def update_profile(request):
+    if request.method == "POST":
+        field = request.POST.get('field')  # получаем имя поля, которое нужно обновить
+        value = request.POST.get('value')  # получаем новое значение для поля
+
+        # Проверка на допустимые поля
+        if field in ['first_name', 'last_name', 'username', 'email', 'ideology']:
+            if field == 'ideology':  # Если обновляем идеологию
+                # Проверяем, что значение идеологии корректное
+                if value in ['Nationalism', 'Socialism', 'Democracy', 'Monarchism']:
+                    setattr(request.user, field, value)  # сохраняем новое значение
+            else:
+                setattr(request.user, field, value)  # сохраняем новое значение
+            request.user.save()  # сохраняем изменения в базе данных
+
+        return redirect('HGcity:profile')  # редирект на страницу профиля
+
+    return render(request, 'HGcity/profile.html')
+
+
+
+def profile_view(request):
+    if request.method == "POST" and "ideology" in request.POST:
+        # Получаем выбранную идеологию
+        selected_ideology = request.POST.get("ideology")
+        # Проверяем, что идеология из списка допустимых значений
+        if selected_ideology in ['Nationalism', 'Socialism', 'Democracy', 'Monarchism']:
+            request.user.ideology = selected_ideology
+            request.user.save()  # Сохраняем изменения
+        return redirect('profile')  # Перезагрузка страницы профиля
+
+    # Если запрос GET, просто отображаем профиль
+    return render(request, 'HGcity/profile.html', {'user': request.user})

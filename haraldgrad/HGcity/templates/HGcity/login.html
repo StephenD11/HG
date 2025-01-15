@@ -18,6 +18,8 @@
     <button type="submit">Войти</button>
 </form>
 
+<a href="{% url 'HGcity:password_reset' %}">Забыли пароль?</a>
+
 {% if error %}
     <p style="color: red;">{{ error }}</p>
 {% endif %}

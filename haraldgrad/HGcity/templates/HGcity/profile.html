@@ -3,16 +3,84 @@
 {% block content %}
 
 <h1>Профиль пользователя</h1>
-<p>Имя: {{ user.first_name }} {{ user.last_name }}</p>
-<p>Email: {{ user.email }}</p>
+
+<!-- Имя -->
+<div>
+    <p>Имя: {{ user.first_name }}</p>
+    <button onclick="toggleEdit('first_name')">Редактировать</button>
+    <form method="post" action="{% url 'HGcity:update_profile' %}" style="display:none;" id="form-first_name">
+        {% csrf_token %}
+        <input type="hidden" name="field" value="first_name"> <!-- Поле для обновления -->
+        <input type="text" name="value" value="{{ user.first_name }}"> <!-- Новое значение -->
+        <button type="submit">Сохранить</button>
+    </form>
+</div>
+
+
+<!-- Фамилия -->
+<div>
+    <p>Фамилия: {{ user.last_name }}</p>
+    <button onclick="toggleEdit('last_name')">Редактировать</button>
+    <form method="post" action="{% url 'HGcity:update_profile' %}" style="display:none;" id="form-last_name">
+        {% csrf_token %}
+        <input type="hidden" name="field" value="last_name"> <!-- Поле для обновления -->
+        <input type="text" name="value" value="{{ user.last_name }}"> <!-- Новое значение -->
+        <button type="submit">Сохранить</button>
+    </form>
+</div>
+
+<!-- Логин -->
+<div>
+    <p>Логин: {{ user.username }}</p>
+    <button onclick="toggleEdit('username')">Редактировать</button>
+    <form method="post" action="{% url 'HGcity:update_profile' %}" style="display:none;" id="form-username">
+        {% csrf_token %}
+        <input type="hidden" name="field" value="username"> <!-- Поле для обновления -->
+        <input type="text" name="value" value="{{ user.username }}"> <!-- Новое значение -->
+        <button type="submit">Сохранить</button>
+    </form>
+</div>
+
+<!-- Email -->
+<div>
+    <p>Email: {{ user.email }}</p>
+    <button onclick="toggleEdit('email')">Редактировать</button>
+    <form method="post" action="{% url 'HGcity:update_profile' %}" style="display:none;" id="form-email">
+        {% csrf_token %}
+        <input type="hidden" name="field" value="email"> <!-- Поле для обновления -->
+        <input type="text" name="value" value="{{ user.email }}"> <!-- Новое значение -->
+        <button type="submit">Сохранить</button>
+    </form>
+</div>
+
+<!-- Идеология -->
+<div>
+    <p>Идеология:</p>
+    <form method="post" action="{% url 'HGcity:update_profile' %}">
+        {% csrf_token %}
+        <input type="hidden" name="field" value="ideology"> <!-- Скрытое поле для поля 'ideology' -->
+        <select name="value" onchange="this.form.submit()">
+            <option value="Nationalism" {% if user.ideology == "Nationalism" %}selected{% endif %}>Национализм</option>
+            <option value="Socialism" {% if user.ideology == "Socialism" %}selected{% endif %}>Социализм</option>
+            <option value="Democracy" {% if user.ideology == "Democracy" %}selected{% endif %}>Демократия</option>
+            <option value="Monarchism" {% if user.ideology == "Monarchism" %}selected{% endif %}>Монархизм</option>
+        </select>
+    </form>
+</div>
+
 <p>Социальный рейтинг: {{ user.social_rating }}</p>
-<p>HP: {{ user.hp }}</p>
-<p>Идеология: {{ user.ideology }}</p>
-{% if user.logo %}
-<img src="{{ user.logo.url }}" alt="Logo" width="100">
-{% else %}
-<p>Логотип не выбран</p>
-{% endif %}
+<p>Кошелек: {{ user.wallet }}</p>
+<p>Жизни: {{ user.hp }}</p>
+
+<script>
+    function toggleEdit(field) {
+        const form = document.getElementById(`form-${field}`);
+        if (form.style.display === "none") {
+            form.style.display = "block";
+        } else {
+            form.style.display = "none";
+        }
+    }
+</script>
 
 {% endblock %}
-

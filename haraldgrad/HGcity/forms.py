@@ -2,8 +2,10 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import User
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import PasswordResetForm
 
-
+class CustomPasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(label="Email", max_length=254)
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
