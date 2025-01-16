@@ -14,19 +14,21 @@ class UserRegisterForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2', 'first_name', 'last_name', 'hp', 'social_rating', 'wallet', 'ideology', 'logo']
         help_texts = {
-            'username': '',
-            'email': '',
-            'password1': 'Введите надежный пароль',
-            'password2': 'Повторите пароль',
+            'username': 'С логином что-то не так, попробуй еще раз',
+            'email': 'Явно не правильно написал email, исправляй',
+            'password1': 'Введи надежный пароль',
+            'password2': 'Повтори пароль',
         }
 
     # Валидация на уникальность Email
     def clean_email(self):
         email = self.cleaned_data.get('email')
         if User.objects.filter(email=email).exists():
-            raise forms.ValidationError('Этот Email уже зарегистрирован')
+            raise forms.ValidationError('Этот Email уже зарегистрирован, попробуй другой')
         return email
 
 
 class LoginForm(AuthenticationForm):
     pass
+
+

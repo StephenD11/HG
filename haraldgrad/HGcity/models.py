@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
+from django.conf import settings
 
 
 class User(AbstractUser):
@@ -17,7 +18,7 @@ class User(AbstractUser):
             ('Democracy', 'Демократия'),
             ('Monarchism', 'Монархизм')
         ],
-        default='Идеология не выбрана',
+        default='None',
         null=True, blank=True
     )
     logo = models.ImageField(upload_to='logos/', null=True, blank=True)
@@ -42,3 +43,6 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
+
+
+#Чат и лайки, жалобы

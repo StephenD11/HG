@@ -8,11 +8,25 @@
     <div>
         <label for="{{ form.username.id_for_label }}">Логин</label>
         {{ form.username }}
+        {% if form.username.errors %}
+            <ul class="errorlist">
+                {% for error in form.username.errors %}
+                    <li style="color: red;">{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     </div>
 
     <div>
         <label for="{{ form.password.id_for_label }}">Пароль</label>
         {{ form.password }}
+        {% if form.password.errors %}
+            <ul class="errorlist">
+                {% for error in form.password.errors %}
+                    <li style="color: red;">{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     </div>
 
     <button type="submit">Войти</button>
@@ -20,8 +34,12 @@
 
 <a href="{% url 'HGcity:password_reset' %}">Забыли пароль?</a>
 
-{% if error %}
-    <p style="color: red;">{{ error }}</p>
+{% if form.non_field_errors %}
+    <ul class="errorlist">
+        {% for error in form.non_field_errors %}
+            <li style="color: red;">{{ error }}</li>
+        {% endfor %}
+    </ul>
 {% endif %}
 
 <p>Нет аккаунта? <a href="{% url 'HGcity:register' %}">Зарегистрироваться</a></p>

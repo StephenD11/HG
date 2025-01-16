@@ -1,3 +1,4 @@
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import PasswordResetForm
@@ -6,6 +7,9 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from .models import User
 from django.contrib.auth.decorators import login_required
+
+
+
 
 def choose_logo(request):
     if request.method == 'POST' and 'logo' in request.FILES:
@@ -32,9 +36,11 @@ def login_view(request):
                 login(request, user)
                 return redirect('HGcity:profile')  # Перенаправление на профиль
             else:
-                return render(request, 'HGcity/login.html', {'form': form, 'error': 'Неверный логин или пароль!'})
+                # Ошибка аутентификации
+                form.add_error(None, 'Неверный логин или пароль!')  # Добавление ошибки в форму
     else:
         form = LoginForm()
+
     return render(request, 'HGcity/login.html', {'form': form})
 
 
@@ -111,3 +117,22 @@ def profile_view(request):
 
     # Если запрос GET, просто отображаем профиль
     return render(request, 'HGcity/profile.html', {'user': request.user})
+
+
+# Логотипы - выбор
+@login_required
+def choose_logo(request):
+    if request.method == 'POST' and 'logo' in request.POST:
+        logo_choice = request.POST['logo']
+
+        # Сохранить логотип пользователя
+        user = request.user
+        user.logo = f'logos/{logo_choice}'  # Сохраняем путь
+        user.save()
+        return redirect('HGcity:profile')  # Перенаправляем на профиль
+
+    logos = ['1.png', '2.png', '3.png', '4.png',]  # Пример списка логотипов
+    return render(request, 'HGcity/choose_logo.html', {'logos': logos})
+
+
+

@@ -1,21 +1,24 @@
 {% extends 'HGcity/base.html' %}
-
+{% load static %}
 
 {% block content %}
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <label for="logo">Выберите логотип:</label>
-    <input type="file" name="logo" accept="image/*">
-    <button type="submit">Сохранить логотип</button>
-</form>
+<h1>Выберите логотип</h1>
 
-<h3>Предложенные логотипы:</h3>
-<ul>
-    {% for logo in logos %}
-        <li>
-            <img src="{{ logo.logo.url }}" alt="Logo" width="100">
-        </li>
-    {% endfor %}
-</ul>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div>
+        {% for logo in logos %}
+            <div>
+                <img src="{% static 'logos/'|add:logo %}" alt="Логотип {{ logo }}" style="width: 100px; height: 100px;">
+                <input type="radio" name="logo" value="{{ logo }}" id="{{ logo }}">
+                <label for="{{ logo }}">Выбрать</label>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Кнопка сохранить -->
+    <button type="submit">Сохранить</button>
+</form>
 
 {% endblock %}

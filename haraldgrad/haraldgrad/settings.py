@@ -55,8 +55,8 @@ ROOT_URLCONF = 'haraldgrad.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'HGcity/templates'],
-        'APP_DIRS': True,
+        'DIRS': [BASE_DIR / 'HGcity' / 'templates'],
+        'APP_DIRS': True,  # Позволяет искать шаблоны внутри приложений
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -127,10 +127,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
-
+# Для статических файлов (изображений, CSS, JS)
+STATIC_URL = '/static/'  # URL для доступа к статическим файлам
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Путь к директории 'static' в проекте
+    BASE_DIR / "static",  # Указываем путь до папки static, если она в корне проекта
 ]
 
 
@@ -148,17 +148,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 
-
-
 # Для восстановления почты
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'system.haraldgrad@yandex.com'  # Твоя почта
 EMAIL_HOST_PASSWORD = 'nrqcukhhdbvfnlbk'  # Пароль приложения, если используется двухфакторка
-DEFAULT_FROM_EMAIL = 'system.haraldgrad@yandex.com'
-
+DEFAULT_FROM_EMAIL = "Система Харальдграда <system.haraldgrad@yandex.com>"
 
 LOGIN_URL = '/login/'  # Путь к твоей странице входа
+

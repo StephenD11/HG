@@ -4,6 +4,18 @@
 
 <h1>Профиль пользователя</h1>
 
+<!-- Логотип -->
+<div>
+    <p>Логотип:</p>
+    <button onclick="window.location.href='{% url 'HGcity:choose_logo' %}'">Редактировать</button>
+    {% if user.logo %}
+        <img src="{{ user.logo.url }}" alt="Ваш логотип" style="width: 100px; height: 100px;">
+    {% else %}
+        <button onclick="window.location.href='{% url 'HGcity:choose_logo' %}'">Выбрать логотип</button>
+    {% endif %}
+</div>
+
+
 <!-- Имя -->
 <div>
     <p>Имя: {{ user.first_name }}</p>
