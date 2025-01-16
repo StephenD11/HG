@@ -42,5 +42,14 @@
     </ul>
 {% endif %}
 
+<!-- Отображение сообщений -->
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}" style="font-size:55px;">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
 <p>Нет аккаунта? <a href="{% url 'HGcity:register' %}">Зарегистрироваться</a></p>
 {% endblock %}

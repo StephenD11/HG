@@ -4,12 +4,13 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import PasswordResetForm
 from .forms import UserRegisterForm, LoginForm
 from django.http import HttpResponse
-from django.shortcuts import redirect
-from .models import User
+from .models import User, Message
 from django.contrib.auth.decorators import login_required
-
-
-
+from django.http import JsonResponse
+import datetime
+from django.core.exceptions import PermissionDenied
+from django.contrib import messages
+import time
 
 def choose_logo(request):
     if request.method == 'POST' and 'logo' in request.FILES:
@@ -33,16 +34,17 @@ def login_view(request):
             password = form.cleaned_data['password']
             user = authenticate(request, username=username, password=password)
             if user is not None:
+                if user.is_banned:
+                    messages.error(request, "Ваш аккаунт заблокирован.")
+                    return redirect('HGcity:login')
                 login(request, user)
-                return redirect('HGcity:profile')  # Перенаправление на профиль
+                return redirect('HGcity:profile')
             else:
-                # Ошибка аутентификации
-                form.add_error(None, 'Неверный логин или пароль!')  # Добавление ошибки в форму
+                form.add_error(None, 'Неверный логин или пароль!')
     else:
         form = LoginForm()
 
     return render(request, 'HGcity/login.html', {'form': form})
-
 
 def logout_view(request):
     logout(request)
@@ -134,5 +136,109 @@ def choose_logo(request):
     logos = ['1.png', '2.png', '3.png', '4.png',]  # Пример списка логотипов
     return render(request, 'HGcity/choose_logo.html', {'logos': logos})
 
+
+#чат
+chat_messages = []
+# Хранение данных о мутированных пользователях
+muted_users = {}
+MUTE_TIME = 60  # время мута в секундах
+MAX_MESSAGES_COUNT = 25
+
+def chat_view(request):
+    return render(request, 'HGcity/chat.html')
+
+
+@login_required
+def send_message(request):
+    if request.method == 'POST':
+        message_text = request.POST.get('message')
+        username = request.POST.get('username')
+
+        # Проверка на мут
+        if username in muted_users and time.time() < muted_users[username]:
+            return JsonResponse({'status': 'error', 'message': 'Ты замучен на 60 секунд! Палкой по жопе!'})
+
+        # Сохраняем сообщение
+        new_message = Message(user=request.user, message=message_text)  # Используем пользователя из сессии
+        new_message.save()
+
+        # Проверка на команду /mute
+        if message_text.startswith('/mute '):
+            target_user = message_text.split(' ')[1]
+
+            # Получаем роль отправителя
+            sender = request.user
+
+            # Если роль отправителя не Government или Moderator, не разрешаем мутить
+            if sender.role not in ['ГОХ', 'Правительство']:
+                return JsonResponse({'status': 'error', 'message': 'У вас нет прав для выполнения этой команды.'})
+
+            # Проверка, что не мутим себя
+            if target_user != username:
+                muted_users[target_user] = time.time() + MUTE_TIME
+                return JsonResponse({'status': 'ok', 'message': f'Пользователь {target_user} был замучен на {MUTE_TIME} секунд.'})
+            else:
+                return JsonResponse({'status': 'error', 'message': 'Вы не можете замутить себя.'})
+
+        return JsonResponse({'status': 'ok', 'message': message_text})
+
+
+@login_required
+def get_messages(request):
+    messages = Message.objects.all().order_by('-timestamp')[:MAX_MESSAGES_COUNT]
+    response = {
+        'messages': [
+            {
+                'id': msg.id,
+                'username': msg.user.username,  # Передаем логин пользователя
+                'timestamp': msg.timestamp.strftime('%H:%M:%S'),
+                'message': msg.message,
+                'role': msg.user.role,  # Передаем роль пользователя
+                'first_name': msg.user.first_name,
+                'last_name': msg.user.last_name
+            }
+            for msg in messages
+        ]
+    }
+    return JsonResponse(response)
+
+
+
+@login_required
+def clear_chat(request):
+    if request.method == 'POST':
+        # Проверка роли пользователя
+        if request.user.role not in ['ГОХ', 'Правительство']:
+            return JsonResponse({'status': 'error', 'message': 'У вас нет прав для выполнения этой операции.'})
+
+        # Очистка всех сообщений чата
+        Message.objects.all().delete()  # Удаляем все сообщения из базы данных
+
+        return JsonResponse({'status': 'ok', 'message': 'Чат был очищен.'})
+
+# Функция для изменения роли пользователя. Доступно только администраторам.
+def change_user_role(admin_user, target_user, new_role):
+    """
+    Функция для изменения роли пользователя. Доступно только администраторам.
+    """
+    if not admin_user.is_staff:
+        raise PermissionDenied("Только администратор может изменить роль пользователя.")
+
+    # Проверяем, что новая роль — валидная
+    valid_roles = dict(User.ROLE_CHOICES).keys()
+    if new_role not in valid_roles:
+        raise ValueError("Неверная роль.")
+
+    # Обновляем роль пользователя
+    target_user.role = new_role
+    target_user.save()
+
+    return target_user
+
+
+#БАН
+def permission_denied_view(request, exception):
+    messages.error(request, "Доступ запрещён: ваш аккаунт заблокирован.")
+    return redirect('HGcity:login')
 
 

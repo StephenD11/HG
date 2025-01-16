@@ -6,6 +6,8 @@
     <title>HGcity</title>
 </head>
 <body>
+
+
 <!-- Навигационное меню -->
 <header>
     <nav>
@@ -14,6 +16,7 @@
             <li><a href="{% url 'HGcity:rules' %}">Правила</a></li>
             <li><a href="{% url 'HGcity:about' %}">О проекте</a></li>
             <li><a href="{% url 'HGcity:contact' %}">Контакты</a></li>
+            <li><a href="{% url 'HGcity:chat' %}">Таверна (чат) </a></li>
 
             {% if user.is_authenticated %}
                 <!-- Показываем ссылки для авторизованных пользователей -->

@@ -24,6 +24,7 @@ class User(AbstractUser):
     logo = models.ImageField(upload_to='logos/', null=True, blank=True)
     last_name_change = models.DateTimeField(auto_now=True)
     last_username_change = models.DateTimeField(auto_now=True)
+    is_banned = models.BooleanField(default=False)
 
     # Уникальные обратные связи
     groups = models.ManyToManyField(
@@ -41,8 +42,28 @@ class User(AbstractUser):
         verbose_name="user permissions",
     )
 
+    ROLE_CHOICES = [
+        ('Житель', 'Resident'),
+        ('ГОХ', 'Moderator'),
+        ('Правительство', 'Government'),
+    ]
+
+    role = models.CharField(
+        max_length=20,
+        choices=ROLE_CHOICES,
+        default='Житель',
+        blank=False,
+    )
+
     def __str__(self):
         return self.username
 
 
-#Чат и лайки, жалобы
+class Message(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Добавляем связь с пользователем
+    username = models.CharField(max_length=255)
+    message = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.username}: {self.message}'

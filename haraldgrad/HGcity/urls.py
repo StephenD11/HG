@@ -32,6 +32,11 @@ urlpatterns = [
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html'), name='password_reset_complete'),
 
     #Чат
+    path('chat/', views.chat_view, name='chat'),
+    path('chat/send/', views.send_message, name='send_message'),
+    path('chat/messages/', views.get_messages, name='get_messages'),
+    path('clear_chat/', views.clear_chat, name='clear_chat'),
+
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -48,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'HGcity.middleware.BanCheckMiddleware',
 ]
 
 ROOT_URLCONF = 'haraldgrad.urls'
@@ -117,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'RU'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -159,3 +160,5 @@ DEFAULT_FROM_EMAIL = "Система Харальдграда <system.haraldgrad
 
 LOGIN_URL = '/login/'  # Путь к твоей странице входа
 
+#Для Банов
+HANDLER403 = 'HGcity.views.permission_denied_view'
