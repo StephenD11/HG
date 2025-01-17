@@ -1,6 +1,13 @@
-{% extends 'HGcity/base.html' %}
-
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    {% load static %}
+    <link rel="stylesheet" href="/static/HGcity/css/style.css">
+</head>
+<body>
 <h1>Регистрация</h1>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -82,5 +89,14 @@
     <button type="submit">Зарегистрироваться</button>
 </form>
 
-<p>Уже есть аккаунт? <a href="{% url 'HGcity:login' %}">Войти</a></p>
-{% endblock %}
+
+<button onclick="window.location.href='{% url 'HGcity:login' %}'" style="margin-top: 10px;">Войти</button>
+
+<button onclick="window.location.href='{% url 'HGcity:home' %}'" style="margin-top: 10px;">
+    Главная
+</button>
+
+</body>
+</html>
+
+

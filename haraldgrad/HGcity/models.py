@@ -4,12 +4,12 @@ from django.conf import settings
 
 
 class User(AbstractUser):
-    first_name = models.CharField(max_length=100, blank=True, null=True, default='Нет Имени')
-    last_name = models.CharField(max_length=100, blank=True, null=True, default='Нет Фамилии')
+    first_name = models.CharField(max_length=100, blank=True, null=True, default='Без Имени')
+    last_name = models.CharField(max_length=100, blank=True, null=True, default='Без Фамилии')
     email = models.EmailField(unique=True)
     hp = models.IntegerField(default=100, blank=True, null=True)
     social_rating = models.IntegerField(default=0, blank=True, null=True)
-    wallet = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True, null=True)
+    wallet = models.IntegerField(default=0, blank=True, null=True)
     ideology = models.CharField(
         max_length=20,
         choices=[

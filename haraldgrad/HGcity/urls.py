@@ -10,6 +10,8 @@ app_name = 'HGcity'  # Это задает пространство имен
 urlpatterns = [
     # Главная страница
     path('', views.home, name='home'),
+    path('guide/', views.guide_page, name='guide_page'),
+
 
     # Регистрация
     path('register/', views.register, name='register'),
@@ -36,6 +38,7 @@ urlpatterns = [
     path('chat/send/', views.send_message, name='send_message'),
     path('chat/messages/', views.get_messages, name='get_messages'),
     path('clear_chat/', views.clear_chat, name='clear_chat'),
+    path('chat_rules/', views.chat_rules, name='chat_rules'),
 
 
 

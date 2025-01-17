@@ -1,6 +1,6 @@
 
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout, authenticate, get_user_model
 from django.contrib.auth.forms import PasswordResetForm
 from .forms import UserRegisterForm, LoginForm
 from django.http import HttpResponse
@@ -10,7 +10,7 @@ from django.http import JsonResponse
 import datetime
 from django.core.exceptions import PermissionDenied
 from django.contrib import messages
-import time
+import time, random
 
 def choose_logo(request):
     if request.method == 'POST' and 'logo' in request.FILES:
@@ -38,7 +38,7 @@ def login_view(request):
                     messages.error(request, "Ваш аккаунт заблокирован.")
                     return redirect('HGcity:login')
                 login(request, user)
-                return redirect('HGcity:profile')
+                return redirect('HGcity:guide_page')
             else:
                 form.add_error(None, 'Неверный логин или пароль!')
     else:
@@ -59,15 +59,22 @@ def register(request):
             user.set_password(form.cleaned_data['password1'])  # Шифруем пароль
             user.save()
             login(request, user)  # Входим автоматически после регистрации
-            return redirect('HGcity:profile')  # Перенаправление на профиль
+            return redirect('HGcity:home')  # Перенаправление на профиль
     else:
         form = UserRegisterForm()
     return render(request, 'HGcity/register.html', {'form': form})
 
 
-def home(request):
-    return render(request, 'HGcity/home.html')
 
+def home(request):
+    User = get_user_model()
+    user_count = User.objects.count()  # Считаем всех пользователей
+    formatted_count = f"{user_count:04d}"  # Форматируем с 4 цифрами, дополняя нулями
+    return render(request, 'HGcity/home.html', {'user_count': formatted_count})
+
+
+def guide_page(request):
+    return render(request, 'HGcity/guide_page.html')
 
 def profile(request):
     return render(request, 'HGcity/profile.html')
@@ -144,48 +151,119 @@ muted_users = {}
 MUTE_TIME = 60  # время мута в секундах
 MAX_MESSAGES_COUNT = 25
 
+# Маппинг для времени в секундах
+time_mapping = {
+    'm': 60,  # минута
+    'h': 3600,  # час
+}
+
+# Список фраз с курсивом
+drink_phrases = [
+    "<i>выпил рюмку водки. Куда ты катишься, друг?</i>",
+    "<i>не может остановиться! Выпив рюмку водки!</i>",
+    "<i>снова за рюмкой, не может устоять!</i>",
+    "<i>чувствует себя немного легче после еще одной рюмки водки.</i>",
+    "<i>выпил рюмку. Сколько можно пить, а?</i>",
+]
+
 def chat_view(request):
     return render(request, 'HGcity/chat.html')
 
 
+import re
+import time
+
+# Маппинг для времени в секундах
+time_mapping = {
+    'm': 60,  # минута
+    'h': 3600,  # час
+}
+
+# Функция для отправки сообщений
+import re
+import time
+
+# Маппинг для времени в секундах
+time_mapping = {
+    'm': 60,  # минута
+    'h': 3600,  # час
+}
+
+# Функция для отправки сообщений
 @login_required
 def send_message(request):
     if request.method == 'POST':
         message_text = request.POST.get('message')
         username = request.POST.get('username')
 
+        # Ограничение на 250 символов
+        if len(message_text) > 250:
+            return JsonResponse({'status': 'error', 'message': 'Сообщение слишком длинное! Максимум 250 символов.'})
+
         # Проверка на мут
         if username in muted_users and time.time() < muted_users[username]:
-            return JsonResponse({'status': 'error', 'message': 'Ты замучен на 60 секунд! Палкой по жопе!'})
+            # Рассчитываем оставшееся время мута
+            mute_time_left = muted_users[username] - time.time()
 
-        # Сохраняем сообщение
-        new_message = Message(user=request.user, message=message_text)  # Используем пользователя из сессии
-        new_message.save()
-
-        # Проверка на команду /mute
-        if message_text.startswith('/mute '):
-            target_user = message_text.split(' ')[1]
-
-            # Получаем роль отправителя
-            sender = request.user
-
-            # Если роль отправителя не Government или Moderator, не разрешаем мутить
-            if sender.role not in ['ГОХ', 'Правительство']:
-                return JsonResponse({'status': 'error', 'message': 'У вас нет прав для выполнения этой команды.'})
-
-            # Проверка, что не мутим себя
-            if target_user != username:
-                muted_users[target_user] = time.time() + MUTE_TIME
-                return JsonResponse({'status': 'ok', 'message': f'Пользователь {target_user} был замучен на {MUTE_TIME} секунд.'})
+            # Определяем единицу времени для вывода
+            if mute_time_left < 60:
+                mute_message = f'Ты замучен на {int(mute_time_left)} секунд! Палкой по жопе!'
             else:
-                return JsonResponse({'status': 'error', 'message': 'Вы не можете замутить себя.'})
+                mute_minutes = mute_time_left // 60
+                if mute_minutes == 1:
+                    mute_message = 'Ты замучен на 1 минуту! Палкой по жопе!'
+                elif mute_minutes > 1 and mute_minutes < 60:
+                    mute_message = f'Ты замучен на {int(mute_minutes)} минут! Палкой по жопе!'
+                else:
+                    mute_hours = mute_minutes // 60
+                    mute_message = f'Ты замучен на {int(mute_hours)} час! Палкой по жопе!'
+
+            return JsonResponse({'status': 'error', 'message': mute_message})
+
+        # Если это команда /drink, генерируем сообщение, но не сохраняем команду
+        if message_text.startswith('/drink'):
+            random_phrase = random.choice(drink_phrases)
+            formatted_message = random_phrase.format(username=request.user.username)
+
+            # Сохраняем только отформатированное сообщение без команды
+            new_message = Message(user=request.user, message=formatted_message)
+            new_message.save()
+
+            return JsonResponse({'status': 'ok', 'message': formatted_message})
+
+        # Если это команда /mute с временем
+        if message_text.startswith('/mute '):
+            # Извлекаем время и пользователя из команды /mute
+            parts = message_text.split(' ')
+            time_match = re.match(r'(\d+)(m|h)', parts[1])  # Ищем числа с m (минуты) или h (часы)
+
+            if time_match:
+                mute_duration = int(time_match.group(1)) * time_mapping[time_match.group(2)]  # Переводим в секунды
+                target_user = parts[2]  # Извлекаем имя пользователя для мута
+
+                # Проверка на роль отправителя
+                sender = request.user
+                if sender.role not in ['ГОХ', 'Правительство']:
+                    return JsonResponse({'status': 'error', 'message': 'У вас нет прав для выполнения этой команды.'})
+
+                # Мутим указанного пользователя
+                muted_users[target_user] = time.time() + mute_duration
+                return JsonResponse({'status': 'ok', 'message': f'Пользователь {target_user} был замучен на {mute_duration} секунд.'})
+
+            else:
+                return JsonResponse({'status': 'error', 'message': 'Неверный формат времени. Используйте /mute 1m, /mute 3m, /mute 1h.'})
+
+        # Если это не команда, сохраняем обычное сообщение
+        new_message = Message(user=request.user, message=message_text)
+        new_message.save()
 
         return JsonResponse({'status': 'ok', 'message': message_text})
 
 
+
 @login_required
 def get_messages(request):
-    messages = Message.objects.all().order_by('-timestamp')[:MAX_MESSAGES_COUNT]
+    messages = Message.objects.all().order_by('timestamp')  # Сортировка по времени создания
     response = {
         'messages': [
             {
@@ -201,7 +279,6 @@ def get_messages(request):
         ]
     }
     return JsonResponse(response)
-
 
 
 @login_required
@@ -234,6 +311,11 @@ def change_user_role(admin_user, target_user, new_role):
     target_user.save()
 
     return target_user
+
+
+def chat_rules(request):
+    return render(request, 'HGcity/chat_rules.html')
+
 
 
 #БАН

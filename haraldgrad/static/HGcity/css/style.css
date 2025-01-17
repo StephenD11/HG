@@ -1,0 +1,66 @@
+@font-face {
+    font-family: 'GOST Type AU';
+    src: url('/static/fonts/GOST Type AU.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Kroftsmann';
+    src: url('/static/fonts/Kroftsmann.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.special-text-K-home {
+    font-family: 'Kroftsmann', sans-serif;
+    font-size: 120px;
+
+}
+
+.special-text-G {
+    font-family: 'GOST Type AU', sans-serif;
+    font-size: 24px;
+
+}
+
+body {
+    font-family: 'GOST Type AU', Arial, sans-serif;
+    font-size: 20px;
+}
+
+button {
+    font-family: 'GOST Type AU', Arial, sans-serif;
+    font-size: 20px;
+}
+
+
+#ЧАТ
+.chat-rules {
+        margin: 20px auto;
+        padding: 20px;
+        max-width: 800px;
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+.chat-title {
+    text-align: center;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.rules-list {
+    list-style-type: decimal;
+    padding-left: 20px;
+    font-size: 22px;
+    color: #555;
+    line-height: 1.8;
+}
+
+.rules-list li {
+    margin-bottom: 10px;
+}

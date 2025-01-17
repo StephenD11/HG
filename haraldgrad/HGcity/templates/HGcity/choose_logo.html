@@ -10,7 +10,7 @@
     <div>
         {% for logo in logos %}
             <div>
-                <img src="{% static 'logos/'|add:logo %}" alt="Логотип {{ logo }}" style="width: 100px; height: 100px;">
+                <img src="{% static 'logos/1 level/'|add:logo %}" alt="Логотип {{ logo }}" style="width: 100px; height: 100px;">
                 <input type="radio" name="logo" value="{{ logo }}" id="{{ logo }}">
                 <label for="{{ logo }}">Выбрать</label>
             </div>
