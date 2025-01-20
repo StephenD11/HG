@@ -4,27 +4,31 @@ from django.conf import settings
 
 
 class User(AbstractUser):
-    first_name = models.CharField(max_length=100, blank=True, null=True, default='Без Имени')
-    last_name = models.CharField(max_length=100, blank=True, null=True, default='Без Фамилии')
-    email = models.EmailField(unique=True)
-    hp = models.IntegerField(default=100, blank=True, null=True)
-    social_rating = models.IntegerField(default=0, blank=True, null=True)
-    wallet = models.IntegerField(default=0, blank=True, null=True)
+    first_name = models.CharField(max_length=100, blank=True, null=True, default='Без Имени', verbose_name='Имя персонажа')
+    last_name = models.CharField(max_length=100, blank=True, null=True, default='Без Фамилии',verbose_name='Фамилия персонажа')
+    email = models.EmailField(unique=True,verbose_name='Почта')
+    hp = models.IntegerField(default=100, blank=True, null=True,verbose_name='Жизни')
+    social_rating = models.IntegerField(default=0, blank=True, null=True,verbose_name='Соц.рейтинг')
+    wallet = models.IntegerField(default=0, blank=True, null=True,verbose_name='Кошелек')
     ideology = models.CharField(
         max_length=20,
         choices=[
-            ('Nationalism', 'Национализм'),
-            ('Socialism', 'Социализм'),
-            ('Democracy', 'Демократия'),
-            ('Monarchism', 'Монархизм')
+            ('Национализм', 'Национализм'),
+            ('Социализм', 'Социализм'),
+            ('Демократия', 'Демократия'),
+            ('Монархизм', 'Монархизм')
         ],
         default='None',
-        null=True, blank=True
+        null=True, blank=True,
+        verbose_name='Идеология'
     )
-    logo = models.ImageField(upload_to='logos/', null=True, blank=True)
-    last_name_change = models.DateTimeField(auto_now=True)
-    last_username_change = models.DateTimeField(auto_now=True)
-    is_banned = models.BooleanField(default=False)
+    logo = models.CharField(max_length=255, null=True, blank=True, verbose_name='Логотип')
+    last_name_change = models.DateTimeField(auto_now=True,verbose_name='Дата изменения имени')
+    last_username_change = models.DateTimeField(auto_now=True,verbose_name='Дата изменения лого')
+    is_banned = models.BooleanField(default=False,verbose_name='Бан')
+    is_email_verified = models.BooleanField(default=False,verbose_name='Подтверждение почты')
+    chat_verified = models.BooleanField(default=False,verbose_name='Доступ к чату')
+
 
     # Уникальные обратные связи
     groups = models.ManyToManyField(
@@ -43,9 +47,9 @@ class User(AbstractUser):
     )
 
     ROLE_CHOICES = [
-        ('Житель', 'Resident'),
-        ('ГОХ', 'Moderator'),
-        ('Правительство', 'Government'),
+        ('Житель', 'Житель'),
+        ('ГОХ', 'ГОХ'),
+        ('Правительство', 'Правительство'),
     ]
 
     role = models.CharField(
@@ -53,6 +57,8 @@ class User(AbstractUser):
         choices=ROLE_CHOICES,
         default='Житель',
         blank=False,
+        verbose_name='Роль'
+
     )
 
     def __str__(self):

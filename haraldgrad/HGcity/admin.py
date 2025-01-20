@@ -5,11 +5,9 @@ from .models import User
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('id','username', 'first_name', 'last_name', 'email', 'hp', 'social_rating', 'wallet', 'ideology', 'logo','role')
+    list_display = ('id','username', 'first_name', 'last_name','chat_verified', 'hp', 'social_rating', 'ideology', 'logo','role')
     search_fields = ('username', 'first_name', 'is_banned', 'role', 'last_name', 'email')
-    list_filter = ('id', 'social_rating', 'wallet')
+    list_filter = ('ideology', 'role')
 
-    # Определяем редактирование ролей в админке
-    fieldsets = ((None, {'fields': ('username', 'role', 'email', 'password', 'first_name', 'last_name','is_banned')}),
-        ('Permissions', {'fields': ('is_staff', 'is_superuser', 'groups', 'user_permissions')}),)
+
 

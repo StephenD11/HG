@@ -1,25 +1,29 @@
-    {% load static %}
-    <link rel="stylesheet" href="/static/HGcity/css/style.css">
+{% load static %}
+<link rel="stylesheet" href="/static/HGcity/css/style.css">
 
 <div id="chat-container">
     <h2>ТАВЕРНА "ЧЕРНАЯ КРЫСА" </h2>
 
     <button onclick="window.location.href='{% url 'HGcity:chat_rules' %}'" style="margin-top: 10px;">
-    Правила чата
+        Правила чата
     </button>
 
     {% if user.is_authenticated %}
-    <div id="chat-box" style="border: 1px solid #ccc; height: 500px; width: 50%; overflow-y: scroll; padding: 10px;">
+    <div id="chat-box" style="border: 1px solid #ccc; height: 500px; width: 800px; overflow-y: scroll; padding: 10px;">
         <!-- Сообщения будут добавляться сюда -->
     </div>
     <input type="text" id="username" value="{{ user.username }}" readonly style="margin-top: 10px; width: 50%;"><br>
     <input type="text" id="message" placeholder="Введите сообщение" style="margin-top: 10px; width: 50%;"><br>
-    <button onclick="sendMessage()" style="margin-top: 10px;">Отправить</button> | {% if user.role == 'ГОХ' or user.role == 'Правительство' %}
+    <button onclick="sendMessage()" style="margin-top: 10px;">Отправить</button>
+    | {% if user.role == 'ГОХ' or user.role == 'Правительство' %}
     <button onclick="clearChat()" style="margin-top: 10px;">Очистить чат</button>
-{% endif %} | <button onclick="window.location.href='{% url 'HGcity:guide_page' %}'" style="margin-top: 10px;"> Вернуться на главную</button>
+    {% endif %} |
+    <button onclick="window.location.href='{% url 'HGcity:guide_page' %}'" style="margin-top: 10px;"> Вернуться на
+        главную
+    </button>
 
     {% if user.role == 'Moderator' or user.role == 'Government' %}
-    <p>Вы можете использовать команду <code>/mute
+    <p>Вы можете использовать команду<code>/mute
         <username>
     </code> для мьютирования пользователей.
     </p>
@@ -81,8 +85,8 @@
                         // Создаем HTML для сообщения
                         const messageHTML = `
                             <div id="message-${msg.id}" class="message">
-                                <b style="font-size:15px;"> ${msg.timestamp}</b>  |  <strong style="color:${usernameColor}; font-size:25px;">${msg.first_name}  ${msg.last_name}: </strong>
- <span style="font-size:25px;"> ${msg.message} </span> <span style="font-size:18px;">  [ ${msg.username } ] </span>
+                                <b style="font-size:15px;"> ${msg.timestamp}</b>  |  <strong style="color:${usernameColor}; font-size:20px;">${msg.first_name}  ${msg.last_name}: </strong>
+ <span style="font-size:20px;"> ${msg.message} </span> <span style="font-size:15px;">  [ ${msg.username } ] </span>
                             </div>
                         `;
                         chatBox.insertAdjacentHTML('beforeend', messageHTML);  // Вставляем новое сообщение в конец

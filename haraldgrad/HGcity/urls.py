@@ -3,7 +3,7 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
-
+from .views import CustomLoginView
 
 app_name = 'HGcity'  # Это задает пространство имен
 
@@ -15,12 +15,12 @@ urlpatterns = [
 
     # Регистрация
     path('register/', views.register, name='register'),
-    path('login/', views.login_view, name='login'),
+    path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', views.logout_view, name='logout'),
 
     # Профиль и лого
     path('profile/', views.profile, name='profile'),
-    path('choose_logo/', views.choose_logo, name='choose_logo'),  # Страница выбора логотипа
+    path('choose_logo/', views.choose_logo, name='choose_logo'),
 
     path('rules/', views.rules, name='rules'),  # Правила
     path('profile/update/', views.update_profile, name='update_profile'),
@@ -40,6 +40,11 @@ urlpatterns = [
     path('clear_chat/', views.clear_chat, name='clear_chat'),
     path('chat_rules/', views.chat_rules, name='chat_rules'),
 
+    #Подтверждение почты
+    path('confirm_email/<uidb64>/<token>/', views.confirm_email, name='confirm_email'),
+    path('confirm-your-email/', views.confirm_email_page, name='confirm_email_page'),
 
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

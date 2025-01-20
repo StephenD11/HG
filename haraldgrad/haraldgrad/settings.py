@@ -56,7 +56,7 @@ ROOT_URLCONF = 'haraldgrad.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'HGcity' / 'templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,  # Позволяет искать шаблоны внутри приложений
         'OPTIONS': {
             'context_processors': [
@@ -128,13 +128,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-# Для статических файлов (изображений, CSS, JS)
-STATIC_URL = '/static/'  # URL для доступа к статическим файлам
+STATIC_URL = '/static/'
+
+# Путь для статических файлов
 STATICFILES_DIRS = [
-    BASE_DIR / "static",  # Указываем путь до папки static, если она в корне проекта
+    os.path.join(BASE_DIR, 'static'),
 ]
-
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -143,9 +142,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'HGcity.User'
 
 
-# Папка для хранения медиа-файлов
+# MEDIA_URL и MEDIA_ROOT для загружаемых файлов
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 
 

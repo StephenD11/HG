@@ -1,0 +1,18 @@
+{% extends 'HGcity/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h1>Таверна закрыта!</h1>
+    <p>Таверна работает с {{ start_time }} до {{ end_time }} по МСК (Московскому времени).</p>
+    <p>Чтобы использовать чат, нужно пройти верификацию через группу в
+        <a href="https://t.me/hg_black_rat" target="_blank" style="color:#256fe8; text-decoration: none;" onmouseover="this.style.color='#FF5733';"
+           onmouseout="this.style.color='#256fe8';">Телеграмм</a></p>
+
+    <p>Оставьте свою заявку и через некоторое время вам дадут доступ в чат</p>
+    <p><i>Это нужно, чтобы избежать флуда, спама и нарушений</i></p>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

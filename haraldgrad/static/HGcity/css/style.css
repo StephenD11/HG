@@ -3,6 +3,7 @@
     src: url('/static/fonts/GOST Type AU.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
+
 }
 
 @font-face {
@@ -15,18 +16,34 @@
 .special-text-K-home {
     font-family: 'Kroftsmann', sans-serif;
     font-size: 120px;
+    color: white; /* Белый цвет текста */
+    margin-bottom: 40px;
 
 }
 
 .special-text-G {
     font-family: 'GOST Type AU', sans-serif;
     font-size: 24px;
+    color: white; /* Белый цвет текста */
 
 }
 
+
 body {
     font-family: 'GOST Type AU', Arial, sans-serif;
+
+
+    background-color: #1e2123;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
     font-size: 20px;
+    color: white; /* Белый цвет текста по умолчанию для всего тела */
+
 }
 
 button {
@@ -63,4 +80,81 @@ button {
 
 .rules-list li {
     margin-bottom: 10px;
+}
+
+
+/* Общие стили для всей страницы */
+
+
+/* Общий контейнер для всего контента */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    text-align: center;
+}
+
+/* Блоки с контентом */
+.content-block {
+    background-color: white;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Блок с заголовком */
+.header-block {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+}
+
+
+
+/* Стили для кнопок */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Блок с музыкой */
+.music-block {
+    margin-top: 20px;
+}
+
+/* Блок навигации */
+.navigation-block {
+    margin-top: 20px;
+}
+
+/* Блок с количеством жителей */
+.content-block p {
+    font-size: 18px;
+    color: #666;
+}
+
+/* Стили для футера */
+.footer-block {
+    font-size: 14px;
+    color: #777;
+    text-align: center;
+    margin-top: 20px;
+}
+
+a {
+     color: white; /* Белый цвет текста по умолчанию для всего тела */
+     text-decoration: none;
+}
+
+a:hover {
+    color: #FF0000;  /* Красный цвет при наведении */
 }

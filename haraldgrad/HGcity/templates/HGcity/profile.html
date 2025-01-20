@@ -1,20 +1,31 @@
 {% extends 'HGcity/base.html' %}
-
+{% load static %}
 {% block content %}
 
 <h1>Профиль пользователя</h1>
 
+<!-- Отображение только сообщений о бане -->
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+        {% if "error" in message.tags and message == "Для вашей идеологии нет доступных логотипов." %}
+        <li class="{{ message.tags }}" style="font-size:25px; color: red;">{{ message }}</li>
+        {% endif %}
+    {% endfor %}
+</ul>
+{% endif %}
+
 <!-- Логотип -->
 <div>
-    <p>Логотип:</p>
-    <button onclick="window.location.href='{% url 'HGcity:choose_logo' %}'">Редактировать</button>
+
     {% if user.logo %}
-        <img src="{{ user.logo.url }}" alt="Ваш логотип" style="width: 100px; height: 100px;">
+        <img src="{% static user.logo %}" alt="Ваш логотип" style="width: 100px; height: 100px;">
     {% else %}
+        <p>Логотип не выбран.</p>
         <button onclick="window.location.href='{% url 'HGcity:choose_logo' %}'">Выбрать логотип</button>
     {% endif %}
+    <button onclick="window.location.href='{% url 'HGcity:choose_logo' %}'">Редактировать</button>
 </div>
-
 
 <!-- Имя -->
 <div>
@@ -74,15 +85,16 @@
     <p>Идеология:</p>
     <form method="post" action="{% url 'HGcity:update_profile' %}">
         {% csrf_token %}
-        <input type="hidden" name="field" value="ideology"> <!-- Скрытое поле для поля 'ideology' -->
+        <input type="hidden" name="field" value="ideology">
         <select name="value" onchange="this.form.submit()">
-            <option value="Nationalism" {% if user.ideology == "Nationalism" %}selected{% endif %}>Национализм</option>
-            <option value="Socialism" {% if user.ideology == "Socialism" %}selected{% endif %}>Социализм</option>
-            <option value="Democracy" {% if user.ideology == "Democracy" %}selected{% endif %}>Демократия</option>
-            <option value="Monarchism" {% if user.ideology == "Monarchism" %}selected{% endif %}>Монархизм</option>
+            <option value="Национализм" {% if user.ideology == "Национализм" %}selected{% endif %}>Национализм</option>
+            <option value="Социализм" {% if user.ideology == "Социализм" %}selected{% endif %}>Социализм</option>
+            <option value="Демократия" {% if user.ideology == "Демократия" %}selected{% endif %}>Демократия</option>
+            <option value="Монархизм" {% if user.ideology == "Монархизм" %}selected{% endif %}>Монархизм</option>
         </select>
     </form>
 </div>
+
 
 <p>Социальный рейтинг: {{ user.social_rating }}</p>
 <p>Кошелек: {{ user.wallet }}</p>

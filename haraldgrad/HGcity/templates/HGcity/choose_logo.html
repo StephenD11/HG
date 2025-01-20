@@ -4,20 +4,30 @@
 {% block content %}
 <h1>Выберите логотип</h1>
 
-<form method="POST" enctype="multipart/form-data">
+<!-- Отображение только сообщений о бане -->
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+        {% if "error" in message.tags %}
+        <li class="{{ message.tags }}" style="font-size:25px; color: red;">{{ message }}</li>
+        {% endif %}
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+<form method="post">
     {% csrf_token %}
-
-    <div>
+    <ul>
         {% for logo in logos %}
-            <div>
-                <img src="{% static 'logos/1 level/'|add:logo %}" alt="Логотип {{ logo }}" style="width: 100px; height: 100px;">
-                <input type="radio" name="logo" value="{{ logo }}" id="{{ logo }}">
-                <label for="{{ logo }}">Выбрать</label>
-            </div>
+        <li>
+            <label>
+                <input type="radio" name="logo" value="{{ logo }}">
+                <img src="{% static logo %}" alt="{{ logo }}" style="width: 100px;">
+            </label>
+        </li>
         {% endfor %}
-    </div>
-
-    <!-- Кнопка сохранить -->
+    </ul>
     <button type="submit">Сохранить</button>
 </form>
 

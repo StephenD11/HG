@@ -8,32 +8,49 @@
     <link rel="stylesheet" href="/static/HGcity/css/style.css">
 </head>
 <body>
-    <div>
-        <p class="special-text-K-home">ХАРАЛЫДГРАД</p>
-        <pre>{{ view|safe }}</pre>
-        <p>Это виртуальный город. Здесь ты можешь зарегистрироваться, войти в систему и начать свое приключение!</p>
+    <!-- Контейнер для всего контента -->
+    <div class="container">
+        <!-- Блок с заголовком -->
+        <div>
+            <p class="special-text-K-home">ХАРАЛЫДГРАД</p>
+        </div>
+
+        <!-- Начальное изображение -->
+        <img id="doorImage" src="{% static 'animations/doors/bunker_1.png' %}" alt="Букнер" style="width: 800px; border-radius:25px;">
+
+        <!-- Блок с количеством жителей -->
+        <div>
+            <p>КОЛИЧЕСТВО ЖИТЕЛЕЙ: {{ user_count }}</p>
+        </div>
+
+        <!-- Блок с навигацией -->
+        <div class="navigation-block">
+            <nav>
+                {% if user.is_authenticated %}
+                    <!-- Показываем ссылки для авторизованных пользователей -->
+                    <button onclick="openDoors()" style="margin-top: 10px;">Открыть Двери</button>
+                {% else %}
+                    <!-- Показываем ссылки для гостей -->
+                    <button onclick="window.location.href='{% url 'HGcity:register' %}'" style="margin-top: 10px;">Регистрация</button>
+                    <button onclick="window.location.href='{% url 'HGcity:login' %}'" style="margin-top: 10px;">Вход</button>
+                {% endif %}
+            </nav>
+        </div>
 
         <audio id="background-music" src="{% static 'HGcity/music/music_guide_page.mp3' %}" autoplay loop></audio>
         <button id="toggle-music" onclick="toggleMusic()">🔈  Выкл. музыку</button>
 
-        <nav>
+        <!-- Звук для открытия дверей -->
+        <audio id="door-sound" src="{% static 'HGcity/music/doors_sound.mp3' %}"></audio>
 
-            {% if user.is_authenticated %}
-                <!-- Показываем ссылки для авторизованных пользователей -->
-                <button onclick="window.location.href='{% url 'HGcity:guide_page' %}'" style="margin-top: 10px;">Открыть Двери</button>
-            {% else %}
-                <!-- Показываем ссылки для гостей -->
-                <button onclick="window.location.href='{% url 'HGcity:register' %}'" style="margin-top: 10px;">Регистрация</button>
-                <button onclick="window.location.href='{% url 'HGcity:login' %}'" style="margin-top: 10px;">Вход</button>
-            {% endif %}
-    </nav>
-
-    <div>
-         <p>КОЛИЧЕСТВО ЖИТЕЛЕЙ: {{ user_count }}</p>
     </div>
- <script>
+
+    <!-- Скрипт для управления музыкой и звуком -->
+    <script>
         const audioElement = document.getElementById('background-music');
         const toggleButton = document.getElementById('toggle-music');
+        const doorImage = document.getElementById('doorImage');
+        const doorSound = document.getElementById('door-sound');
         let isPlaying = true;
 
         function toggleMusic() {
@@ -46,12 +63,27 @@
             }
             isPlaying = !isPlaying;
         }
+
+        function openDoors() {
+            // Воспроизводим звук при нажатии на кнопку
+            doorSound.play();
+
+            // Останавливаем фоновую музыку
+            audioElement.pause();
+
+            // Меняем изображение на анимацию
+            doorImage.src = "{% static 'animations/doors/doors_high_open.webp' %}";
+
+            // Устанавливаем задержку в 6 секунд перед переходом
+            setTimeout(function() {
+                window.location.href = '{% url 'HGcity:guide_page' %}';
+            }, 4500);
+        }
     </script>
-    </div>
 
-
-     <footer style="margin-top: 20px; font-size:14px;">
-           <i>Version: 1.00.1</i>
-     </footer>
+    <!-- Футер -->
+    <footer class="footer-block">
+        <i>Version: 1.00.1</i>
+    </footer>
 </body>
 </html>
