@@ -15,10 +15,11 @@
 
 .special-text-K-home {
     font-family: 'Kroftsmann', sans-serif;
-    font-size: 120px;
+    font-size: 140px;
     color: white; /* Белый цвет текста */
     margin-bottom: 40px;
-
+    letter-spacing: 15px; /* Увеличиваем расстояние между буквами */
+    margin-top: -25px;
 }
 
 .special-text-G {
@@ -31,9 +32,6 @@
 
 body {
     font-family: 'GOST Type AU', Arial, sans-serif;
-
-
-    background-color: #1e2123;
     margin: 0;
     padding: 0;
     display: flex;
@@ -42,8 +40,17 @@ body {
     justify-content: center;
     min-height: 100vh;
     font-size: 20px;
-    color: white; /* Белый цвет текста по умолчанию для всего тела */
+    color: rgb(247, 242, 242); /* Белый цвет текста по умолчанию для всего тела */
+    background-color: #130909;
 
+}
+
+#home-page {
+    background-image: url("/static/images/background1.png");
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    background-color: #130909;
 }
 
 button {
@@ -110,21 +117,53 @@ button {
 }
 
 
-
 /* Стили для кнопок */
 button {
-    background-color: #007bff;
-    color: white;
-    border: none;
+    background-color: #bc4141; /* Чуть более красный цвет фона */
+    color: rgb(252, 251, 251); /* Белый цвет текста */
+    border: none; /* Убираем рамку у самой кнопки */
     padding: 10px 20px;
     margin-top: 10px;
-    border-radius: 5px;
     cursor: pointer;
+    position: relative;
+    z-index: 1; /* Поднимаем кнопку над рамкой */
+    font-size: 25px;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #772020; /* Темно-красный цвет при наведении */
 }
+
+button:active {
+    background-color: white; /* Белый фон при нажатии */
+    color: black; /* Черный текст при нажатии */
+}
+
+/* Внешняя рамка вокруг кнопки */
+button::after {
+    content: ''; /* Пустой элемент для создания пространства */
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    right: -12px;
+    bottom: -12px;
+    border: 5px solid #b43434; /* Красная рамка вокруг кнопки */
+    pointer-events: none; /* Чтобы рамка не мешала нажимать на кнопку */
+    z-index: 0; /* Рамка будет за кнопкой */
+}
+
+/* Меняем цвет рамки при наведении */
+button:hover::after {
+    border: 5px solid #772020; /* Темно-красная рамка при наведении */
+    
+}
+
+/* Меняем цвет рамки при нажатии */
+button:active::after {
+    border: 5px solid white; /* Белая рамка при нажатии */
+}
+
+
 
 /* Блок с музыкой */
 .music-block {
@@ -134,6 +173,10 @@ button:hover {
 /* Блок навигации */
 .navigation-block {
     margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
 }
 
 /* Блок с количеством жителей */
@@ -157,4 +200,15 @@ a {
 
 a:hover {
     color: #FF0000;  /* Красный цвет при наведении */
+}
+
+/* чат */
+#chat-box {
+    border: 1px solid #ccc;
+    height: 500px;
+    width: 650px;
+    overflow-y: scroll;
+    padding: 10px;
+    word-wrap: break-word; /* Для длинных слов */
+
 }

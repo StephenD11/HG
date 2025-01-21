@@ -1,12 +1,18 @@
 {% extends 'HGcity/base.html' %}
 {% load static %}
 
+{% block title %}Почти готово{% endblock %}
+
+{% block header %}{% endblock %}
+
 {% block content %}
 <div class="container">
-    <p>ОТЛИЧНО! РЕГИСТРАЦИЯ ПОЧТИ ОКОНЧЕНА</p>
+    <h1 style="color:#CD5C5C;">ОТЛИЧНО! РЕГИСТРАЦИЯ ПОЧТИ ОКОНЧЕНА</h1>
     <p>Чтобы активировать аккаунт на вашу почту отправлено сообщение для подтверждения </p>
-    <i>Внимание! Пока аккаунт не подтвержден войти в него будет невозможно</i>
-    <p></p>
+    <p style="color:#CD5C5C;"><b>Внимание!</b> Пока аккаунт не подтвержден войти в него будет невозможно</p>
+    <button onclick="window.location.href='{% url 'HGcity:home' %}'" style="margin-top: 10px;">
+        Вернуться на главную
+    </button>
 </div>
 
 {% endblock %}

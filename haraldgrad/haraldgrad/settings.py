@@ -12,9 +12,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -26,7 +26,6 @@ SECRET_KEY = 'django-insecure-$xz0uk&0d0t&2x6=^h!j7-e_-j7s_0#qiaq%x66f07his@nx$k
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -56,7 +55,10 @@ ROOT_URLCONF = 'haraldgrad.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'HGcity/templates'),
+        ],
         'APP_DIRS': True,  # Позволяет искать шаблоны внутри приложений
         'OPTIONS': {
             'context_processors': [
@@ -71,18 +73,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'haraldgrad.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Указываем, что используем MySQL
-        'NAME': 'haraldgrad',                  # Название базы данных, созданной в MySQL Workbench
-        'USER': 'root',                        # Твой MySQL пользователь
-        'PASSWORD': 'Lopo1',     # Твой MySQL пароль
-        'HOST': 'localhost',                   # Обычно 'localhost'
-        'PORT': '3306',                        # Порт по умолчанию для MySQL
+        'NAME': 'haraldgrad',  # Название базы данных, созданной в MySQL Workbench
+        'USER': 'root',  # Твой MySQL пользователь
+        'PASSWORD': 'Lopo1',  # Твой MySQL пароль
+        'HOST': 'localhost',  # Обычно 'localhost'
+        'PORT': '3306',  # Порт по умолчанию для MySQL
     }
 }
 
@@ -112,7 +113,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -123,7 +123,6 @@ TIME_ZONE = 'Europe/Moscow'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
@@ -141,13 +140,11 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'HGcity.User'
 
-
 # MEDIA_URL и MEDIA_ROOT для загружаемых файлов
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
-
+LOGIN_REDIRECT_URL = '/'
 
 # Для восстановления почты
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -158,7 +155,11 @@ EMAIL_HOST_USER = 'system.haraldgrad@yandex.com'  # Твоя почта
 EMAIL_HOST_PASSWORD = 'nrqcukhhdbvfnlbk'  # Пароль приложения, если используется двухфакторка
 DEFAULT_FROM_EMAIL = "Система Харальдграда <system.haraldgrad@yandex.com>"
 
-LOGIN_URL = '/login/'  # Путь к твоей странице входа
+LOGIN_URL = 'HGcity:login'  # или 'login' если твой путь к логину так называется
 
-#Для Банов
+# Для Банов
 HANDLER403 = 'HGcity.views.permission_denied_view'
+
+
+
+

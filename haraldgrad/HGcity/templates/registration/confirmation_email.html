@@ -1,5 +1,68 @@
-Здравствуйте, {{ user.username }}!
-Чтобы подтвердить вашу почту, перейдите по следующей ссылке:
-http://{{ domain }}/confirm_email/{{ uid }}/{{ token }}/
-Подтвердить email
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Восстановление пароля</title>
+    <style>
+        body {
+            font-family: 'Calibri', sans-serif;
+            line-height: 1.6;
+            background-color: #e9e9ef;
+            margin: 0;
+            padding: 0;
+            font-size: 24px; /* Уменьшен шрифт на 3 пикселя */
+            text-align: center;
+            color: #000; /* Задать обычный черный цвет текста */
+        }
 
+        .reset-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #ff4141;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .reset-btn:hover {
+            background: #0f0f0f;
+            color: #f2ecec;
+            text-decoration: none;
+        }
+
+        a {
+            color: #161616;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        a:visited {
+            color: #15253a;
+        }
+    </style>
+</head>
+<body>
+<div style="padding: 20px;">
+    <p style="color: #ff4141; font-size: 25px; margin-bottom: 5px;"><b>🔻 Забыл пароль? Как так? 😕</b></p>
+    <p style="font-size: 15px;">Житель города Харальдград, под логином {{ user.get_username }} будет жестоко наказан. <br> Двести смен на шахте "Вонючая Крыса" в наказание.</p>
+    <p style="font-size: 15px;">Ты запросил восстановление пароля для учетной записи на сайте {{ site_name }}.</p>
+    <p style="font-size: 15px;">Переходи по следующей ссылке, чтобы установить новый пароль:</p>
+    <p></p>
+    <a href="{{ protocol }}://{{ domain }}{% url 'HGcity:password_reset_confirm' uidb64=uid token=token %}" class="reset-btn">Восстановить пароль</a>
+    <p></p>
+    <p style="font-size: 15px;">Если вы не можете использовать кнопку, скопируйте и вставьте <br> эту ссылку в адресную строку вашего браузера:</p>
+    <p style="word-wrap: break-word; font-size: 20px;">
+        <a href="{{ protocol }}://{{ domain }}{% url 'HGcity:password_reset_confirm' uidb64=uid token=token %}">
+            {{ protocol }}://{{ domain }}{% url 'HGcity:password_reset_confirm' uidb64=uid token=token %}
+        </a>
+    </p>
+
+    <p style="font-size: 15px;">Постарайся больше пароль не забывать!<br> Команда "CheckMate", проект "Харальдград".</p>
+</div>
+</body>
+</html>

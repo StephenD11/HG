@@ -1,23 +1,33 @@
+{% extends 'HGcity/base.html' %}
+
 {% load static %}
+
+{% block title %}Таверна{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
 <link rel="stylesheet" href="/static/HGcity/css/style.css">
 
 <div id="chat-container">
-    <h2>ТАВЕРНА "ЧЕРНАЯ КРЫСА" </h2>
-
-    <button onclick="window.location.href='{% url 'HGcity:chat_rules' %}'" style="margin-top: 10px;">
-        Правила чата
-    </button>
-
+    <h2><span style="color:#CD5C5C;">ТАВЕРНА</span> "ПЬЯНАЯ КРЫСА"</h2>
     {% if user.is_authenticated %}
-    <div id="chat-box" style="border: 1px solid #ccc; height: 500px; width: 800px; overflow-y: scroll; padding: 10px;">
+    <div id="chat-box" style="border: 1px solid #ccc; height: 500px; width: 650px; overflow-y: scroll; padding: 10px;">
         <!-- Сообщения будут добавляться сюда -->
     </div>
-    <input type="text" id="username" value="{{ user.username }}" readonly style="margin-top: 10px; width: 50%;"><br>
-    <input type="text" id="message" placeholder="Введите сообщение" style="margin-top: 10px; width: 50%;"><br>
+    Ваш никнейм:
+    <input type="text" id="username" value="{{ user.username }}" readonly style="margin-top: 10px; width: 20%;  "><br>
+    <textarea id="message" placeholder="Введите сообщение"
+              style="margin-top: 10px; width: 95%; height: 50px; padding: 10px;"></textarea>
+    <br>
     <button onclick="sendMessage()" style="margin-top: 10px;">Отправить</button>
     | {% if user.role == 'ГОХ' or user.role == 'Правительство' %}
     <button onclick="clearChat()" style="margin-top: 10px;">Очистить чат</button>
     {% endif %} |
+    <button onclick="window.location.href='{% url 'HGcity:chat_rules' %}'" style="margin-top: 10px;">
+        Правила чата
+    </button>
+    |
     <button onclick="window.location.href='{% url 'HGcity:guide_page' %}'" style="margin-top: 10px;"> Вернуться на
         главную
     </button>
@@ -99,24 +109,24 @@
     }
 
     function clearChat() {
-        fetch("{% url 'HGcity:clear_chat' %}", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'X-CSRFToken': '{{ csrf_token }}'
-            },
-        }).then(response => response.json())
-          .then(data => {
-              if (data.status === 'ok') {
-                  loadMessages();  // Обновление сообщений после очистки
-              } else {
-                  alert(data.message);
-              }
-          });
-    }
+    fetch("{% url 'HGcity:clear_chat' %}", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+    }).then(response => response.json())
+      .then(data => {
+          if (data.status === 'ok') {
+              loadMessages();  // Обновление сообщений после очистки
+          } else {
+              alert(data.message);
+          }
+      });
+}
 
     setInterval(loadMessages, 2000);  // Обновление сообщений каждые 2 секунды
 </script>
 
-
+{% endblock %}
 

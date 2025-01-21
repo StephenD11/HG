@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/static/HGcity/css/style.css">
 </head>
 <body>
-<h1>ВХОД В АККАУНТ</h1>
+<h1 style="color:#CD5C5C;">ВОЙТИ В АККАУНТ</h1>
 <form method="post">
     {% csrf_token %}
 
@@ -51,10 +51,10 @@
 
 <!-- Отображение только сообщений о бане -->
 {% if messages %}
-<ul class="messages">
+<ul class="messages" style="list-style: none;">
     {% for message in messages %}
-        {% if "error" in message.tags and message == "Доступ запрещён: ваш аккаунт заблокирован." %}
-        <li class="{{ message.tags }}" style="font-size:55px; color: red;">{{ message }}</li>
+        {% if "error" in message.tags and message.message == "Ваш аккаунт заблокирован" %}
+        <li class="{{ message.tags }}" style="font-size:35px; color: red;">{{ message.message }}</li>
         {% endif %}
     {% endfor %}
 </ul>
@@ -64,7 +64,7 @@
 <p>Нет аккаунта? <a href="{% url 'HGcity:register' %}">Зарегистрироваться</a></p>
 
 <button onclick="window.location.href='{% url 'HGcity:home' %}'" style="margin-top: 10px;">
-    Главная
+    Вернуться на главную
 </button>
 
 </body>

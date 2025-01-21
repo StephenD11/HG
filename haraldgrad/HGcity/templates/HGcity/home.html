@@ -5,85 +5,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Харальдград</title>
     {% load static %}
-    <link rel="stylesheet" href="/static/HGcity/css/style.css">
+    <link rel="stylesheet" href="{% static 'HGcity/css/style.css' %}">
+
+
 </head>
-<body>
-    <!-- Контейнер для всего контента -->
-    <div class="container">
-        <!-- Блок с заголовком -->
-        <div>
-            <p class="special-text-K-home">ХАРАЛЫДГРАД</p>
-        </div>
-
-        <!-- Начальное изображение -->
-        <img id="doorImage" src="{% static 'animations/doors/bunker_1.png' %}" alt="Букнер" style="width: 800px; border-radius:25px;">
-
-        <!-- Блок с количеством жителей -->
-        <div>
-            <p>КОЛИЧЕСТВО ЖИТЕЛЕЙ: {{ user_count }}</p>
-        </div>
-
-        <!-- Блок с навигацией -->
-        <div class="navigation-block">
-            <nav>
-                {% if user.is_authenticated %}
-                    <!-- Показываем ссылки для авторизованных пользователей -->
-                    <button onclick="openDoors()" style="margin-top: 10px;">Открыть Двери</button>
-                {% else %}
-                    <!-- Показываем ссылки для гостей -->
-                    <button onclick="window.location.href='{% url 'HGcity:register' %}'" style="margin-top: 10px;">Регистрация</button>
-                    <button onclick="window.location.href='{% url 'HGcity:login' %}'" style="margin-top: 10px;">Вход</button>
-                {% endif %}
-            </nav>
-        </div>
-
-        <audio id="background-music" src="{% static 'HGcity/music/music_guide_page.mp3' %}" autoplay loop></audio>
-        <button id="toggle-music" onclick="toggleMusic()">🔈  Выкл. музыку</button>
-
-        <!-- Звук для открытия дверей -->
-        <audio id="door-sound" src="{% static 'HGcity/music/doors_sound.mp3' %}"></audio>
-
+<body id="home-page">
+<!-- Контейнер для всего контента -->
+<div class="container">
+    <!-- Блок с заголовком -->
+    <div>
+        <p class="special-text-K-home">ХАРАЛЫДГРАД</p>
     </div>
 
-    <!-- Скрипт для управления музыкой и звуком -->
-    <script>
-        const audioElement = document.getElementById('background-music');
-        const toggleButton = document.getElementById('toggle-music');
-        const doorImage = document.getElementById('doorImage');
-        const doorSound = document.getElementById('door-sound');
-        let isPlaying = true;
+    <!-- Начальное изображение -->
+    <img id="doorImage" src="{% static 'animations/doors/bunker_1.png' %}" alt="Букнер"
+         style="width: 700px; border-radius:25px;">
 
-        function toggleMusic() {
-            if (isPlaying) {
-                audioElement.pause();
-                toggleButton.textContent = '🔊 Вкл. музыку';
-            } else {
-                audioElement.play();
-                toggleButton.textContent = '🔈 Выкл. музыку';
-            }
-            isPlaying = !isPlaying;
-        }
+    <!-- Блок с количеством жителей -->
+    <div>
+        <p><b style="color:#CD5C5C;">КОЛИЧЕСТВО ЖИТЕЛЕЙ:</b> {{ user_count }}</p>
+    </div>
 
-        function openDoors() {
-            // Воспроизводим звук при нажатии на кнопку
-            doorSound.play();
+    <!-- Блок с навигацией -->
+    <div class="navigation-block">
+        <nav>
+            {% if user.is_authenticated %}
+            <!-- Показываем ссылки для авторизованных пользователей -->
+            <button onclick="openDoors()">Открыть Двери</button>
+            {% else %}
+            <!-- Показываем ссылки для гостей -->
+            <button onclick="window.location.href='{% url 'HGcity:register' %}'" style="margin-bottom: 10px;">РЕГИСТРАЦИЯ</button>
+            <p></p>
+            <button onclick="window.location.href='{% url 'HGcity:login' %}'" style="margin-top: 10px; font-size:14px;">ВХОД</button>
+            {% endif %}
+        </nav>
+    </div>
 
-            // Останавливаем фоновую музыку
+
+
+    <!-- Звук для открытия дверей -->
+    <audio id="door-sound" src="{% static 'HGcity/music/doors_sound.mp3' %}"></audio>
+    <audio id="alarm-doors" src="{% static 'HGcity/music/alarm_doors.wav' %}"></audio>
+
+</div>
+    <audio id="background-music" src="{% static 'HGcity/music/music_guide_page.mp3' %}" autoplay loop></audio>
+    <button style="font-size:15px; margin-left:68%; margin-top:0%;" id="toggle-music" onclick="toggleMusic()">🔈</button>
+<!-- Скрипт для управления музыкой и звуком -->
+<script>
+    const audioElement = document.getElementById('background-music');
+    const toggleButton = document.getElementById('toggle-music');
+    const doorImage = document.getElementById('doorImage');
+    const doorSound = document.getElementById('door-sound');
+    const door_alert_Sound = document.getElementById('alarm-doors');
+    let isPlaying = true;
+
+    function toggleMusic() {
+        if (isPlaying) {
             audioElement.pause();
-
-            // Меняем изображение на анимацию
-            doorImage.src = "{% static 'animations/doors/doors_high_open.webp' %}";
-
-            // Устанавливаем задержку в 6 секунд перед переходом
-            setTimeout(function() {
-                window.location.href = '{% url 'HGcity:guide_page' %}';
-            }, 4500);
+            toggleButton.textContent = '🔊';
+        } else {
+            audioElement.play();
+            toggleButton.textContent = '🔈';
         }
-    </script>
+        isPlaying = !isPlaying;
+    }
 
-    <!-- Футер -->
-    <footer class="footer-block">
-        <i>Version: 1.00.1</i>
-    </footer>
+    function openDoors() {
+        // Воспроизводим звук при нажатии на кнопку
+        doorSound.play();
+        door_alert_Sound.play();
+
+
+        // Останавливаем фоновую музыку
+        audioElement.pause();
+
+        // Меняем изображение на анимацию
+        doorImage.src = "{% static 'animations/doors/doors_high_open.gif' %}";
+
+        // Устанавливаем задержку в 6 секунд перед переходом
+        setTimeout(function() {
+            window.location.href = '{% url 'HGcity:guide_page' %}';
+        }, 4500);
+    }
+</script>
+
+<!-- Футер -->
+<footer class="footer-block">
+    <i>Version: 1.00.1</i>
+</footer>
 </body>
 </html>

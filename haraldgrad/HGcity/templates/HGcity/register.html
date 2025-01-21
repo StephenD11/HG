@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/static/HGcity/css/style.css">
 </head>
 <body>
-<h1>Регистрация</h1>
+<h1 style="color:#CD5C5C;">РЕГИСТРАЦИЯ</h1>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
@@ -86,11 +86,11 @@
         {% endif %}
     </div>
 
-    <button type="submit">Зарегистрироваться</button>
+    <button type="submit">Зарегистрироваться</button> | <button onclick="window.location.href='{% url 'HGcity:login' %}'" style="margin-top: 10px;">Войти</button>
 </form>
 
 
-<button onclick="window.location.href='{% url 'HGcity:login' %}'" style="margin-top: 10px;">Войти</button>
+
 
 <button onclick="window.location.href='{% url 'HGcity:home' %}'" style="margin-top: 10px;">
     Главная

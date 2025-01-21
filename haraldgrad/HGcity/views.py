@@ -1,9 +1,9 @@
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import login, logout, authenticate, get_user_model
-from django.contrib.auth.forms import PasswordResetForm,UserCreationForm
-from .forms import UserRegisterForm, LoginForm
-from django.http import HttpResponse
+from django.core.mail import EmailMultiAlternatives
+from django.contrib.auth.forms import PasswordResetForm
+from .forms import UserRegisterForm
 from .models import User, Message
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -17,70 +17,79 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
 
-import os
-from django.conf import settings
+from datetime import datetime, time
+from zoneinfo import ZoneInfo
 
 
+class CustomLoginView(LoginView):
+    template_name = 'HGcity/login.html'
 
-def login_view(request):
-    if request.method == 'POST':
-        form = LoginForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                if user.is_banned:
-                    messages.error(request, "Ваш аккаунт заблокирован.")
-                    return redirect('HGcity:login')
-                login(request, user)
-                if request.user.logo:
-                    return redirect('HGcity:guide_page')
-                else:
-                    return redirect('HGcity:home')
-            else:
-                form.add_error(None, 'Неверный логин или пароль!')
-    else:
-        form = LoginForm()
+    def form_valid(self, form):
+        user = form.get_user()
 
-    return render(request, 'HGcity/login.html', {'form': form})
+        # Проверка: если пользователь не активен (например, email не подтвержден)
+        if not user.is_active:
+            form.add_error(None, "Ваш email не подтвержден. Пожалуйста, подтвердите его.")
+            return self.form_invalid(form)
 
+        # Проверка: если пользователь заблокирован
+        if user.is_banned:
+            messages.error(self.request, "Ваш аккаунт заблокирован")
+            return redirect('HGcity:login')
+
+        # Авторизация пользователя
+        login(self.request, user)
+
+        # Логика переадресации
+        if user.logo:
+            return redirect('HGcity:guide_page')
+        else:
+            return redirect('HGcity:home')
+
+    def get_success_url(self):
+        """
+        Этот метод все еще можно использовать, если не хочется переопределять `form_valid`.
+        Но для кастомной логики лучше оставить его для дополнительной настройки.
+        """
+        return reverse('HGcity:home')
+
+#Логин
 def logout_view(request):
     logout(request)
     return redirect('HGcity:login')  # Перенаправляем на страницу логина после выхода
 
-# views.py
+#Восстановление пароля
+def password_reset_view(request):
+    if request.method == 'POST':
+        form = PasswordResetForm(request.POST)
+        if form.is_valid():
+            form.save(request=request)
+            return redirect('registration:password_reset_done')  # или нужный URL
+    else:
+        form = PasswordResetForm()
+    return render(request, 'registration/password_reset_form.html', {'form': form})
+
+#Регистрация
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password1'])
-            user.is_active = False  # Устанавливаем статус пользователя как неактивный
+            user.is_active = False
             user.save()
 
-            # Генерация токена
-            token = default_token_generator.make_token(user)
-            uid = urlsafe_base64_encode(str(user.pk).encode())  # Преобразуем pk в строку
-
-            # Отправка письма с подтверждением
+            # Отправляем письмо
             current_site = get_current_site(request)
-            mail_subject = 'Подтвердите вашу почту'
-            message = render_to_string('registration/confirmation_email.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': uid,
-                'token': token,
-            })
-            send_mail(mail_subject, message, 'system.haraldgrad@yandex.com', [user.email])
+            send_confirmation_email(user, current_site.domain)
 
-            return redirect('HGcity:confirm_email_page')  # Здесь можно оставить редирект на страницу, информируя пользователя
+            return redirect('HGcity:confirm_email_page')
     else:
         form = UserRegisterForm()
 
     return render(request, 'HGcity/register.html', {'form': form})
 
-
+#Подтверждение почты
 def confirm_email(request, uidb64, token):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
@@ -96,22 +105,27 @@ def confirm_email(request, uidb64, token):
         return render(request, 'HGcity/invalid_link.html')  # Показать ошибку, если токен невалиден
 
 
-class CustomLoginView(LoginView):
-    template_name = 'HGcity/login.html'
-
-    def get_success_url(self):
-        return reverse('HGcity:guide_page')  # перенаправление на нужную страницу
-
-    def form_valid(self, form):
-        user = form.get_user()
-        if not user.is_active:
-            form.add_error(None, "Ваш email не подтвержден. Пожалуйста, подтвердите его.")
-            return self.form_invalid(form)
-        return super().form_valid(form)
-
-
 def confirm_email_page(request):
     return render(request, 'registration/confirm_your_email.html')
+
+def send_confirmation_email(user, domain):
+    uid = urlsafe_base64_encode(str(user.pk).encode())
+    token = default_token_generator.make_token(user)
+    subject = 'Подтвердите вашу почту'
+    from_email = 'Система Харальдграда <system.haraldgrad@yandex.com>'
+    to_email = [user.email]
+
+    text_content = f"Здравствуйте, {user.username}!\nПодтвердите почту: http://{domain}/confirm_email/{uid}/{token}/"
+    html_content = render_to_string('registration/confirmation_email.html', {
+        'user': user,
+        'domain': domain,
+        'uid': uid,
+        'token': token,
+    })
+
+    email = EmailMultiAlternatives(subject, text_content, from_email, to_email)
+    email.attach_alternative(html_content, "text/html")
+    email.send()
 
 def home(request):
     User = get_user_model()
@@ -250,9 +264,8 @@ drink_phrases = [
 ]
 
 
-from datetime import datetime, time
-from zoneinfo import ZoneInfo
 
+@login_required
 def chat_view(request):
     # Установить часовой пояс МСК
     msk_timezone = ZoneInfo('Europe/Moscow')
@@ -350,8 +363,6 @@ def send_message(request):
 
         return JsonResponse({'status': 'ok', 'message': message_text})
 
-
-
 @login_required
 def get_messages(request):
     messages = Message.objects.all().order_by('timestamp')  # Сортировка по времени создания
@@ -407,10 +418,9 @@ def change_user_role(admin_user, target_user, new_role):
 def chat_rules(request):
     return render(request, 'HGcity/chat_rules.html')
 
-
 #БАН
 def permission_denied_view(request, exception):
-    messages.error(request, "Доступ запрещён: ваш аккаунт заблокирован.")
+    messages.error(request, "Ваш аккаунт заблокирован")
     return redirect('HGcity:login')
 
 

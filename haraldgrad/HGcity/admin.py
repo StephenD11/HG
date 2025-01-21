@@ -5,9 +5,9 @@ from .models import User
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('id','username', 'first_name', 'last_name','chat_verified', 'hp', 'social_rating', 'ideology', 'logo','role')
+    list_display = ('id','is_active','username', 'first_name', 'last_name','chat_verified', 'hp', 'social_rating', 'ideology', 'logo','role','is_banned')
     search_fields = ('username', 'first_name', 'is_banned', 'role', 'last_name', 'email')
-    list_filter = ('ideology', 'role')
+    list_filter = ('ideology', 'role','is_banned','is_active')
 
 
 
