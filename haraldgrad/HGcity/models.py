@@ -73,3 +73,19 @@ class Message(models.Model):
 
     def __str__(self):
         return f'{self.username}: {self.message}'
+
+
+
+class Banneded(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='ban_info')
+    reason = models.TextField(verbose_name='Причина')
+    banned_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата бана')
+    banned_by_username = models.CharField(max_length=255,verbose_name='Бан от')
+    banned_by_role = models.CharField(max_length=255,verbose_name='Бан от Роли')
+
+    class Meta:
+        verbose_name = 'Бан'
+        verbose_name_plural = 'Баны'
+
+    def __str__(self):
+        return f'{self.user.username} (Забанен: {self.banned_at} кем: {self.banned_by_username})'

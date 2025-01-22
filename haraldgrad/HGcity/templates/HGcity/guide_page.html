@@ -1,8 +1,60 @@
 {% extends 'HGcity/base.html' %}
-{% block title %}Главная страница{% endblock %}
-
-
+{% block title %}Площадь{% endblock %}
+{% load static %}
 
 {% block content %}
+<!-- Контейнер для фона -->
+<div id="background"></div>
+<p style="font-size:55px; display:flex; align-items: center; justify-content: center"> НАВИГАЦИЯ ПО ГОРОДУ</p>
+<div id="guide_page-page"> <!-- Основной контейнер с содержимым -->
 
+    <div class="image-row"> <!-- Контейнер для строк -->
+        <div class="image-container" onclick="delayedRedirect('{% url 'HGcity:chat' %}')">
+            <img src="{% static '/images/guide_page_logos/tavern.png' %}" alt="Image">
+        </div>
+
+        <div class="image-container" onclick="delayedRedirect('{% url 'HGcity:profile' %}')">
+            <img src="{% static '/images/guide_page_logos/profile.png' %}" alt="Image">
+        </div>
+
+        <div class="image-container" onclick="delayedRedirect('{% url 'HGcity:logout' %}')">
+            <img src="{% static '/images/guide_page_logos/exit.png' %}" alt="Image">
+        </div>
+    </div>
+
+</div>
+<p style="font-size:55px; display:flex; align-items: center; justify-content: center">СКОРО В ГОРОДЕ</p>
+<span style="font-size:25px; display:flex; align-items: center; justify-content: center; margin-top:-7%; color:#f23b3b;">(В РАЗРАБОТКЕ)</span>
+<div id="guide_page-page"> <!-- Основной контейнер с содержимым -->
+
+    <div class="image-row"> <!-- Контейнер для строк -->
+        <div class="image-container" onclick="delayedRedirect('{% url 'HGcity:dont_work' %}')">
+            <img src="{% static '/images/guide_page_logos/kartoteka.png' %}" alt="Image">
+        </div>
+
+        <div class="image-container" onclick="delayedRedirect('{% url 'HGcity:dont_work' %}')">
+            <img src="{% static '/images/guide_page_logos/work.png' %}" alt="Image">
+        </div>
+
+        <div class="image-container" onclick="delayedRedirect('{% url 'HGcity:dont_work' %}')">
+            <img src="{% static '/images/guide_page_logos/gox.png' %}" alt="Image">
+        </div>
+    </div>
+
+</div>
+
+
+
+<script>
+    function delayedRedirect(url) {
+        // Добавляем задержку в 1 секунду перед переходом
+        setTimeout(() => {
+            window.location.href = url;
+        }, 300); // Задержка 1000 мс = 1 секунда
+    }
+</script>
+{% endblock %}
+
+
+{% block footer %}
 {% endblock %}

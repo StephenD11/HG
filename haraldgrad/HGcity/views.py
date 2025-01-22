@@ -4,7 +4,7 @@ from django.contrib.auth import login, logout, authenticate, get_user_model
 from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth.forms import PasswordResetForm
 from .forms import UserRegisterForm
-from .models import User, Message
+from .models import User, Message, Banneded
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.core.exceptions import PermissionDenied
@@ -34,7 +34,7 @@ class CustomLoginView(LoginView):
 
         # Проверка: если пользователь заблокирован
         if user.is_banned:
-            messages.error(self.request, "Ваш аккаунт заблокирован")
+            messages.error(self.request, "ВАШ АККАУНТ ЗАБЛОКИРОВАН | ЗАЯВКИ НА РАЗБЛОКИРОВКУ: SYSTEM.HARALDGRAD@GMAIL.COM")
             return redirect('HGcity:login')
 
         # Авторизация пользователя
@@ -42,7 +42,7 @@ class CustomLoginView(LoginView):
 
         # Логика переадресации
         if user.logo:
-            return redirect('HGcity:guide_page')
+            return redirect('HGcity:home')
         else:
             return redirect('HGcity:home')
 
@@ -140,6 +140,8 @@ def guide_page(request):
 def profile(request):
     return render(request, 'HGcity/profile.html')
 
+def dont_work(request):
+    return render(request, 'HGcity/dont_work.html')
 
 def rules(request):
     return render(request, 'HGcity/rules.html')
@@ -272,7 +274,7 @@ def chat_view(request):
     current_time = datetime.now(msk_timezone).time()  # Текущее время в МСК
 
     # Ограничения на время доступа
-    start_time = time(19, 0)  # 18:00
+    start_time = time(18, 0)  # 18:00
     end_time = time(23, 0)  # 23:00
 
     # Проверяем роль пользователя
@@ -324,12 +326,11 @@ def send_message(request):
 
             return JsonResponse({'status': 'error', 'message': mute_message})
 
-        # Если это команда /drink, генерируем сообщение, но не сохраняем команду
+        # Если это команда /drink
         if message_text.startswith('/drink'):
             random_phrase = random.choice(drink_phrases)
             formatted_message = random_phrase.format(username=request.user.username)
 
-            # Сохраняем только отформатированное сообщение без команды
             new_message = Message(user=request.user, message=formatted_message)
             new_message.save()
 
@@ -337,7 +338,6 @@ def send_message(request):
 
         # Если это команда /mute с временем
         if message_text.startswith('/mute '):
-            # Извлекаем время и пользователя из команды /mute
             parts = message_text.split(' ')
             time_match = re.match(r'(\d+)(m|h)', parts[1])  # Ищем числа с m (минуты) или h (часы)
 
@@ -345,23 +345,99 @@ def send_message(request):
                 mute_duration = int(time_match.group(1)) * time_mapping[time_match.group(2)]  # Переводим в секунды
                 target_user = parts[2]  # Извлекаем имя пользователя для мута
 
-                # Проверка на роль отправителя
                 sender = request.user
                 if sender.role not in ['ГОХ', 'Правительство']:
                     return JsonResponse({'status': 'error', 'message': 'У вас нет прав для выполнения этой команды.'})
 
-                # Мутим указанного пользователя
                 muted_users[target_user] = time.time() + mute_duration
                 return JsonResponse({'status': 'ok', 'message': f'Пользователь {target_user} был замучен на {mute_duration} секунд.'})
 
             else:
                 return JsonResponse({'status': 'error', 'message': 'Неверный формат времени. Используйте /mute 1m, /mute 3m, /mute 1h.'})
 
+        # Если это команда /ban
+        if message_text.startswith('/ban '):
+            # Проверяем права отправителя
+            sender = request.user
+            if sender.role not in ['ГОХ', 'Правительство']:
+                return JsonResponse({'status': 'error', 'message': 'У вас нет прав для выполнения этой команды.'})
+
+            # Извлекаем логин и причину
+            parts = message_text.split(' ', 2)
+            if len(parts) < 3:
+                return JsonResponse(
+                    {'status': 'error', 'message': 'Неверный формат команды. Используйте: /ban логин причина.'})
+
+            target_username = parts[1]
+            reason = parts[2]
+
+            # Отладочное сообщение
+            print(f"Команда /ban получена: target_username={target_username}, reason={reason}")
+
+            # Проверяем, существует ли пользователь
+            try:
+                target_user = User.objects.get(username=target_username)
+            except User.DoesNotExist:
+                return JsonResponse({'status': 'error', 'message': 'Пользователь не найден.'})
+
+            # Проверяем, забанен ли уже пользователь
+            if target_user.is_banned:
+                return JsonResponse({'status': 'error', 'message': f'Пользователь {target_username} уже забанен.'})
+
+            # Создаем запись о бане
+            Banneded.objects.create(
+                user=target_user,
+                reason=reason,
+                banned_by_username=sender.username,
+                banned_by_role=sender.role
+            )
+
+            # Обновляем поле is_banned
+            target_user.is_banned = True
+            target_user.save()
+
+            # Записываем сообщение в чат
+            ban_message = f'Пользователь {sender.username} забанил {target_username} по причине: {reason}'
+            new_message = Message(user=sender, message=ban_message)
+            new_message.save()
+
+            return JsonResponse(
+                {'status': 'ok', 'message': f'Пользователь {target_username} был забанен. Причина: {reason}'})
+
+        # Если это команда /yes (разблокировка доступа к чату)
+        if message_text.startswith('/yes '):
+            sender = request.user
+            if sender.role not in ['ГОХ', 'Правительство']:
+                return JsonResponse({'status': 'error', 'message': 'У вас нет прав для выполнения этой команды.'})
+
+            parts = message_text.split(' ', 1)
+            if len(parts) < 2:
+                return JsonResponse({'status': 'error', 'message': 'Неверный формат команды. Используйте: /yes логин.'})
+
+            target_username = parts[1]
+
+            try:
+                target_user = User.objects.get(username=target_username)
+            except User.DoesNotExist:
+                return JsonResponse({'status': 'error', 'message': 'Пользователь не найден.'})
+
+            # Разблокируем доступ к чату
+            target_user.chat_verified = True
+            target_user.save()
+
+            # Записываем сообщение в чат
+            yes_message = f'Пользователь {target_username} получил доступ к чату.'
+            new_message = Message(user=sender, message=yes_message)
+            new_message.save()
+
+            return JsonResponse({'status': 'ok', 'message': f'Пользователь {target_username} получил доступ к чату.'})
+
         # Если это не команда, сохраняем обычное сообщение
         new_message = Message(user=request.user, message=message_text)
         new_message.save()
 
         return JsonResponse({'status': 'ok', 'message': message_text})
+
 
 @login_required
 def get_messages(request):
@@ -420,7 +496,7 @@ def chat_rules(request):
 
 #БАН
 def permission_denied_view(request, exception):
-    messages.error(request, "Ваш аккаунт заблокирован")
+    messages.error(request, "ВАШ АККАУНТ ЗАБЛОКИРОВАН | ЗАЯВКИ НА РАЗБЛОКИРОВКУ: SYSTEM.HARALDGRAD@GMAIL.COM")
     return redirect('HGcity:login')
 
 

@@ -8,7 +8,23 @@
     <link rel="stylesheet" href="/static/HGcity/css/style.css">
 </head>
 <body>
+
+    <img src="{% static '/images/background_login.png' %}" alt="Свет" id="background-image-login">
+
+
 <h1 style="color:#CD5C5C;">ВОЙТИ В АККАУНТ</h1>
+
+<!-- Отображение только сообщений о бане -->
+{% if messages %}
+<ul class="messages" style="list-style: none;">
+    {% for message in messages %}
+        {% if "error" in message.tags and message.message == "ВАШ АККАУНТ ЗАБЛОКИРОВАН | ЗАЯВКИ НА РАЗБЛОКИРОВКУ: SYSTEM.HARALDGRAD@GMAIL.COM" %}
+        <li class="{{ message.tags }}" style="font-size:25px; color: red;">{{ message.message }}</li>
+        {% endif %}
+    {% endfor %}
+</ul>
+{% endif %}
+<br>
 <form method="post">
     {% csrf_token %}
 
@@ -49,16 +65,7 @@
 </ul>
 {% endif %}
 
-<!-- Отображение только сообщений о бане -->
-{% if messages %}
-<ul class="messages" style="list-style: none;">
-    {% for message in messages %}
-        {% if "error" in message.tags and message.message == "Ваш аккаунт заблокирован" %}
-        <li class="{{ message.tags }}" style="font-size:35px; color: red;">{{ message.message }}</li>
-        {% endif %}
-    {% endfor %}
-</ul>
-{% endif %}
+
 
 
 <p>Нет аккаунта? <a href="{% url 'HGcity:register' %}">Зарегистрироваться</a></p>

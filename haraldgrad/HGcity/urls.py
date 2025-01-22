@@ -11,6 +11,7 @@ urlpatterns = [
     # Главная страница
     path('', views.home, name='home'),
     path('guide/', views.guide_page, name='guide_page'),
+    path('dont_work/', views.dont_work, name='dont_work'),
 
 
     # Регистрация

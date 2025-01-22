@@ -17,7 +17,11 @@
         <p class="special-text-K-home">ХАРАЛЫДГРАД</p>
     </div>
 
-    <!-- Начальное изображение -->
+    <!-- Начальные изображения -->
+
+    <img id="lightImage" src="{% static 'animations/doors/lights.webp' %}" alt="Свет"
+         style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 9999; display: none; opacity: 0.2;">
+
     <img id="doorImage" src="{% static 'animations/doors/bunker_1.png' %}" alt="Букнер"
          style="width: 700px; border-radius:25px;">
 
@@ -34,29 +38,46 @@
             <button onclick="openDoors()">Открыть Двери</button>
             {% else %}
             <!-- Показываем ссылки для гостей -->
-            <button onclick="window.location.href='{% url 'HGcity:register' %}'" style="margin-bottom: 10px;">РЕГИСТРАЦИЯ</button>
+            <button onclick="window.location.href='{% url 'HGcity:register' %}'" style="margin-bottom: 10px;">
+                РЕГИСТРАЦИЯ
+            </button>
             <p></p>
-            <button onclick="window.location.href='{% url 'HGcity:login' %}'" style="margin-top: 10px; font-size:14px;">ВХОД</button>
+            <button onclick="window.location.href='{% url 'HGcity:login' %}'" style="margin-top: 10px; font-size:14px;">
+                ВХОД
+            </button>
             {% endif %}
         </nav>
     </div>
 
 
-
     <!-- Звук для открытия дверей -->
     <audio id="door-sound" src="{% static 'HGcity/music/doors_sound.mp3' %}"></audio>
-    <audio id="alarm-doors" src="{% static 'HGcity/music/alarm_doors.wav' %}"></audio>
+    <audio id="alarm-doors" src="{% static 'HGcity/music/alarm_doors.mp3    ' %}"></audio>
 
 </div>
-    <audio id="background-music" src="{% static 'HGcity/music/music_guide_page.mp3' %}" autoplay loop></audio>
+<audio id="background-music" src="{% static 'HGcity/music/music_guide_page.mp3' %}" autoplay loop></audio>
+
+    {% if user.is_authenticated %}
+    <!-- Показываем ссылки для авторизованных пользователей -->
+    <button style="font-size:15px; margin-left:68%; margin-top:3.5%;" id="toggle-music" onclick="toggleMusic()">🔈</button>
+    {% else %}
+    <!-- Показываем ссылки для гостей -->
     <button style="font-size:15px; margin-left:68%; margin-top:0%;" id="toggle-music" onclick="toggleMusic()">🔈</button>
+    {% endif %}
+
+
+
 <!-- Скрипт для управления музыкой и звуком -->
 <script>
+    const lightImage = document.getElementById('lightImage');
     const audioElement = document.getElementById('background-music');
     const toggleButton = document.getElementById('toggle-music');
     const doorImage = document.getElementById('doorImage');
     const doorSound = document.getElementById('door-sound');
+    doorSound.volume = 0.5; // Устанавливаем громкость на 30% от максимальной
     const door_alert_Sound = document.getElementById('alarm-doors');
+    door_alert_Sound.volume = 0.8; // Устанавливаем громкость на 30%
+
     let isPlaying = true;
 
     function toggleMusic() {
@@ -75,12 +96,16 @@
         doorSound.play();
         door_alert_Sound.play();
 
+        // Показать анимацию света через 1 секунду
+        setTimeout(function() {
+            lightImage.style.display = 'block';
+        }, 0000);
 
         // Останавливаем фоновую музыку
         audioElement.pause();
 
         // Меняем изображение на анимацию
-        doorImage.src = "{% static 'animations/doors/doors_high_open.gif' %}";
+        doorImage.src = "{% static 'animations/doors/doors_high_open.webp' %}";
 
         // Устанавливаем задержку в 6 секунд перед переходом
         setTimeout(function() {

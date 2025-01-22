@@ -1,5 +1,5 @@
 @font-face {
-    font-family: 'GOST Type AU';
+    font-family: 'GOST type A';
     src: url('/static/fonts/GOST Type AU.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
@@ -52,6 +52,9 @@ body {
     background-attachment: fixed;
     background-color: #130909;
 }
+
+
+
 
 button {
     font-family: 'GOST Type AU', Arial, sans-serif;
@@ -155,7 +158,7 @@ button::after {
 /* Меняем цвет рамки при наведении */
 button:hover::after {
     border: 5px solid #772020; /* Темно-красная рамка при наведении */
-    
+
 }
 
 /* Меняем цвет рамки при нажатии */
@@ -211,4 +214,273 @@ a:hover {
     padding: 10px;
     word-wrap: break-word; /* Для длинных слов */
 
+}
+
+/* Централизуем навигацию */
+header nav {
+    position: fixed; /* Закрепляем меню на экране */
+    top: 50%; /* Ставим меню на середину экрана по вертикали */
+    left: 50%; /* Ставим меню на середину экрана по горизонтали */
+    transform: translate(-50%, -50%); /* Смещаем на половину его размера для точного центрирования */
+    z-index: 1000; /* Меню всегда будет поверх содержимого */
+}
+
+header nav ul {
+    list-style-type: none; /* Убираем маркеры списка */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Делаем элементы списка в строчку */
+    flex-direction: row; /* Располагаем ссылки вертикально */
+    gap: 20px; /* Расстояние между пунктами меню */
+    justify-content: center; /* Центрируем пункты внутри списка */
+    text-align: center; /* Выравниваем текст внутри пунктов */
+    margin-top: -70%;
+
+}
+
+header nav ul li a {
+    text-decoration: none; /* Убираем подчеркивание */
+    color: white; /* Цвет текста */
+    font-size: 32px; /* Размер текста */
+    transition: color 0.3s, transform 0.3s; /* Эффекты при наведении */
+}
+
+header nav ul li a:hover {
+    color: #f23b3b; /* Красный цвет текста при наведении */
+    transform: scale(1.1); /* Увеличиваем ссылку при наведении */
+}
+
+header nav ul li a:active {
+    color: white; /* Белый цвет текста при нажатии */
+    transform: scale(0.95); /* Уменьшение при нажатии */
+}
+
+/* Сбрасываем стили списка */
+nav ul {
+    list-style-type: none; /* Убираем маркеры списка */
+    padding: 0;
+    margin: 0;
+    display: flex; /* Делаем элементы списка в строчку */
+    justify-content: center; /* Центрируем содержимое */
+    gap: 20px; /* Расстояние между пунктами */
+    margin-top: -5%;
+}
+
+/* Стили ссылок */
+nav ul li a {
+    text-decoration: none; /* Убираем стандартное подчеркивание */
+    color: #fefbfb; /* Цвет текста */
+    position: relative; /* Для работы с псевдоэлементом */
+    padding: 5px 10px; /* Внутренние отступы */
+    transition: color 0.3s, transform 0.3s; /* Плавное изменение цвета и трансформации */
+    font-size: 29px;
+}
+
+/* Эффект полосы при наведении */
+nav ul li a::after {
+    content: ""; /* Пустое содержимое для псевдоэлемента */
+    position: absolute;
+    left: 0;
+    bottom: 0; /* Полоса внизу */
+    width: 0; /* Начальная ширина полосы */
+    height: 1px; /* Высота полосы */
+    background-color: #f23b3b; /* Цвет полосы */
+    transition: width 0.3s; /* Плавное появление */
+}
+
+/* При наведении увеличиваем ширину полосы */
+nav ul li a:hover::after {
+    width: 100%; /* Полоса заполняет всю ширину ссылки */
+}
+
+/* При наведении увеличиваем ссылку */
+nav ul li a:hover {
+    color: #f23b3b !important; /* Цвет текста при наведении */
+    transform: scale(1.1) !important; /* Увеличиваем ссылку */
+}
+
+/* При нажатии меняем цвет на белый */
+nav ul li a:active {
+    color: white !important; /* Белый цвет текста при нажатии */
+    transform: scale(0.95) !important; /* Немного уменьшаем ссылку при нажатии */
+}
+
+
+/* КЛАССЫ ПЛОЩАДИ */
+
+/* Контейнер для фона */
+#background {
+    background-image: url("/static/images/Back_guide_page.png");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* Основной контейнер с содержимым */
+#guide_page-page {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    z-index: 1;
+    margin-top: 30px;
+}
+
+/* Контейнер для строки изображений */
+.image-row {
+    display: flex;
+    gap: 5px; /* Расстояние между картинками */
+    justify-content: center;
+}
+
+/* Контейнер для каждого изображения */
+.image-container {
+    width: 220px;
+    height: 220px;
+    overflow: hidden;
+    transition: transform 0.3s ease; /* Плавность эффекта */
+
+}
+
+/* Изображение */
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease; /* Плавность уменьшения */
+}
+
+/* Эффект при наведении */
+.image-container:hover {
+    transform: scale(0.9); /* Уменьшение контейнера при наведении */
+}
+
+.image-container:hover img {
+    transform: scale(0.9); /* Уменьшение изображения при наведении */
+}
+
+/* Эффект при нажатии */
+.image-container:active {
+    transform: scale(0.8); /* Дополнительное уменьшение контейнера при нажатии */
+}
+
+.image-container:active img {
+    transform: scale(0.8); /* Дополнительное уменьшение изображения при нажатии */
+    filter: brightness(0.9); /* Легкое затемнение изображения */
+}
+
+
+/* KUDA страница */
+
+/* Стили для фонового изображения */
+#background-image-kuda {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; /* Полная ширина экрана */
+    height: 100vh; /* Полная высота экрана */
+    object-fit: cover; /* Картинка адаптируется без искажений */
+    z-index: -1; /* Отправляем изображение на задний план */
+    display: block; /* Делаем изображение видимым */
+}
+
+/* Основное содержимое */
+#content {
+    position: relative; /* Сохраняем поверх фонового изображения */
+    z-index: 1; /* Размещаем выше фонового изображения */
+    color: black;
+}
+
+/* RULES страница */
+
+/* Стили для фонового изображения */
+#background-image-rules {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; /* Полная ширина экрана */
+    height: 100vh; /* Полная высота экрана */
+    object-fit: cover; /* Картинка адаптируется без искажений */
+    z-index: -1; /* Отправляем изображение на задний план */
+    display: block; /* Делаем изображение видимым */
+}
+
+
+/* ABOUT страница */
+
+/* Стили для фонового изображения */
+#background-image-project {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 110%; /* Полная ширина экрана */
+    height: 110%; /* Полная высота экрана */
+    object-fit: cover; /* Картинка адаптируется без искажений */
+    z-index: -1; /* Отправляем изображение на задний план */
+    display: block; /* Делаем изображение видимым */
+}
+
+
+
+/* CONTACT страница */
+
+/* Стили для фонового изображения */
+#background-image-contact {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Полная ширина экрана */
+    height: 100%; /* Полная высота экрана */
+    object-fit: cover; /* Картинка адаптируется без искажений */
+    z-index: -1; /* Отправляем изображение на задний план */
+    display: block; /* Делаем изображение видимым */
+}
+
+/* CHAT страница */
+
+/* Стили для фонового изображения */
+#background-image-chat {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Полная ширина экрана */
+    height: 100%; /* Полная высота экрана */
+    object-fit: cover; /* Картинка адаптируется без искажений */
+    z-index: -1; /* Отправляем изображение на задний план */
+    display: block; /* Делаем изображение видимым */
+}
+
+/* PROFILE страница */
+
+/* Стили для фонового изображения */
+#background-image-profile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Полная ширина экрана */
+    height: 100%; /* Полная высота экрана */
+    object-fit: cover; /* Картинка адаптируется без искажений */
+    z-index: -1; /* Отправляем изображение на задний план */
+    display: block; /* Делаем изображение видимым */
+}
+
+/* LOGIN страница */
+
+/* Стили для фонового изображения */
+#background-image-login {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Полная ширина экрана */
+    height: 100%; /* Полная высота экрана */
+    object-fit: cover; /* Картинка адаптируется без искажений */
+    z-index: -1; /* Отправляем изображение на задний план */
+    display: block; /* Делаем изображение видимым */
 }
