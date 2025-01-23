@@ -6,73 +6,77 @@
     <title>Вход</title>
     {% load static %}
     <link rel="stylesheet" href="/static/HGcity/css/style.css">
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.png' %}">
 </head>
 <body>
 
-    <img src="{% static '/images/background_login.png' %}" alt="Свет" id="background-image-login">
+<img src="{% static '/images/background_login.png' %}" alt="Свет" id="background-image-login">
 
+<div class="div-login">
+    <h1 style="color:#ffffff;">ВОЙТИ В АККАУНТ</h1>
 
-<h1 style="color:#CD5C5C;">ВОЙТИ В АККАУНТ</h1>
+        <!-- Отображение только сообщений о бане -->
+    {% if messages %}
+    <ul class="messages" style="list-style: none;">
+        {% for message in messages %}
+            {% if "error" in message.tags and message.message == "ВАШ АККАУНТ ЗАБЛОКИРОВАН | ЗАЯВКИ НА РАЗБЛОКИРОВКУ: SYSTEM.HARALDGRAD@GMAIL.COM" %}
+            <li class="{{ message.tags }}" style="font-size:25px; color: red;">{{ message.message }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    {% endif %}
 
-<!-- Отображение только сообщений о бане -->
-{% if messages %}
-<ul class="messages" style="list-style: none;">
-    {% for message in messages %}
-        {% if "error" in message.tags and message.message == "ВАШ АККАУНТ ЗАБЛОКИРОВАН | ЗАЯВКИ НА РАЗБЛОКИРОВКУ: SYSTEM.HARALDGRAD@GMAIL.COM" %}
-        <li class="{{ message.tags }}" style="font-size:25px; color: red;">{{ message.message }}</li>
-        {% endif %}
-    {% endfor %}
-</ul>
-{% endif %}
-<br>
-<form method="post">
+    <br>
+   <form method="post" class="login-form">
     {% csrf_token %}
 
-    <div>
-        <label for="{{ form.username.id_for_label }}">Логин</label>
+    <div class="form-group">
+        <label for="{{ form.username.id_for_label }}" class="form-label">Логин</label>
         {{ form.username }}
         {% if form.username.errors %}
         <ul class="errorlist">
             {% for error in form.username.errors %}
-            <li style="color: red;">{{ error }}</li>
+            <li class="form-error">{{ error }}</li>
             {% endfor %}
         </ul>
         {% endif %}
     </div>
 
-    <div>
-        <label for="{{ form.password.id_for_label }}">Пароль</label>
+    <div class="form-group">
+        <label for="{{ form.password.id_for_label }}" class="form-label">Пароль</label>
         {{ form.password }}
         {% if form.password.errors %}
         <ul class="errorlist">
             {% for error in form.password.errors %}
-            <li style="color: red;">{{ error }}</li>
+            <li class="form-error">{{ error }}</li>
             {% endfor %}
         </ul>
         {% endif %}
     </div>
-    <a href="{% url 'HGcity:password_reset' %}">Забыли пароль?</a>
-    <button type="submit">Войти</button>
+
+    <a href="{% url 'HGcity:password_reset' %}" class="forgot-password">ЗАБЫЛ ПАРОЛЬ</a>
+    <button type="submit" class="button-login">Войти</button>
 </form>
 
 
 
-{% if form.non_field_errors %}
-<ul class="errorlist">
-    {% for error in form.non_field_errors %}
-    <li style="color: red;">{{ error }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+    {% if form.non_field_errors %}
+    <ul class="errorlist">
+        {% for error in form.non_field_errors %}
+        <li style="color: red;">{{ error }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 
 
+<!--    <p>Нет аккаунта? <a href="{% url 'HGcity:register' %}">ЗАРЕГИСТРИРОВАТЬСЯ</a></p>-->
+    <br>
+    <button onclick="window.location.href='{% url 'HGcity:home' %}'" class="button-login-main" style="margin-top: 10px;">
+        НА ГЛАВНУЮ
+    </button>
 
+</div>
 
-<p>Нет аккаунта? <a href="{% url 'HGcity:register' %}">Зарегистрироваться</a></p>
-
-<button onclick="window.location.href='{% url 'HGcity:home' %}'" style="margin-top: 10px;">
-    Вернуться на главную
-</button>
 
 </body>
 </html>

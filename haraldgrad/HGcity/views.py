@@ -89,7 +89,7 @@ def register(request):
 
     return render(request, 'HGcity/register.html', {'form': form})
 
-#Подтверждение почты
+# Подтверждение почты
 def confirm_email(request, uidb64, token):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
@@ -105,9 +105,11 @@ def confirm_email(request, uidb64, token):
         return render(request, 'HGcity/invalid_link.html')  # Показать ошибку, если токен невалиден
 
 
+# Страница с уведомлением о необходимости подтверждения почты
 def confirm_email_page(request):
     return render(request, 'registration/confirm_your_email.html')
 
+# Функция отправки письма с подтверждением
 def send_confirmation_email(user, domain):
     uid = urlsafe_base64_encode(str(user.pk).encode())
     token = default_token_generator.make_token(user)
@@ -115,12 +117,15 @@ def send_confirmation_email(user, domain):
     from_email = 'Система Харальдграда <system.haraldgrad@yandex.com>'
     to_email = [user.email]
 
+    protocol = 'http'  # или 'https', если настроено на https
+
     text_content = f"Здравствуйте, {user.username}!\nПодтвердите почту: http://{domain}/confirm_email/{uid}/{token}/"
     html_content = render_to_string('registration/confirmation_email.html', {
         'user': user,
         'domain': domain,
         'uid': uid,
         'token': token,
+        'protocol': protocol,  # Добавляем протокол в контекст
     })
 
     email = EmailMultiAlternatives(subject, text_content, from_email, to_email)

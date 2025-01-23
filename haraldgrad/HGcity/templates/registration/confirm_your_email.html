@@ -6,8 +6,11 @@
 {% block header %}{% endblock %}
 
 {% block content %}
+
+<img src="{% static '/images/background_reg.png' %}" alt="Свет" id="background-image-reg">
+
 <div class="container">
-    <h1 style="color:#CD5C5C;">ОТЛИЧНО! РЕГИСТРАЦИЯ ПОЧТИ ОКОНЧЕНА</h1>
+    <h1>ОТЛИЧНО! РЕГИСТРАЦИЯ ПОЧТИ ОКОНЧЕНА</h1>
     <p>Чтобы активировать аккаунт на вашу почту отправлено сообщение для подтверждения </p>
     <p style="color:#CD5C5C;"><b>Внимание!</b> Пока аккаунт не подтвержден войти в него будет невозможно</p>
     <button onclick="window.location.href='{% url 'HGcity:home' %}'" style="margin-top: 10px;">

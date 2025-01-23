@@ -5,17 +5,21 @@
 {% block header %}{% endblock %}
 
 {% block content %}
+
+<img src="{% static '/images/background_chat.png' %}" alt="Свет" id="background-image-chat">
+
 <div class="container">
     <h1><b>Таверна закрыта!</b></h1>
     <p>Таверна работает с <span style="color:#CD5C5C;">{{ start_time }}</span> до <span style="color:#CD5C5C;">{{ end_time }} </span>по
         МСК <i style="font-size:15px;">(Московскому времени)</i>.</p>
-    <p>Чтобы использовать чат, нужно пройти верификацию через группу в
-        <b><a href="https://t.me/hg_black_rat" target="_blank" style="color:#256fe8; text-decoration: none;"
-              onmouseover="this.style.color='#FF5733';"
-              onmouseout="this.style.color='#256fe8';">Телеграмм</a></b></p>
+<!--    <p>Чтобы использовать чат, нужно пройти верификацию через группу в-->
+<!--        <b><a href="https://t.me/hg_black_rat" target="_blank" style="color:#256fe8; text-decoration: none;"-->
+<!--              onmouseover="this.style.color='#FF5733';"-->
+<!--              onmouseout="this.style.color='#256fe8';">Телеграмм</a></b></p>-->
 
-    <p>Оставьте свою заявку и через некоторое время вам дадут доступ в чат</p>
-    <p><b style="color:#CD5C5C;">Это нужно, чтобы избежать флуда, спама и нарушений</b></p>
+<!--    <p>Оставьте свою заявку и через некоторое время вам дадут доступ в чат</p>-->
+<!--    <p><b style="color:#CD5C5C;">Это нужно, чтобы избежать флуда, спама и нарушений</b></p>-->
+    <p>Бармен отдыхает. Приходи вечером или заходи в чат <b><a href="https://t.me/hg_black_rat" target="_blank" style="color:#256fe8; text-decoration: none;" onmouseover="this.style.color='#FF5733';" onmouseout="this.style.color='#256fe8';">Телеграмм</a></b></p>
 
 
     <button onclick="window.location.href='{% url 'HGcity:guide_page' %}'">

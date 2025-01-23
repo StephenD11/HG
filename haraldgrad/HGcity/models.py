@@ -27,7 +27,7 @@ class User(AbstractUser):
     last_username_change = models.DateTimeField(auto_now=True,verbose_name='Дата изменения лого')
     is_banned = models.BooleanField(default=False,verbose_name='Бан')
     is_email_verified = models.BooleanField(default=False,verbose_name='Подтверждение почты')
-    chat_verified = models.BooleanField(default=False,verbose_name='Доступ к чату')
+    chat_verified = models.BooleanField(default=True,verbose_name='Доступ к чату')
 
 
     # Уникальные обратные связи

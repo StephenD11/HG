@@ -71,12 +71,13 @@ button {
         border: 1px solid #ccc;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
     }
 
 .chat-title {
     text-align: center;
     font-size: 28px;
-    color: #333;
+
     margin-bottom: 20px;
 }
 
@@ -84,7 +85,7 @@ button {
     list-style-type: decimal;
     padding-left: 20px;
     font-size: 22px;
-    color: #555;
+
     line-height: 1.8;
 }
 
@@ -92,6 +93,28 @@ button {
     margin-bottom: 10px;
 }
 
+#chat-box {
+    width: 650px;
+    height: 500px;
+    padding: 10px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    border-radius: 8px; /* Скругленные углы */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0); /* Легкая тень для глубины */
+}
+
+#chat-box::-webkit-scrollbar {
+    width: 8px; /* Толщина полосы прокрутки */
+}
+
+#chat-box::-webkit-scrollbar-thumb {
+    background-color: #ccc; /* Цвет полосы прокрутки */
+    border-radius: 10px; /* Скругленные углы полосы прокрутки */
+}
+
+#chat-box::-webkit-scrollbar-thumb:hover {
+    background-color: #aaa; /* Цвет при наведении */
+}
 
 /* Общие стили для всей страницы */
 
@@ -340,6 +363,7 @@ nav ul li a:active {
     justify-content: center;
 }
 
+
 /* Контейнер для каждого изображения */
 .image-container {
     width: 220px;
@@ -483,4 +507,229 @@ nav ul li a:active {
     object-fit: cover; /* Картинка адаптируется без искажений */
     z-index: -1; /* Отправляем изображение на задний план */
     display: block; /* Делаем изображение видимым */
+}
+
+
+/* REG страница */
+
+/* Стили для фонового изображения */
+#background-image-reg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Полная ширина экрана */
+    height: 100%; /* Полная высота экрана */
+    object-fit: cover; /* Картинка адаптируется без искажений */
+    z-index: -1; /* Отправляем изображение на задний план */
+    display: block; /* Делаем изображение видимым */
+}
+
+/* PASS страница */
+
+/* Стили для фонового изображения */
+#background-image-pass {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Полная ширина экрана */
+    height: 100%; /* Полная высота экрана */
+    object-fit: cover; /* Картинка адаптируется без искажений */
+    z-index: -1; /* Отправляем изображение на задний план */
+    display: block; /* Делаем изображение видимым */
+}
+
+
+/* ЛОГИН И РЕГИСТРАЦИЯ */
+
+.login-form {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.form-label {
+    font-size: 18px;
+    color: #ffffff;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    outline: none;
+    padding: 8px 0;
+    font-size: 16px;
+    color: #ffffff;
+    background: none;
+    transition: border-color 0.3s;
+    text-align: center;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #13090900 inset; /* Цвет фона */
+    -webkit-text-fill-color: #ffffff; /* Цвет текста */
+    transition: background-color 5000s ease-in-out 0s; /* Для поддержки плавности */
+}
+
+
+input:focus {
+    border-bottom-color: #ee0d0d;
+}
+
+input::placeholder {
+    color: #ffffff;
+}
+
+.form-error {
+    font-size: 12px;
+    color: red;
+    margin-top: 5px;
+}
+
+.forgot-password {
+    display: block;
+    text-align: right;
+    font-size: 18px;
+    color: #ffffff;
+    text-decoration: none;
+    margin-bottom: 20px;
+    transition: color 0.3s;
+    text-align: center;
+}
+
+.forgot-password:hover {
+    color: #ee0d0d;
+}
+
+.button-login {
+    padding: 0px 10px; font-size: 30px; margin-bottom: 5%;
+}
+
+.div-login {
+    display:flex; flex-direction: column; align-items: center;
+}
+
+.button-login-main {
+    padding: 3px 10px; font-size: 15px;
+}
+
+.button-reg {
+    padding: 3px 10px; font-size: 20px; margin-top: 40px;
+}
+
+
+label {
+    cursor: default;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.div-ideology {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+}
+
+.forgot-password-reg {
+    display: block;
+    text-align: right;
+    font-size: 18px;
+    color: #ffffff;
+    text-decoration: none;
+    margin-top: 10%;
+    transition: color 0.3s;
+    text-align: center;
+}
+
+.select-wrapper select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background: #f9f9f9;
+    transition: border-color 0.3s;
+}
+
+.select-wrapper select:focus {
+    border-color: #d61a1a;
+    background: #fff;
+}
+
+.select-wrapper select option:hover {
+    background-color: #d61a1a; /* Красный цвет */
+    color: white; /* Цвет текста на красном фоне */
+}
+
+.errorlist {
+    margin: 5px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.errorlist .error {
+    color: red;
+    font-size: 14px;
+}
+
+#id_new_password2_helptext {
+    display: flex;
+    color: #ffffff;
+    align-items: center;
+    margin-top: 3%;
+}
+
+/* PROFILE */
+.profile-card {
+    border: 1px solid #6d1313;
+    border-radius: 8px;
+    padding: 25px;
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #00000059;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.profile-section {
+    margin-bottom: 16px;
+    display: flex;
+}
+
+.profile-logo {
+    display: block;
+    margin: 0 auto 8px;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.messages {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 16px;
+}
+
+.profile-top-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.button-profile {
+    padding: 0px 10px; font-size: 30px; margin-bottom: 5%;
+}
+
+.button-chat {
+    padding: 3px 10px;
+    font-size: 20px;
 }

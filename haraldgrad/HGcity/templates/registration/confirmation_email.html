@@ -1,68 +1,116 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
+<link rel="icon" type="image/x-icon" href="{% static 'favicon.png' %}">
 <head>
     <meta charset="UTF-8">
-    <title>Восстановление пароля</title>
+    <title>Подтверждение почты</title>
     <style>
         body {
-            font-family: 'Calibri', sans-serif;
-            line-height: 1.6;
-            background-color: #e9e9ef;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            font-size: 24px; /* Уменьшен шрифт на 3 пикселя */
-            text-align: center;
-            color: #000; /* Задать обычный черный цвет текста */
         }
 
-        .reset-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background: #ff4141;
-            color: #fff;
-            border-radius: 5px;
-            text-decoration: none;
+        .container {
+            width: 600px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        .header {
+            font-size: 24px;
             font-weight: bold;
-            transition: background 0.3s ease, color 0.3s ease;
+            color: #cc1717;
+            text-align: center;
+            margin-bottom: 20px;
         }
 
-        .reset-btn:hover {
-            background: #0f0f0f;
-            color: #f2ecec;
+        .content {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .content strong {
+            color: #333;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #e73131;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            text-align: center;
+            margin: 20px 0;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #cb2525;
+        }
+
+        .footer {
+            font-size: 14px;
+            text-align: center;
+            color: #888;
+            margin-top: 30px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+
+        .footer a {
+            color: #721414;
             text-decoration: none;
         }
 
+        /* Отключение стандартных стилей ссылок */
         a {
-            color: #161616;
-            text-decoration: none;
+            color: inherit; /* Наследует цвет родительского элемента */
+            text-decoration: none; /* Убираем подчеркивание */
         }
 
         a:hover {
-            text-decoration: underline;
-        }
-
-        a:visited {
-            color: #15253a;
+            color: #e73131; /* Цвет при наведении на ссылку */
         }
     </style>
 </head>
 <body>
-<div style="padding: 20px;">
-    <p style="color: #ff4141; font-size: 25px; margin-bottom: 5px;"><b>🔻 Забыл пароль? Как так? 😕</b></p>
-    <p style="font-size: 15px;">Житель города Харальдград, под логином {{ user.get_username }} будет жестоко наказан. <br> Двести смен на шахте "Вонючая Крыса" в наказание.</p>
-    <p style="font-size: 15px;">Ты запросил восстановление пароля для учетной записи на сайте {{ site_name }}.</p>
-    <p style="font-size: 15px;">Переходи по следующей ссылке, чтобы установить новый пароль:</p>
-    <p></p>
-    <a href="{{ protocol }}://{{ domain }}{% url 'HGcity:password_reset_confirm' uidb64=uid token=token %}" class="reset-btn">Восстановить пароль</a>
-    <p></p>
-    <p style="font-size: 15px;">Если вы не можете использовать кнопку, скопируйте и вставьте <br> эту ссылку в адресную строку вашего браузера:</p>
-    <p style="word-wrap: break-word; font-size: 20px;">
-        <a href="{{ protocol }}://{{ domain }}{% url 'HGcity:password_reset_confirm' uidb64=uid token=token %}">
-            {{ protocol }}://{{ domain }}{% url 'HGcity:password_reset_confirm' uidb64=uid token=token %}
-        </a>
+
+<div class="container">
+    <p class="header">Подтвердите вашу почту</p>
+
+    <p class="content">
+        Здравствуйте, {{ user.get_username }}!<br>
+        Вы запросили подтверждение своей почты на сайте <strong>{{ site_name }}</strong>.<br>
+        Пожалуйста, нажмите на кнопку ниже, чтобы подтвердить вашу почту:
     </p>
 
-    <p style="font-size: 15px;">Постарайся больше пароль не забывать!<br> Команда "CheckMate", проект "Харальдград".</p>
+    <a href="{{ protocol }}://{{ domain }}{% url 'HGcity:confirm_email' uidb64=uid token=token %}" class="button" target="_blank" rel="noopener noreferrer">
+        Подтвердить почту
+    </a>
+
+    <p class="content">
+        Если кнопка не работает, скопируйте и вставьте следующую ссылку в адресную строку вашего браузера:
+    </p>
+
+    <p class="content">
+        {{ protocol }}://{{ domain }}{% url 'HGcity:confirm_email' uidb64=uid token=token %}
+    </p>
+
+    <p class="footer">
+        После подтверждения почты ваш аккаунт станет активным.<br>
+        С уважением, команда "CheckMate", проект "Харальдград".
+    </p>
 </div>
+
 </body>
 </html>

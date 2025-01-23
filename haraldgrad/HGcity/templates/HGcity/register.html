@@ -6,93 +6,102 @@
     <title>Регистрация</title>
     {% load static %}
     <link rel="stylesheet" href="/static/HGcity/css/style.css">
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.png' %}">
 </head>
 <body>
-<h1 style="color:#CD5C5C;">РЕГИСТРАЦИЯ</h1>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
+<img src="{% static '/images/background_reg.png' %}" alt="Свет" id="background-image-reg">
 
-    <!-- Вывод ошибок -->
-    {% if form.non_field_errors %}
+<div class="div-login">
+    <h1>РЕГИСТРАЦИЯ</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Вывод ошибок -->
+        {% if form.non_field_errors %}
         <ul class="errorlist">
             {% for error in form.non_field_errors %}
-                <li style="color: red;">{{ error }}</li>
+            <li style="color: red;">{{ error }}</li>
             {% endfor %}
         </ul>
-    {% endif %}
+        {% endif %}
 
-    <!-- Логин -->
-    <div>
-        <label for="id_username">ЛОГИН</label>
-        {{ form.username }}
-        {% if form.username.errors %}
+        <!-- Логин -->
+        <div>
+            <label for="id_username">Логин</label>
+            {{ form.username }}
+            {% if form.username.errors %}
             <ul class="errorlist">
                 {% for error in form.username.errors %}
-                    <li style="color: red;">{{ error }}</li>
+                <li style="color: red;">{{ error }}</li>
                 {% endfor %}
             </ul>
-        {% endif %}
-    </div>
-
-    <!-- Email -->
-    <div>
-        <label for="id_email">ПОЧТА</label>
-        {{ form.email }}
-        {% if form.email.errors %}
+            {% endif %}
+        </div>
+        <br>
+        <!-- Email -->
+        <div>
+            <label for="id_email">Email</label>
+            {{ form.email }}
+            {% if form.email.errors %}
             <ul class="errorlist">
                 {% for error in form.email.errors %}
-                    <li style="color: red;">{{ error }}</li>
+                <li style="color: red;">{{ error }}</li>
                 {% endfor %}
             </ul>
-        {% endif %}
-    </div>
-
-    <!-- Пароль -->
-    <div>
-        <label for="id_password1">Пароль</label>
-        {{ form.password1 }}
-        {% if form.password1.errors %}
+            {% endif %}
+        </div>
+        <br>
+        <!-- Пароль -->
+        <div>
+            <label for="id_password1">Пароль</label>
+            {{ form.password1 }}
+            {% if form.password1.errors %}
             <ul class="errorlist">
                 {% for error in form.password1.errors %}
-                    <li style="color: red;">{{ error }}</li>
+                <li style="color: red;">{{ error }}</li>
                 {% endfor %}
             </ul>
-        {% endif %}
-    </div>
-
-    <!-- Подтверждение пароля -->
-    <div>
-        <label for="id_password2">Подтверждение пароля</label>
-        {{ form.password2 }}
-        {% if form.password2.errors %}
+            {% endif %}
+        </div>
+        <br>
+        <!-- Подтверждение пароля -->
+        <div>
+            <label for="id_password2">Подтверждение пароля</label>
+            {{ form.password2 }}
+            {% if form.password2.errors %}
             <ul class="errorlist">
                 {% for error in form.password2.errors %}
-                    <li style="color: red;">{{ error }}</li>
+                <li style="color: red;">{{ error }}</li>
                 {% endfor %}
             </ul>
-        {% endif %}
-    </div>
-
-    <!-- Идеология -->
-    <div>
-        <label for="id_ideology">Идеология</label>
-        {{ form.ideology }}
-        {% if form.ideology.errors %}
+            {% endif %}
+        </div>
+        <br>
+        <div class="div-ideology">
+            <label for="id_ideology">Идеология</label>
+            <div class="select-wrapper">
+                {{ form.ideology }}
+            </div>
+            {% if form.ideology.errors %}
             <ul class="errorlist">
                 {% for error in form.ideology.errors %}
-                    <li style="color: red;">{{ error }}</li>
+                <li class="error">{{ error }}</li>
                 {% endfor %}
             </ul>
-        {% endif %}
-    </div>
-
-    <button type="submit">Зарегистрироваться</button> | <button onclick="window.location.href='{% url 'HGcity:login' %}'" style="margin-top: 10px;">Войти</button>
-</form>
+            {% endif %}
+            <button type="submit" class="button-reg">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+        </div>
 
 
+        <a href="{% url 'HGcity:login' %}" class="forgot-password-reg">Уже есть аккаунт</a>
 
 
-<button onclick="window.location.href='{% url 'HGcity:home' %}'" style="margin-top: 10px;">
+    </form>
+
+</div>
+
+
+<button onclick="window.location.href='{% url 'HGcity:home' %}'" class="button-reg">
     Главная
 </button>
 

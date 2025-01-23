@@ -7,33 +7,48 @@
 {% block header %}{% endblock %}
 
 {% block content %}
-    <img src="{% static '/images/background_chat.png' %}" alt="Свет" id="background-image-chat">
+<img src="{% static '/images/background_chat.png' %}" alt="Свет" id="background-image-chat">
 
 
 <link rel="stylesheet" href="/static/HGcity/css/style.css">
 
-<div id="chat-container">
+<div id="chat-container" class="div-login">
+
+
+    <button onclick="window.location.href='{% url 'HGcity:chat_rules' %}'" style="margin-top: 10px; font-size:25px;"
+            class="button-login-main">
+        Правила чата
+    </button>
+
     <h2><span style="color:#CD5C5C;">ТАВЕРНА</span> "ПЬЯНАЯ КРЫСА"</h2>
+
     {% if user.is_authenticated %}
-    <div id="chat-box" style="border: 1px solid #ccc; height: 500px; width: 650px; overflow-y: scroll; padding: 10px;">
+    <div id="chat-box" style="border: 1px solid #ccc; height: 400px; width: 650px; overflow-y: scroll; padding: 10px;">
         <!-- Сообщения будут добавляться сюда -->
     </div>
+    <br>
     Ваш никнейм:
     <input type="text" id="username" value="{{ user.username }}" readonly style="margin-top: 10px; width: 20%;  "><br>
     <textarea id="message" placeholder="Введите сообщение"
               style="margin-top: 10px; width: 95%; height: 50px; padding: 10px;"></textarea>
     <br>
-    <button onclick="sendMessage()" style="margin-top: 10px;">Отправить</button>
-    | {% if user.role == 'ГОХ' or user.role == 'Правительство' %}
-    <button onclick="clearChat()" style="margin-top: 10px;">Очистить чат</button>
-    {% endif %} |
-    <button onclick="window.location.href='{% url 'HGcity:chat_rules' %}'" style="margin-top: 10px;">
-        Правила чата
-    </button>
-    |
-    <button onclick="window.location.href='{% url 'HGcity:guide_page' %}'" style="margin-top: 10px;"> Вернуться на
-        главную
-    </button>
+    <div style="display:flex;">
+        <button onclick="sendMessage()" style="margin-top: 10px; margin-right: 11%;" class="button-chat">
+            Отправить
+        </button>
+        {% if user.role == 'ГОХ' or user.role == 'Правительство' %}
+        <button onclick="clearChat()" style="margin-top: 10px; margin-right: 11%;" class="button-chat">Очистить
+            чат
+        </button>
+        {% endif %}
+
+
+        <button onclick="window.location.href='{% url 'HGcity:guide_page' %}'" style="margin-top: 10px; "
+                class="button-chat"> Вернуться на
+            главную
+        </button>
+    </div>
+
 
     {% if user.role == 'Moderator' or user.role == 'Government' %}
     <p>Вы можете использовать команду<code>/mute
