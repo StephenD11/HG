@@ -148,8 +148,13 @@ def profile(request):
 def dont_work(request):
     return render(request, 'HGcity/dont_work.html')
 
-def rules(request):
-    return render(request, 'HGcity/rules.html')
+def support_page(request):
+    # Получаем 10 пользователей с наивысшим социальным рейтингом
+    top_users = User.objects.order_by('-social_rating')[:10]
+    return render(request, 'HGcity/support_page.html', {'top_users': top_users})
+
+def update(request):
+    return render(request, 'HGcity/update.html')
 
 
 def about(request):
@@ -279,7 +284,7 @@ def chat_view(request):
     current_time = datetime.now(msk_timezone).time()  # Текущее время в МСК
 
     # Ограничения на время доступа
-    start_time = time(18, 0)  # 18:00
+    start_time = time(16, 0)  # 18:00
     end_time = time(23, 0)  # 23:00
 
     # Проверяем роль пользователя

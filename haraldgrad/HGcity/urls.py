@@ -12,6 +12,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('guide/', views.guide_page, name='guide_page'),
     path('dont_work/', views.dont_work, name='dont_work'),
+    path('support/', views.support_page, name='support_page'),
 
 
     # Регистрация
@@ -23,7 +24,7 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('choose_logo/', views.choose_logo, name='choose_logo'),
 
-    path('rules/', views.rules, name='rules'),  # Правила
+    path('update/', views.update, name='update'),  # Правила
     path('profile/update/', views.update_profile, name='update_profile'),
     path('about/', views.about, name='about'),  # О проекте
     path('contact/', views.contact, name='contact'),  # Контакты

@@ -2,12 +2,25 @@
 {% block title %}Контакты{% endblock %}
 {% load static %}
 
-
 {% block content %}
-    <h1>Контакты</h1>
-    <p>Связаться с нами можно по email: contact@hgcity.com</p>
+<div class="content-container">
+    <h1 class="welcome-text">ЦЕНТР СВЯЗИ</h1>
+    <p class="description-text">Каждое сообщение фиксируется. Каждый запрос анализируется. Обратная связь — это инструмент единого порядка. Будьте внимательны, выбирая слова, ибо ничто не остается незамеченным.</p>
 
-    <img src="{% static '/images/background_contact.png' %}" alt="Свет" id="background-image-contact">
+    <div class="contact-section">
+        <h2>СВЯЗЬ С АДМИНИСТРАЦИЕЙ</h2>
+        <p>Если ваш вопрос служит во благо порядка, напишите нам: <br>⭢ <a href="mailto:support@haraldgrad.com" style="color:red;">support@haraldgrad.com</a> ⭠</p>
+        <p>Помните: контакт с системой — это привилегия, а не право.</p>
+
+        <h2>ИНФОРМАЦИОННЫЕ КАНАЛЫ</h2>
+        <ul class="social-links">
+            <li>➤ <a href="https://t.me/haraldgrad" target="_blank">Telegram <span style="color:white;">[ офиц. канал ]</span></a></li>
+            <li>➤ <a href="https://t.me/+2hWZ4tdrrKRkYzky" target="_blank">Telegram <span style="color:white;">[ общественный чат ]</span></a></li>
+        </ul>
+    </div>
+</div>
+
+<img src="{% static '/images/background_contact.png' %}" alt="Свет" id="background-image-contact">
 
 {% endblock %}
 

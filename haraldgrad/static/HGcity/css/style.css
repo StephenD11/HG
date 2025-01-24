@@ -37,12 +37,11 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start; /* Центрируем контент сверху */
     min-height: 100vh;
     font-size: 20px;
     color: rgb(247, 242, 242); /* Белый цвет текста по умолчанию для всего тела */
     background-color: #130909;
-
 }
 
 #home-page {
@@ -72,7 +71,13 @@ button {
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         display: flex;
-    }
+        margin-top: 10%;
+}
+
+.button-chat {
+    padding: 3px 10px;
+    font-size: 20px;
+}
 
 .chat-title {
     text-align: center;
@@ -116,14 +121,24 @@ button {
     background-color: #aaa; /* Цвет при наведении */
 }
 
-/* Общие стили для всей страницы */
-
 
 /* Общий контейнер для всего контента */
 .container {
-    width: 100%;
     max-width: 1200px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5%
+}
+
+.container-confirm-email{
+    max-width: 1200px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50%
 }
 
 /* Блоки с контентом */
@@ -241,56 +256,26 @@ a:hover {
 
 /* Централизуем навигацию */
 header nav {
-    position: fixed; /* Закрепляем меню на экране */
-    top: 50%; /* Ставим меню на середину экрана по вертикали */
-    left: 50%; /* Ставим меню на середину экрана по горизонтали */
-    transform: translate(-50%, -50%); /* Смещаем на половину его размера для точного центрирования */
+    position: sticky; /* Меню будет прилипать к верхней части экрана */
+    top: 0; /* Меню будет закреплено в верхней части экрана */
+    left: 50%; /* Центрируем меню по горизонтали */
     z-index: 1000; /* Меню всегда будет поверх содержимого */
+    margin-top:15%;
 }
 
+/* Стиль для списка навигации */
 header nav ul {
     list-style-type: none; /* Убираем маркеры списка */
     margin: 0;
     padding: 0;
     display: flex; /* Делаем элементы списка в строчку */
-    flex-direction: row; /* Располагаем ссылки вертикально */
     gap: 20px; /* Расстояние между пунктами меню */
     justify-content: center; /* Центрируем пункты внутри списка */
     text-align: center; /* Выравниваем текст внутри пунктов */
-    margin-top: -70%;
-
 }
 
+/* Стили для ссылок */
 header nav ul li a {
-    text-decoration: none; /* Убираем подчеркивание */
-    color: white; /* Цвет текста */
-    font-size: 32px; /* Размер текста */
-    transition: color 0.3s, transform 0.3s; /* Эффекты при наведении */
-}
-
-header nav ul li a:hover {
-    color: #f23b3b; /* Красный цвет текста при наведении */
-    transform: scale(1.1); /* Увеличиваем ссылку при наведении */
-}
-
-header nav ul li a:active {
-    color: white; /* Белый цвет текста при нажатии */
-    transform: scale(0.95); /* Уменьшение при нажатии */
-}
-
-/* Сбрасываем стили списка */
-nav ul {
-    list-style-type: none; /* Убираем маркеры списка */
-    padding: 0;
-    margin: 0;
-    display: flex; /* Делаем элементы списка в строчку */
-    justify-content: center; /* Центрируем содержимое */
-    gap: 20px; /* Расстояние между пунктами */
-    margin-top: -5%;
-}
-
-/* Стили ссылок */
-nav ul li a {
     text-decoration: none; /* Убираем стандартное подчеркивание */
     color: #fefbfb; /* Цвет текста */
     position: relative; /* Для работы с псевдоэлементом */
@@ -300,7 +285,7 @@ nav ul li a {
 }
 
 /* Эффект полосы при наведении */
-nav ul li a::after {
+header nav ul li a::after {
     content: ""; /* Пустое содержимое для псевдоэлемента */
     position: absolute;
     left: 0;
@@ -312,424 +297,23 @@ nav ul li a::after {
 }
 
 /* При наведении увеличиваем ширину полосы */
-nav ul li a:hover::after {
+header nav ul li a:hover::after {
     width: 100%; /* Полоса заполняет всю ширину ссылки */
 }
 
 /* При наведении увеличиваем ссылку */
-nav ul li a:hover {
-    color: #f23b3b !important; /* Цвет текста при наведении */
-    transform: scale(1.1) !important; /* Увеличиваем ссылку */
+header nav ul li a:hover {
+    color: #f23b3b; /* Цвет текста при наведении */
+    transform: scale(1.1); /* Увеличиваем ссылку */
 }
 
 /* При нажатии меняем цвет на белый */
-nav ul li a:active {
-    color: white !important; /* Белый цвет текста при нажатии */
-    transform: scale(0.95) !important; /* Немного уменьшаем ссылку при нажатии */
-}
-
-
-/* КЛАССЫ ПЛОЩАДИ */
-
-/* Контейнер для фона */
-#background {
-    background-image: url("/static/images/Back_guide_page.png");
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-}
-
-/* Основной контейнер с содержимым */
-#guide_page-page {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    z-index: 1;
-    margin-top: 30px;
-}
-
-/* Контейнер для строки изображений */
-.image-row {
-    display: flex;
-    gap: 5px; /* Расстояние между картинками */
-    justify-content: center;
-}
-
-
-/* Контейнер для каждого изображения */
-.image-container {
-    width: 220px;
-    height: 220px;
-    overflow: hidden;
-    transition: transform 0.3s ease; /* Плавность эффекта */
-
-}
-
-/* Изображение */
-.image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease; /* Плавность уменьшения */
-}
-
-/* Эффект при наведении */
-.image-container:hover {
-    transform: scale(0.9); /* Уменьшение контейнера при наведении */
-}
-
-.image-container:hover img {
-    transform: scale(0.9); /* Уменьшение изображения при наведении */
-}
-
-/* Эффект при нажатии */
-.image-container:active {
-    transform: scale(0.8); /* Дополнительное уменьшение контейнера при нажатии */
-}
-
-.image-container:active img {
-    transform: scale(0.8); /* Дополнительное уменьшение изображения при нажатии */
-    filter: brightness(0.9); /* Легкое затемнение изображения */
-}
-
-
-/* KUDA страница */
-
-/* Стили для фонового изображения */
-#background-image-kuda {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw; /* Полная ширина экрана */
-    height: 100vh; /* Полная высота экрана */
-    object-fit: cover; /* Картинка адаптируется без искажений */
-    z-index: -1; /* Отправляем изображение на задний план */
-    display: block; /* Делаем изображение видимым */
-}
-
-/* Основное содержимое */
-#content {
-    position: relative; /* Сохраняем поверх фонового изображения */
-    z-index: 1; /* Размещаем выше фонового изображения */
-    color: black;
-}
-
-/* RULES страница */
-
-/* Стили для фонового изображения */
-#background-image-rules {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw; /* Полная ширина экрана */
-    height: 100vh; /* Полная высота экрана */
-    object-fit: cover; /* Картинка адаптируется без искажений */
-    z-index: -1; /* Отправляем изображение на задний план */
-    display: block; /* Делаем изображение видимым */
-}
-
-
-/* ABOUT страница */
-
-/* Стили для фонового изображения */
-#background-image-project {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 110%; /* Полная ширина экрана */
-    height: 110%; /* Полная высота экрана */
-    object-fit: cover; /* Картинка адаптируется без искажений */
-    z-index: -1; /* Отправляем изображение на задний план */
-    display: block; /* Делаем изображение видимым */
+header nav ul li a:active {
+    color: white; /* Белый цвет текста при нажатии */
+    transform: scale(0.95); /* Немного уменьшаем ссылку при нажатии */
 }
 
 
 
-/* CONTACT страница */
-
-/* Стили для фонового изображения */
-#background-image-contact {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%; /* Полная ширина экрана */
-    height: 100%; /* Полная высота экрана */
-    object-fit: cover; /* Картинка адаптируется без искажений */
-    z-index: -1; /* Отправляем изображение на задний план */
-    display: block; /* Делаем изображение видимым */
-}
-
-/* CHAT страница */
-
-/* Стили для фонового изображения */
-#background-image-chat {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%; /* Полная ширина экрана */
-    height: 100%; /* Полная высота экрана */
-    object-fit: cover; /* Картинка адаптируется без искажений */
-    z-index: -1; /* Отправляем изображение на задний план */
-    display: block; /* Делаем изображение видимым */
-}
-
-/* PROFILE страница */
-
-/* Стили для фонового изображения */
-#background-image-profile {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%; /* Полная ширина экрана */
-    height: 100%; /* Полная высота экрана */
-    object-fit: cover; /* Картинка адаптируется без искажений */
-    z-index: -1; /* Отправляем изображение на задний план */
-    display: block; /* Делаем изображение видимым */
-}
-
-/* LOGIN страница */
-
-/* Стили для фонового изображения */
-#background-image-login {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%; /* Полная ширина экрана */
-    height: 100%; /* Полная высота экрана */
-    object-fit: cover; /* Картинка адаптируется без искажений */
-    z-index: -1; /* Отправляем изображение на задний план */
-    display: block; /* Делаем изображение видимым */
-}
 
 
-/* REG страница */
-
-/* Стили для фонового изображения */
-#background-image-reg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%; /* Полная ширина экрана */
-    height: 100%; /* Полная высота экрана */
-    object-fit: cover; /* Картинка адаптируется без искажений */
-    z-index: -1; /* Отправляем изображение на задний план */
-    display: block; /* Делаем изображение видимым */
-}
-
-/* PASS страница */
-
-/* Стили для фонового изображения */
-#background-image-pass {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%; /* Полная ширина экрана */
-    height: 100%; /* Полная высота экрана */
-    object-fit: cover; /* Картинка адаптируется без искажений */
-    z-index: -1; /* Отправляем изображение на задний план */
-    display: block; /* Делаем изображение видимым */
-}
-
-
-/* ЛОГИН И РЕГИСТРАЦИЯ */
-
-.login-form {
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.form-group {
-    margin-bottom: 20px;
-    position: relative;
-}
-
-.form-label {
-    font-size: 18px;
-    color: #ffffff;
-    margin-bottom: 5px;
-    display: block;
-}
-
-input {
-    width: 100%;
-    border: none;
-    border-bottom: 2px solid #ccc;
-    outline: none;
-    padding: 8px 0;
-    font-size: 16px;
-    color: #ffffff;
-    background: none;
-    transition: border-color 0.3s;
-    text-align: center;
-}
-
-input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px #13090900 inset; /* Цвет фона */
-    -webkit-text-fill-color: #ffffff; /* Цвет текста */
-    transition: background-color 5000s ease-in-out 0s; /* Для поддержки плавности */
-}
-
-
-input:focus {
-    border-bottom-color: #ee0d0d;
-}
-
-input::placeholder {
-    color: #ffffff;
-}
-
-.form-error {
-    font-size: 12px;
-    color: red;
-    margin-top: 5px;
-}
-
-.forgot-password {
-    display: block;
-    text-align: right;
-    font-size: 18px;
-    color: #ffffff;
-    text-decoration: none;
-    margin-bottom: 20px;
-    transition: color 0.3s;
-    text-align: center;
-}
-
-.forgot-password:hover {
-    color: #ee0d0d;
-}
-
-.button-login {
-    padding: 0px 10px; font-size: 30px; margin-bottom: 5%;
-}
-
-.div-login {
-    display:flex; flex-direction: column; align-items: center;
-}
-
-.button-login-main {
-    padding: 3px 10px; font-size: 15px;
-}
-
-.button-reg {
-    padding: 3px 10px; font-size: 20px; margin-top: 40px;
-}
-
-
-label {
-    cursor: default;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.div-ideology {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-
-}
-
-.forgot-password-reg {
-    display: block;
-    text-align: right;
-    font-size: 18px;
-    color: #ffffff;
-    text-decoration: none;
-    margin-top: 10%;
-    transition: color 0.3s;
-    text-align: center;
-}
-
-.select-wrapper select {
-    width: 100%;
-    padding: 10px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    background: #f9f9f9;
-    transition: border-color 0.3s;
-}
-
-.select-wrapper select:focus {
-    border-color: #d61a1a;
-    background: #fff;
-}
-
-.select-wrapper select option:hover {
-    background-color: #d61a1a; /* Красный цвет */
-    color: white; /* Цвет текста на красном фоне */
-}
-
-.errorlist {
-    margin: 5px 0 0;
-    padding: 0;
-    list-style: none;
-}
-
-.errorlist .error {
-    color: red;
-    font-size: 14px;
-}
-
-#id_new_password2_helptext {
-    display: flex;
-    color: #ffffff;
-    align-items: center;
-    margin-top: 3%;
-}
-
-/* PROFILE */
-.profile-card {
-    border: 1px solid #6d1313;
-    border-radius: 8px;
-    padding: 25px;
-    max-width: 400px;
-    margin: 0 auto;
-    background-color: #00000059;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.profile-section {
-    margin-bottom: 16px;
-    display: flex;
-}
-
-.profile-logo {
-    display: block;
-    margin: 0 auto 8px;
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-}
-
-.messages {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 16px;
-}
-
-.profile-top-card {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-.button-profile {
-    padding: 0px 10px; font-size: 30px; margin-bottom: 5%;
-}
-
-.button-chat {
-    padding: 3px 10px;
-    font-size: 20px;
-}

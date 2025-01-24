@@ -7,6 +7,13 @@
 
     {% load static %}
     <link rel="stylesheet" href="{% static 'HGcity/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'HGcity/css/background.css' %}">
+    <link rel="stylesheet" href="{% static 'HGcity/css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'HGcity/css/guide.css' %}">
+    <link rel="stylesheet" href="{% static 'HGcity/css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'HGcity/css/about.css' %}">
+    <link rel="stylesheet" href="{% static 'HGcity/css/contacts.css' %}">
+    <link rel="stylesheet" href="{% static 'HGcity/css/support.css' %}">
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.png' %}">
 
 </head>
@@ -18,9 +25,10 @@
     <nav>
         <ul>
             <li><a href="{% url 'HGcity:guide_page' %}">ПЛОЩАДЬ</a></li>
-            <li><a href="{% url 'HGcity:rules' %}">ПРАВИЛА</a></li>
             <li><a href="{% url 'HGcity:about' %}">О ПРОЕКТЕ</a></li>
+            <li><a href="{% url 'HGcity:update' %}">ОБНОВЛЕНИЯ</a></li>
             <li><a href="{% url 'HGcity:contact' %}">КОНТАКТЫ</a></li>
+            <li><a href="{% url 'HGcity:support_page' %}">ПОДДЕРЖКА</a></li>
 <!--            <li><a href="{% url 'HGcity:chat' %}">ТАВЕРНА</a></li>-->
 
             {% if user.is_authenticated %}

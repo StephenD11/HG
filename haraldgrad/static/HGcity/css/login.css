@@ -1,0 +1,186 @@
+/* ЛОГИН И РЕГИСТРАЦИЯ */
+
+.login-form {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+
+}
+
+.form-group {
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.form-label {
+    font-size: 18px;
+    color: #ffffff;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input {
+    width: 350px;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    outline: none;
+    padding: 8px 0;
+    font-size: 16px;
+    color: #ffffff;
+    background: none;
+    transition: border-color 0.3s;
+    text-align: center;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #13090900 inset; /* Цвет фона */
+    -webkit-text-fill-color: #ffffff; /* Цвет текста */
+    transition: background-color 5000s ease-in-out 0s; /* Для поддержки плавности */
+}
+
+
+input:focus {
+    border-bottom-color: #ee0d0d;
+}
+
+input::placeholder {
+    color: #ffffff;
+}
+
+.form-error {
+    font-size: 12px;
+    color: red;
+    margin-top: 5px;
+}
+
+.forgot-password {
+    display: block;
+    text-align: right;
+    font-size: 18px;
+    color: #ffffff;
+    text-decoration: none;
+    margin-bottom: 20px;
+    transition: color 0.3s;
+    text-align: center;
+}
+
+.forgot-password:hover {
+    color: #ee0d0d;
+}
+
+.button-login {
+    padding: 0px 10px; font-size: 30px; margin-bottom: 5%;
+}
+
+.div-login {
+    display:flex; flex-direction: column; align-items: center;
+}
+
+.div-login-login {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top:14%;
+}
+
+.div-reset-password {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top:80%;
+}
+
+.div-confirm-email {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top:30%;
+}
+
+.div-confirm-email-2 {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+}
+
+.button-login-main {
+    padding: 3px 10px; font-size: 15px;
+}
+
+.button-reg {
+    padding: 3px 10px; font-size: 20px; margin-top: 40px;
+}
+
+
+label {
+    cursor: default;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.div-ideology {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+}
+
+.forgot-password-reg {
+    display: block;
+    text-align: right;
+    font-size: 18px;
+    color: #ffffff;
+    text-decoration: none;
+    margin-top: 10%;
+    transition: color 0.3s;
+    text-align: center;
+}
+
+.select-wrapper select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background: #f9f9f9;
+    transition: border-color 0.3s;
+}
+
+.select-wrapper select:focus {
+    border-color: #d61a1a;
+    background: #fff;
+}
+
+.select-wrapper select option:hover {
+    background-color: #d61a1a; /* Красный цвет */
+    color: white; /* Цвет текста на красном фоне */
+}
+
+.errorlist {
+    margin: 5px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.errorlist .error {
+    color: red;
+    font-size: 14px;
+}
+
+#id_new_password2_helptext {
+    display: flex;
+    color: #ffffff;
+    align-items: center;
+    margin-top: 3%;
+}
+
+.div-register {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top:7%;
+}

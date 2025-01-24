@@ -6,12 +6,16 @@
     <title>Регистрация</title>
     {% load static %}
     <link rel="stylesheet" href="/static/HGcity/css/style.css">
+    <link rel="stylesheet" href="{% static 'HGcity/css/background.css' %}">
+    <link rel="stylesheet" href="{% static 'HGcity/css/login.css' %}">
+
+
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.png' %}">
 </head>
 <body>
 <img src="{% static '/images/background_reg.png' %}" alt="Свет" id="background-image-reg">
 
-<div class="div-login">
+<div class="div-register">
     <h1>РЕГИСТРАЦИЯ</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -78,7 +82,8 @@
         </div>
         <br>
         <div class="div-ideology">
-            <label for="id_ideology">Идеология</label>
+            <label for="id_ideology">Ваша Идеология</label>
+            <br>
             <div class="select-wrapper">
                 {{ form.ideology }}
             </div>

@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="ru">
 <link rel="icon" type="image/x-icon" href="{% static 'favicon.png' %}">
@@ -80,6 +82,10 @@
 
         a:hover {
             color: #e73131; /* Цвет при наведении на ссылку */
+        }
+
+        a:visited {
+        color: #ffffff; /* Цвет после клика на ссылку (для посещенной ссылки) */
         }
     </style>
 </head>

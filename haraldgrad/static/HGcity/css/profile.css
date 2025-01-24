@@ -1,0 +1,38 @@
+/* PROFILE */
+.profile-card {
+    border: 1px solid #6d1313;
+    border-radius: 8px;
+    padding: 25px;
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #00000059;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.profile-section {
+    margin-bottom: 16px;
+    display: flex;
+}
+
+.profile-logo {
+    display: block;
+    margin: 0 auto 8px;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.messages {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 16px;
+}
+
+.profile-top-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.button-profile {
+    padding: 0px 10px; font-size: 30px; margin-bottom: 5%;
+}

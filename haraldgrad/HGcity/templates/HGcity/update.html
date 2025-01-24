@@ -1,0 +1,39 @@
+{% extends 'HGcity/base.html' %}
+{% load static %}
+{% block title %}Обновления{% endblock %}
+
+{% block content %}
+<div class="content-container">
+    <h1 class="welcome-text">ОБНОВЛЕНИЯ ПРОЕКТА</h1>
+    <p class="description-text-update">ЭТА ВКЛАДКА СОЗДАНА ДЛЯ ТОГО, ЧТОБЫ ПОДДЕРЖИВАТЬ ЕДИНСТВО И ИНФОРМИРОВАННОСТЬ ЖИТЕЛЕЙ.
+        ЗДЕСЬ ВЫ НАЙДЕТЕ СОБРАНИЕ ФАКТОВ О ПЛАНИРУЕМЫХ ИЗМЕНЕНИЯХ, УКАЗАНИЯ НА ДАТЫ ОБНОВЛЕНИЙ, А ТАКЖЕ ПРЕДУПРЕЖДЕНИЯ О НОВЫХ ИГРОВЫХ МЕРОПРИЯТИЯХ.
+        ПОСТОЯННЫЙ КОНТРОЛЬ И СЛЕДОВАНИЕ ОБНОВЛЕНИЯМ — ВАШ ДОЛГ!</p>
+    <br>
+    <div class="features-wrapper-update">
+        <ul class="features-list-update">
+            <LI>РАСКРЫТИЕ ПЛАНОВ ПО МОДЕРНИЗАЦИИ ПРОЕКТА.</LI>
+            <LI>УКАЗАНИЕ НА ДАТЫ ПРЕДСТОЯЩИХ ОБНОВЛЕНИЙ.</LI>
+            <LI>ОБЪЯВЛЕНИЕ НОВЫХ ИВЕНТОВ И ЗАДАНИЙ.</LI>
+            <LI>ПОДРОБНОСТИ О ВВОДИМЫХ МЕХАНИКАХ И СОБЫТИЯХ.</LI>
+        </ul>
+    </div>
+
+    <br>
+
+    <div class="features-wrapper-update">
+        <p style="font-size:30px; margin-left:3%">ОБНОВЛЕНИЕ НА 01.02.25</p>
+        <ul class="features-list-update">
+            <LI>ОФИЦИАЛЬНЫЙ ЗАПУСК СИСТЕМЫ.</LI>
+            <LI>ВВЕДЕНИЕ СТАНДАРТНОГО ПРОФИЛЯ ПЕРСОНАЖА.</LI>
+            <LI>СОЗДАНИЕ КОММУНИКАЦИОННОЙ ПЛОЩАДКИ — ТАВЕРНЫ "ПЬЯНАЯ КРЫСА".</LI>
+            <LI>ПРЕДСТАВЛЕНИЕ ОБЩЕЙ ИНФОРМАЦИИ О СТРУКТУРЕ ИГРЫ.</LI>
+        </ul>
+    </div>
+</div>
+
+    <img src="{% static '/images/background_rules.png' %}" alt="Свет" id="background-image-rules">
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

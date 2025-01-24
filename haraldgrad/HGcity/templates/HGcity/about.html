@@ -3,10 +3,44 @@
 {% load static %}
 
 {% block content %}
-<p>Тихо тут... Страшно...</p>
-    <img src="{% static '/images/background_project.png' %}" alt="Свет" id="background-image-project">
-{% endblock %}
 
+<div class="content-container">
+    <h1 class="welcome-text">ДОБРО ПОЖАЛОВАТЬ В <STRONG>ХАРАЛЬДГРАД</STRONG></h1>
+    <p class="description-text">Это веб-приложение, которое переносит вас в уникальный виртуальный
+        город с элементами игровой механики ВРП <span style="color:#e42525;">[Web-RollPlay]</span>. в этом проекте вы становитесь жителем загадочного
+        города-бункера, где каждый день — это новый вызов.</p>
+
+    <p class="description-text">В Харальдграде вас ждут захватывающие события: от политики и экономики до криминальных интриг и дуэлей.
+        здесь каждый сможет найти свое место и влиять на судьбу города. будьте готовы погрузиться в динамичную и разнообразную
+        жизнь, где каждое ваше решение имеет значение.</p>
+
+    <div class="features-wrapper-update">
+    <ul class="features-list">
+        <li>Вступать в политические интриги и влиять на развитие города.</li>
+        <li>Участвовать в дуэлях и сражениях за власть и ресурсы.</li>
+        <li>Заниматься экономической деятельностью, строить бизнес и зарабатывать.</li>
+        <li>Разгадывать тайны города и участвовать в криминальных схемах.</li>
+    </ul>
+    </div>
+
+    <H2 CLASS="history-title">ПРЕДЫСТОРИЯ ХАРАЛЬДГРАДА</H2>
+    <p class="description-text">Чтобы глубже понять мир Харальдграда и его тайны, мы приглашаем вас познакомиться с его предысторией.
+        Книга расскажет о том, как возник город, какие события привели к его существованию и что стоит за его стенами.</p>
+
+    <p class="description-text">ВЫ МОЖЕТЕ СКАЧАТЬ КНИГУ В СЛЕДУЮЩИХ ФОРМАТАХ:</p>
+    <ul class="download-links">
+        <li><a href="{% static 'books/haraldgrad.epub' %}" download>Скачать в формате EPUB <span style="font-size:18px; color:white;">[ книга для Iphone ]</span></a></li>
+        <li><a href="{% static 'books/haraldgrad.fb2' %}" download>Скачать в формате FB2 <span style="font-size:18px; color:white;">[ книга для Android ]</span></a></li>
+        <li><a href="{% static 'books/haraldgrad.fb2' %}" download>Скачать в формате PDF <span style="font-size:18px; color:white;">[ книга для Windows ]</span></a></li>
+    </ul>
+
+    <p class="description-text">ТАКЖЕ ВЫ МОЖЕТЕ ПОСЛУШАТЬ АУДИОКНИГУ НА <a href="https://www.youtube.com/watch?v=your-video-link" target="_blank">YOUTUBE</a>.</p>
+    <p class="description-text">ССЫЛКА СКОРО ПОЯВИСЯТСЯ...</p>
+</div>
+
+<img src="{% static '/images/background_project.png' %}" alt="Свет" id="background-image-project">
+
+{% endblock %}
 
 {% block footer %}
 {% endblock %}
