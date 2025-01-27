@@ -67,8 +67,18 @@
     border-radius: 10px; /* Скругленные углы */
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1); /* Легкая тень для объема */
     padding: 15px; /* Отступы внутри рамки */
-    width: 90%;
-    margin-top: 40%;
+    width: 100%;
+    margin-top: 20%;
+}
+
+.features-wrapper-chat-rules-2 {
+    background-color: #00000013;
+    border: 2px solid #581010;
+    border-radius: 10px; /* Скругленные углы */
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1); /* Легкая тень для объема */
+    padding: 15px; /* Отступы внутри рамки */
+    width: 100%;
+    margin-top: 2%;
 }
 
 .features-list-update {

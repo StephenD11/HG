@@ -7,16 +7,12 @@
 {% block header %}{% endblock %}
 
 {% block content %}
-<img src="{% static '/images/background_chat.png' %}" alt="Свет" id="background-image-chat">
+<img src="{% static 'images/background_chat.png' %}" alt="Свет" id="background-image-chat">
 
-
-<link rel="stylesheet" href="/static/HGcity/css/style.css">
+<link rel="stylesheet" href="{% static 'HGcity/css/style.css' %}">
 
 <div id="chat-container" class="div-login-login">
-
-
-    <button onclick="window.location.href='{% url 'HGcity:chat_rules' %}'" style="margin-top: 10px; font-size:25px;"
-            class="button-login-main">
+    <button onclick="window.location.href='{% url 'HGcity:chat_rules' %}'" style="margin-top: 10px; font-size:25px;" class="button-login-main">
         Правила чата
     </button>
 
@@ -28,34 +24,20 @@
     </div>
     <br>
     Ваш никнейм:
-    <input type="text" id="username" value="{{ user.username }}" readonly style="margin-top: 10px; width: 20%;  "><br>
-    <textarea id="message" placeholder="Введите сообщение"
-              style="margin-top: 10px; width: 95%; height: 50px; padding: 10px;"></textarea>
+    <input type="text" id="username" value="{{ user.username }}" readonly style="margin-top: 10px; width: 20%;"><br>
+    <textarea id="message" placeholder="Введите сообщение" style="margin-top: 10px; width: 95%; height: 50px; padding: 10px;"></textarea>
     <br>
     <div style="display:flex;">
         <button onclick="sendMessage()" style="margin-top: 10px; margin-right: 11%;" class="button-chat">
             Отправить
         </button>
-        {% if user.role == 'ГОХ' or user.role == 'Правительство' %}
-        <button onclick="clearChat()" style="margin-top: 10px; margin-right: 11%;" class="button-chat">Очистить
-            чат
-        </button>
+        {% if user.role == 'ГОХ' or user.role == 'Система' %}
+        <button onclick="clearChat()" style="margin-top: 10px; margin-right: 11%;" class="button-chat">Очистить чат</button>
         {% endif %}
-
-
-        <button onclick="window.location.href='{% url 'HGcity:guide_page' %}'" style="margin-top: 10px; "
-                class="button-chat"> Вернуться на
-            главную
+        <button onclick="window.location.href='{% url 'HGcity:guide_page' %}'" style="margin-top: 10px;" class="button-chat">
+            Вернуться на главную
         </button>
     </div>
-
-
-    {% if user.role == 'Moderator' or user.role == 'Government' %}
-    <p>Вы можете использовать команду<code>/mute
-        <username>
-    </code> для мьютирования пользователей.
-    </p>
-    {% endif %}
 
     {% else %}
     <p>Тебе бродяга в таверну нельзя. Сначала зайди в свой аккаунт <a href="{% url 'HGcity:login' %}">Вход</a>.</p>
@@ -81,10 +63,10 @@
             }).then(response => response.json())
               .then(data => {
                   if (data.status === 'ok') {
-                      document.getElementById('message').value = '';  // Очистить поле ввода
-                      loadMessages();  // Обновление сообщений после отправки
+                      document.getElementById('message').value = '';
+                      loadMessages();
                   } else {
-                      alert(data.message);  // Ошибка (например, мьют)
+                      alert(data.message);
                   }
               });
         }
@@ -95,55 +77,52 @@
             .then(response => response.json())
             .then(data => {
                 const chatBox = document.getElementById('chat-box');
-
-                // Сначала получаем все сообщения на странице
                 const currentMessages = chatBox.getElementsByClassName('message');
                 const currentMessagesIds = Array.from(currentMessages).map(msg => msg.id.replace('message-', ''));
 
                 data.messages.forEach(msg => {
                     if (!currentMessagesIds.includes(String(msg.id))) {
-                        // Устанавливаем цвет логина в зависимости от роли
-                        let usernameColor = 'green'; // Default (Житель)
+                        let usernameColor = 'green';
                         if (msg.role === 'ГОХ') {
                             usernameColor = 'blue';
-                        } else if (msg.role === 'Правительство') {
+                        } else if (msg.role === 'Система') {
                             usernameColor = 'red';
                         }
 
-                        // Создаем HTML для сообщения
                         const messageHTML = `
                             <div id="message-${msg.id}" class="message">
-                                <b style="font-size:15px;"> ${msg.timestamp}</b>  |  <strong style="color:${usernameColor}; font-size:20px;">${msg.first_name}  ${msg.last_name}: </strong>
- <span style="font-size:20px;"> ${msg.message} </span> <span style="font-size:15px;">  [ ${msg.username } ] </span>
+                                <b style="font-size:15px;">${msg.timestamp}</b> |
+                                <strong style="color:${usernameColor}; font-size:20px;">${msg.first_name} ${msg.last_name}: </strong>
+                                <span style="font-size:20px;">${msg.message}</span>
+                                <span style="font-size:15px;">[ ${msg.username} ]</span>
                             </div>
                         `;
-                        chatBox.insertAdjacentHTML('beforeend', messageHTML);  // Вставляем новое сообщение в конец
+                        chatBox.insertAdjacentHTML('beforeend', messageHTML);
                     }
                 });
 
-                // Автопрокрутка вниз
-                chatBox.scrollTop = chatBox.scrollHeight;  // Прокручиваем вниз к последнему сообщению
+                chatBox.scrollTop = chatBox.scrollHeight;
             });
     }
 
     function clearChat() {
-    fetch("{% url 'HGcity:clear_chat' %}", {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'X-CSRFToken': '{{ csrf_token }}'
-        },
-    }).then(response => response.json())
-      .then(data => {
-          if (data.status === 'ok') {
-              loadMessages();  // Обновление сообщений после очистки
-          } else {
-              alert(data.message);
-          }
-      });
-}
+        fetch("{% url 'HGcity:clear_chat' %}", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+        }).then(response => response.json())
+          .then(data => {
+              if (data.status === 'ok') {
+                  loadMessages();
+              } else {
+                  alert(data.message);
+              }
+          });
+    }
 
-    setInterval(loadMessages, 2000);  // Обновление сообщений каждые 2 секунды
+    setInterval(loadMessages, 2000);
 </script>
 
 {% endblock %}

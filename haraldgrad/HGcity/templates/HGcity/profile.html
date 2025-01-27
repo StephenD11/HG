@@ -4,128 +4,88 @@
 {% block title %}Профиль{% endblock %}
 
 {% block content %}
-    <img src="{% static '/images/background_profile.png' %}" alt="Свет" id="background-image-profile">
+<img src="{% static '/images/background_profile.png' %}" alt="Свет" id="background-image-profile">
 
-<h1>Профиль пользователя</h1>
-    <!-- Сообщения -->
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            {% if "error" in message.tags and message == "Для вашей идеологии нет доступных логотипов." %}
-            <li class="{{ message.tags }}" style="font-size:25px; color: red;">{{ message }}</li>
-            {% endif %}
-        {% endfor %}
-    </ul>
+<h1 style="display:flex; flex-direction: column; align-items: center; margin-top: 55px;">ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ</h1>
+<!-- Сообщения -->
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    {% if "error" in message.tags and message == "Для вашей идеологии нет доступных логотипов." %}
+    <li class="{{ message.tags }}" style="font-size:25px; color: red;">{{ message }}</li>
     {% endif %}
+    {% endfor %}
+</ul>
+{% endif %}
 
+<!--Верхний общий блок-->
+<div class="profile-card" style="margin-bottom: 25px;">
 
-<div class="profile-card">
-    <div class="profile-top-card">
-            <!-- Логотип -->
-        <div class="profile-section">
-        {% if user.logo %}
+    <!-- Блок с Лого и ФИО -->
+    <div class="profile-block-high">
+
+        <div class="profile-logo-editing-button">
+            {% if user.logo %}
             <img src="{% static user.logo %}" alt="Ваш логотип" class="profile-logo">
-        {% else %}
+            {% else %}
             <p>Логотип не выбран.</p>
-        {% endif %}
+            {% endif %}
+
+            <button onclick="window.location.href='{% url 'HGcity:choose_logo' %}'" class="profile-button-logo">Выбрать
+                логотип
+            </button>
         </div>
 
-        <div style="display:flex; flex-direction: column;">
-
-
-            <!-- Имя -->
-            <div class="profile-section">
-                <p>Имя: {{ user.first_name }}</p>
-                <button onclick="toggleEdit('first_name')">Редактировать</button>
-                <form method="post" action="{% url 'HGcity:update_profile' %}" style="display:none;" id="form-first_name">
-                    {% csrf_token %}
-                    <input type="hidden" name="field" value="first_name">
-                    <input type="text" name="value" value="{{ user.first_name }}">
-                    <button type="submit">Сохранить</button>
-                </form>
+        <div class="profile-section">
+            <div style="margin-top: -30px;">
+                <p style="font-weight: bold; font-size:35px;">{{ user.first_name }} {{ user.last_name }}</p>
             </div>
 
-            <div>
-                <button onclick="window.location.href='{% url 'HGcity:choose_logo' %}'" class="button-profile">Выбрать логотип</button>
+            <div style="margin-top: -45px; ">
+                <p>Email: {{ user.email }}</p>
             </div>
+
+            <div style="margin-top: -35px;">
+                <p>Логин: {{ user.username }}</p>
+            </div>
+
+            <div style="margin-top: -35px;">
+                <p>Роль: {{ user.role }}</p>
+            </div>
+
+            <div style="margin-top: -35px;">
+                <p>Идеология: {{ user.ideology }}</p>
+            </div>
+
+            <div style="margin-top: -35px;">
+                <p>Социальный рейтинг: {{ user.social_rating }}</p>
+            </div>
+
+            <div style="margin-top: -35px;">
+                <p>Жизни: {{ user.hp }} хп</p>
+            </div>
+
+            <div style="margin-top: -35px;">
+                <p>Кошелек: {{ user.wallet }}</p>
+            </div>
+
 
         </div>
     </div>
+
+
+    <button onclick="window.location.href='{% url 'HGcity:profile_edit' %}'" style="margin-bottom: 10px;"
+            class="profile-button-logo"> Редактировать данные
+    </button>
 
 </div>
 
 
-<div class="profile-card">
-
-
-
-
-
-
-
-    <!-- Фамилия -->
-    <div class="profile-section">
-        <p>Фамилия: {{ user.last_name }}</p>
-        <button onclick="toggleEdit('last_name')">Редактировать</button>
-        <form method="post" action="{% url 'HGcity:update_profile' %}" style="display:none;" id="form-last_name">
-            {% csrf_token %}
-            <input type="hidden" name="field" value="last_name">
-            <input type="text" name="value" value="{{ user.last_name }}">
-            <button type="submit">Сохранить</button>
-        </form>
-    </div>
-
-    <!-- Логин -->
-    <div class="profile-section">
-        <p>Логин: {{ user.username }}</p>
-        <button onclick="toggleEdit('username')">Редактировать</button>
-        <form method="post" action="{% url 'HGcity:update_profile' %}" style="display:none;" id="form-username">
-            {% csrf_token %}
-            <input type="hidden" name="field" value="username">
-            <input type="text" name="value" value="{{ user.username }}">
-            <button type="submit">Сохранить</button>
-        </form>
-    </div>
-
-    <!-- Email -->
-    <div class="profile-section">
-        <p>Email: {{ user.email }}</p>
-        <button onclick="toggleEdit('email')">Редактировать</button>
-        <form method="post" action="{% url 'HGcity:update_profile' %}" style="display:none;" id="form-email">
-            {% csrf_token %}
-            <input type="hidden" name="field" value="email">
-            <input type="text" name="value" value="{{ user.email }}">
-            <button type="submit">Сохранить</button>
-        </form>
-    </div>
-
-    <!-- Роль -->
-    <div class="profile-section">
-        <p>Роль: {{ user.role }}</p>
-    </div>
-
-    <!-- Идеология -->
-    <div class="profile-section">
-        <p>Идеология:</p>
-        <form method="post" action="{% url 'HGcity:update_profile' %}">
-            {% csrf_token %}
-            <input type="hidden" name="field" value="ideology">
-            <select name="value" onchange="this.form.submit()">
-                <option value="Национализм" {% if user.ideology == "Национализм" %}selected{% endif %}>Национализм</option>
-                <option value="Социализм" {% if user.ideology == "Социализм" %}selected{% endif %}>Социализм</option>
-                <option value="Демократия" {% if user.ideology == "Демократия" %}selected{% endif %}>Демократия</option>
-                <option value="Монархизм" {% if user.ideology == "Монархизм" %}selected{% endif %}>Монархизм</option>
-            </select>
-        </form>
-    </div>
-
-    <!-- Другие показатели -->
-    <div class="profile-section">
-        <p>Социальный рейтинг: {{ user.social_rating }}</p>
-        <p>Кошелек: {{ user.wallet }}</p>
-        <p>Жизни: {{ user.hp }}</p>
-    </div>
+<div style="margin-top: -18px;display: flex; flex-direction: column; align-items: center;">
+    <p>Биография: {{ user.biography }}</p>
 </div>
+
+
 
 <script>
     function toggleEdit(field) {
@@ -138,4 +98,15 @@
     }
 </script>
 
+<script>
+    function resizeTextarea(textarea) {
+        textarea.style.height = "auto";
+        textarea.style.height = `${textarea.scrollHeight}px`;
+    }
+</script>
+
+
+{% endblock %}
+
+{% block footer %}
 {% endblock %}

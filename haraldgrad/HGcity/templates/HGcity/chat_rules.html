@@ -28,6 +28,30 @@
         </ol>
     </div>
 </div>
+
+<div class="features-wrapper-chat-rules-2">
+    <p style="font-size:24px; margin-left:3%;">Команды чата</p>
+    <div>
+        <ol class="features-list">
+            <li><b style="color:red;">/drink</b> - выпить рюмку водки</li>
+
+            {% if user.role == 'ГОХ' or user.role == 'Капитан ГОХ' or user.role == 'Система' %}
+            <li><b style="color:red;">/mute</b> 30, 60, 3600 - мут пользователя (Пример: /mute dima 60). Время указывается в секундах</li>
+            {% endif %}
+
+            {% if user.role == 'Капитан ГОХ' or user.role == 'Система' %}
+            <li><b style="color:red;">/ban</b> - забанить пользователя (Только ролям "Капитан ГОХ" и "Система")</li>
+            {% endif %}
+
+            {% if user.role == 'ГОХ' or user.role == 'Капитан ГОХ' or user.role == 'Система' %}
+            <li><b style="color:red;">/unban</b> - разбанить пользователя (Только ролям "ГОХ", "Капитан ГОХ" и "Система")</li>
+            {% endif %}
+        </ol>
+    </div>
+</div>
+
+
+
 <br>
 <div class="div-login">
     <button onclick="window.location.href='{% url 'HGcity:chat' %}'">

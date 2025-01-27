@@ -9,9 +9,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.core.exceptions import PermissionDenied
 from django.contrib import messages
-import time, random,re
+import time, random, re
+from django.core.cache import cache  # Для временного хранения мута
 
-from django.core.mail import send_mail
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -34,7 +34,8 @@ class CustomLoginView(LoginView):
 
         # Проверка: если пользователь заблокирован
         if user.is_banned:
-            messages.error(self.request, "ВАШ АККАУНТ ЗАБЛОКИРОВАН | ЗАЯВКИ НА РАЗБЛОКИРОВКУ: SYSTEM.HARALDGRAD@GMAIL.COM")
+            messages.error(self.request,
+                           "ВАШ АККАУНТ ЗАБЛОКИРОВАН | ЗАЯВКИ НА РАЗБЛОКИРОВКУ: SYSTEM.HARALDGRAD@GMAIL.COM")
             return redirect('HGcity:login')
 
         # Авторизация пользователя
@@ -53,12 +54,14 @@ class CustomLoginView(LoginView):
         """
         return reverse('HGcity:home')
 
-#Логин
+
+# Логин
 def logout_view(request):
     logout(request)
     return redirect('HGcity:login')  # Перенаправляем на страницу логина после выхода
 
-#Восстановление пароля
+
+# Восстановление пароля
 def password_reset_view(request):
     if request.method == 'POST':
         form = PasswordResetForm(request.POST)
@@ -69,7 +72,8 @@ def password_reset_view(request):
         form = PasswordResetForm()
     return render(request, 'registration/password_reset_form.html', {'form': form})
 
-#Регистрация
+
+# Регистрация
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST, request.FILES)
@@ -88,6 +92,7 @@ def register(request):
         form = UserRegisterForm()
 
     return render(request, 'HGcity/register.html', {'form': form})
+
 
 # Подтверждение почты
 def confirm_email(request, uidb64, token):
@@ -108,6 +113,7 @@ def confirm_email(request, uidb64, token):
 # Страница с уведомлением о необходимости подтверждения почты
 def confirm_email_page(request):
     return render(request, 'registration/confirm_your_email.html')
+
 
 # Функция отправки письма с подтверждением
 def send_confirmation_email(user, domain):
@@ -132,6 +138,7 @@ def send_confirmation_email(user, domain):
     email.attach_alternative(html_content, "text/html")
     email.send()
 
+
 def home(request):
     User = get_user_model()
     user_count = User.objects.count()  # Считаем всех пользователей
@@ -142,16 +149,20 @@ def home(request):
 def guide_page(request):
     return render(request, 'HGcity/guide_page.html')
 
+
 def profile(request):
     return render(request, 'HGcity/profile.html')
 
+
 def dont_work(request):
     return render(request, 'HGcity/dont_work.html')
+
 
 def support_page(request):
     # Получаем 10 пользователей с наивысшим социальным рейтингом
     top_users = User.objects.order_by('-social_rating')[:10]
     return render(request, 'HGcity/support_page.html', {'top_users': top_users})
+
 
 def update(request):
     return render(request, 'HGcity/update.html')
@@ -159,6 +170,10 @@ def update(request):
 
 def about(request):
     return render(request, 'HGcity/about.html')
+
+
+def profile_edit(request):
+    return render(request, 'HGcity/profile_edit.html')
 
 
 def contact(request):
@@ -215,29 +230,44 @@ def choose_logo(request):
     # Отображаем форму выбора логотипа
     return render(request, 'HGcity/choose_logo.html', {'logos': logos})
 
-#Обновить профиль
+
+# Обновить профиль
 @login_required
 def update_profile(request):
     if request.method == "POST":
-        field = request.POST.get('field')  # получаем имя поля, которое нужно обновить
-        value = request.POST.get('value')  # получаем новое значение для поля
+        field = request.POST.get('field')
+        value = request.POST.get('value')
 
-        # Проверка на допустимые поля
-        if field in ['first_name', 'last_name', 'username', 'email', 'ideology']:
-            if field == 'ideology':  # Если обновляем идеологию
-                # Проверяем, что значение идеологии корректное
-                if value in ['Национализм', 'Социализм', 'Демократия', 'Монархизм']:
-                    setattr(request.user, field, value)  # сохраняем новое значение
+        # Убираем лишние пробелы и новые строки в биографии
+        if field == 'biography':
+            value = value.strip()  # Удаляет пробелы в начале и конце
+            value = ' '.join(value.split())  # Заменяет несколько пробелов на один
+
+        # Поля, которые можно редактировать
+        editable_fields = ['first_name', 'last_name', 'username', 'email', 'ideology', 'biography']
+
+        if field in editable_fields:
+            if field == 'biography':
+                # Ограничим длину биографии (по модели)
+                if len(value) <= 1000:
+                    setattr(request.user, field, value)
+            elif field == 'ideology':
+                allowed_ideologies = ['Национализм', 'Социализм', 'Демократия', 'Монархизм']
+                if value in allowed_ideologies:
+                    setattr(request.user, field, value)
             else:
-                setattr(request.user, field, value)  # сохраняем новое значение
-            request.user.save()  # сохраняем изменения в базе данных
+                setattr(request.user, field, value)
 
-        return redirect('HGcity:profile')  # редирект на страницу профиля
+            # Сохраняем изменения
+            request.user.save()
 
-    return render(request, 'HGcity/profile.html')
+        # Отображаем обновленную страницу
+        return render(request, 'HGcity/profile_edit.html', {'user': request.user})
+
+    return render(request, 'HGcity/profile_edit.html', {'user': request.user})
 
 
-#Профиль
+# Профиль
 def profile_view(request):
     if request.method == "POST" and "ideology" in request.POST:
         # Получаем выбранную идеологию
@@ -252,8 +282,10 @@ def profile_view(request):
     return render(request, 'HGcity/profile.html', {'user': request.user})
 
 
+# chat.py
 
-#чат
+
+# чат
 chat_messages = []
 # Хранение данных о мутированных пользователях
 muted_users = {}
@@ -276,7 +308,7 @@ drink_phrases = [
 ]
 
 
-
+# Функция для обработки чата
 @login_required
 def chat_view(request):
     # Установить часовой пояс МСК
@@ -289,7 +321,7 @@ def chat_view(request):
 
     # Проверяем роль пользователя
     sender = request.user
-    allowed_roles = ['ГОХ', 'Правительство']
+    allowed_roles = ['ГОХ', 'Система']
     entrance = request.user.chat_verified
 
     # Ограничиваем доступ по времени, кроме определенных ролей
@@ -304,7 +336,6 @@ def chat_view(request):
     return render(request, 'HGcity/chat.html')
 
 
-
 # Функция для отправки сообщений
 @login_required
 def send_message(request):
@@ -316,25 +347,54 @@ def send_message(request):
         if len(message_text) > 250:
             return JsonResponse({'status': 'error', 'message': 'Сообщение слишком длинное! Максимум 250 символов.'})
 
-        # Проверка на мут
-        if username in muted_users and time.time() < muted_users[username]:
-            # Рассчитываем оставшееся время мута
-            mute_time_left = muted_users[username] - time.time()
+        # Если это команда /mute
+        if message_text.startswith('/mute '):
+            # Проверяем права отправителя
+            sender = request.user
+            if sender.role not in ['ГОХ', 'Система']:
+                return JsonResponse({'status': 'error', 'message': 'У вас нет прав для выполнения этой команды.'})
 
-            # Определяем единицу времени для вывода
-            if mute_time_left < 60:
-                mute_message = f'Ты замучен на {int(mute_time_left)} секунд! Палкой по жопе!'
-            else:
-                mute_minutes = mute_time_left // 60
-                if mute_minutes == 1:
-                    mute_message = 'Ты замучен на 1 минуту! Палкой по жопе!'
-                elif mute_minutes > 1 and mute_minutes < 60:
-                    mute_message = f'Ты замучен на {int(mute_minutes)} минут! Палкой по жопе!'
-                else:
-                    mute_hours = mute_minutes // 60
-                    mute_message = f'Ты замучен на {int(mute_hours)} час! Палкой по жопе!'
+            # Извлекаем логин и время мута
+            parts = message_text.split(' ', 2)
+            if len(parts) < 3:
+                return JsonResponse(
+                    {'status': 'error',
+                     'message': 'Неверный формат команды. Используйте: /mute логин время(60, 180, 3600).'})
 
-            return JsonResponse({'status': 'error', 'message': mute_message})
+            target_username = parts[1]
+            mute_duration = int(parts[2])  # Время в секундах (60, 180 или 3600)
+
+            # Проверяем, что время мута допустимо
+            if mute_duration not in [60, 180, 3600]:
+                return JsonResponse(
+                    {'status': 'error', 'message': 'Недопустимое время. Используйте 60, 180 или 3600.'})
+
+            # Проверяем, существует ли пользователь
+            try:
+                target_user = User.objects.get(username=target_username)
+            except User.DoesNotExist:
+                return JsonResponse({'status': 'error', 'message': 'Пользователь не найден.'})
+
+            # Если пользователь уже находится в муте, возвращаем ошибку
+            if cache.get(f'muted_{target_user.username}'):
+                return JsonResponse(
+                    {'status': 'error', 'message': f'Пользователь {target_username} уже находится в муте.'})
+
+            # Добавляем мут в кэш на заданное время
+            cache.set(f'muted_{target_user.username}', True, mute_duration)
+
+            # Отправляем сообщение в чат
+            mute_message = f'Пользователь {sender.username} наложил мут на {target_username} на {mute_duration} секунд.'
+            new_message = Message(user=sender, message=mute_message)
+            new_message.save()
+
+            return JsonResponse({'status': 'ok',
+                                 'message': f'Пользователь {target_username} был замучен на {mute_duration} секунд.'})
+
+        # Если это не команда, проверяем, есть ли мут у пользователя
+        if cache.get(f'muted_{request.user.username}'):
+            return JsonResponse(
+                {'status': 'error', 'message': 'Вы не можете отправлять сообщения, так как находитесь в муте.'})
 
         # Если это команда /drink
         if message_text.startswith('/drink'):
@@ -346,30 +406,49 @@ def send_message(request):
 
             return JsonResponse({'status': 'ok', 'message': formatted_message})
 
-        # Если это команда /mute с временем
-        if message_text.startswith('/mute '):
-            parts = message_text.split(' ')
-            time_match = re.match(r'(\d+)(m|h)', parts[1])  # Ищем числа с m (минуты) или h (часы)
+        # Если это команда /unban
+        if message_text.startswith('/unban '):
 
-            if time_match:
-                mute_duration = int(time_match.group(1)) * time_mapping[time_match.group(2)]  # Переводим в секунды
-                target_user = parts[2]  # Извлекаем имя пользователя для мута
+            # Проверяем права отправителя
+            sender = request.user
+            if sender.role not in ['ГОХ', 'Капитан ГОХ', 'Система']:
+                return JsonResponse({'status': 'error', 'message': 'У вас нет прав для выполнения этой команды.'})
 
-                sender = request.user
-                if sender.role not in ['ГОХ', 'Правительство']:
-                    return JsonResponse({'status': 'error', 'message': 'У вас нет прав для выполнения этой команды.'})
+            # Извлекаем логин пользователя, с которого нужно снять бан
+            parts = message_text.split(' ', 1)
+            if len(parts) < 2:
+                return JsonResponse(
+                    {'status': 'error', 'message': 'Неверный формат команды. Используйте: /unban логин.'})
+            target_username = parts[1]
 
-                muted_users[target_user] = time.time() + mute_duration
-                return JsonResponse({'status': 'ok', 'message': f'Пользователь {target_user} был замучен на {mute_duration} секунд.'})
+            # Проверяем, существует ли пользователь
+            try:
+                target_user = User.objects.get(username=target_username)
+            except User.DoesNotExist:
+                return JsonResponse({'status': 'error', 'message': 'Пользователь не найден.'})
+            # Проверяем, забанен ли пользователь
+            if not target_user.is_banned:
+                return JsonResponse({'status': 'error', 'message': f'Пользователь {target_username} не забанен.'})
 
-            else:
-                return JsonResponse({'status': 'error', 'message': 'Неверный формат времени. Используйте /mute 1m, /mute 3m, /mute 1h.'})
+            # Удаляем запись о бане
+            Banneded.objects.filter(user=target_user).delete()
+
+            # Обновляем поле is_banned
+            target_user.is_banned = False
+            target_user.save()
+
+            # Записываем сообщение в чат
+            unban_message = f'Пользователь {sender.username} снял бан с {target_username}.'
+            new_message = Message(user=sender, message=unban_message)
+            new_message.save()
+            return JsonResponse(
+                {'status': 'ok', 'message': f'Пользователь {target_username} был разбанен.'})
 
         # Если это команда /ban
         if message_text.startswith('/ban '):
             # Проверяем права отправителя
             sender = request.user
-            if sender.role not in ['ГОХ', 'Правительство']:
+            if sender.role not in ['Капитан ГОХ', 'Система']:
                 return JsonResponse({'status': 'error', 'message': 'У вас нет прав для выполнения этой команды.'})
 
             # Извлекаем логин и причину
@@ -414,34 +493,6 @@ def send_message(request):
             return JsonResponse(
                 {'status': 'ok', 'message': f'Пользователь {target_username} был забанен. Причина: {reason}'})
 
-        # Если это команда /yes (разблокировка доступа к чату)
-        if message_text.startswith('/yes '):
-            sender = request.user
-            if sender.role not in ['ГОХ', 'Правительство']:
-                return JsonResponse({'status': 'error', 'message': 'У вас нет прав для выполнения этой команды.'})
-
-            parts = message_text.split(' ', 1)
-            if len(parts) < 2:
-                return JsonResponse({'status': 'error', 'message': 'Неверный формат команды. Используйте: /yes логин.'})
-
-            target_username = parts[1]
-
-            try:
-                target_user = User.objects.get(username=target_username)
-            except User.DoesNotExist:
-                return JsonResponse({'status': 'error', 'message': 'Пользователь не найден.'})
-
-            # Разблокируем доступ к чату
-            target_user.chat_verified = True
-            target_user.save()
-
-            # Записываем сообщение в чат
-            yes_message = f'Пользователь {target_username} получил доступ к чату.'
-            new_message = Message(user=sender, message=yes_message)
-            new_message.save()
-
-            return JsonResponse({'status': 'ok', 'message': f'Пользователь {target_username} получил доступ к чату.'})
-
         # Если это не команда, сохраняем обычное сообщение
         new_message = Message(user=request.user, message=message_text)
         new_message.save()
@@ -468,18 +519,20 @@ def get_messages(request):
     }
     return JsonResponse(response)
 
-#Очистка чата
+
+# Очистка чата
 @login_required
 def clear_chat(request):
     if request.method == 'POST':
         # Проверка роли пользователя
-        if request.user.role not in ['ГОХ', 'Правительство']:
+        if request.user.role not in ['ГОХ', 'Система']:
             return JsonResponse({'status': 'error', 'message': 'У вас нет прав для выполнения этой операции.'})
 
         # Очистка всех сообщений чата
         Message.objects.all().delete()  # Удаляем все сообщения из базы данных
 
         return JsonResponse({'status': 'ok', 'message': 'Чат был очищен.'})
+
 
 # Функция для изменения роли пользователя. Доступно только администраторам.
 def change_user_role(admin_user, target_user, new_role):
@@ -500,13 +553,13 @@ def change_user_role(admin_user, target_user, new_role):
 
     return target_user
 
-#Правила чата
+
+# Правила чата
 def chat_rules(request):
     return render(request, 'HGcity/chat_rules.html')
 
-#БАН
+
+# БАН
 def permission_denied_view(request, exception):
     messages.error(request, "ВАШ АККАУНТ ЗАБЛОКИРОВАН | ЗАЯВКИ НА РАЗБЛОКИРОВКУ: SYSTEM.HARALDGRAD@GMAIL.COM")
     return redirect('HGcity:login')
-
-

@@ -1,0 +1,79 @@
+{% extends 'HGcity/base.html' %}
+{% load static %}
+
+{% block title %}Изменение Профиля{% endblock %}
+
+{% block content %}
+<img src="{% static '/images/background_profile.png' %}" alt="Свет" id="background-image-profile">
+
+
+<div class="profile-card-edit">
+    <div class="editing-div">
+    <p>Имя: {{ user.first_name }}</p>
+    <button onclick="toggleEdit('first_name')" class="editing-button">Редактировать имя</button>
+    <form method="post" action="" style="display:none;" id="form-first_name">
+        {% csrf_token %}
+        <input type="hidden" name="field" value="first_name">
+        <input type="text" name="value" value="{{ user.first_name }}">
+        <button type="submit" class="editing-button" style="">Сохранить</button>
+    </form>
+</div>
+
+<div class="editing-div">
+    <p>Фамилия: {{ user.last_name }}</p>
+    <button onclick="toggleEdit('last_name')" class="editing-button">Редактировать фамилию</button>
+    <form method="post" action="{% url 'HGcity:update_profile' %}" style="display:none;" id="form-last_name">
+        {% csrf_token %}
+        <input type="hidden" name="field" value="last_name">
+        <input type="text" name="value" value="{{ user.last_name }}" >
+        <button type="submit" class="editing-button">Сохранить</button>
+    </form>
+</div>
+
+<div class="editing-div">
+    <p>Логин: {{ user.username }}</p>
+    <button onclick="toggleEdit('username')" class="editing-button">Редактировать логин</button>
+    <form method="post" action="{% url 'HGcity:update_profile' %}" style="display:none;" id="form-username">
+        {% csrf_token %}
+        <input type="hidden" name="field" value="username">
+        <input type="text" name="value" value="{{ user.username }}" >
+        <button type="submit" class="editing-button">Сохранить</button>
+    </form>
+</div>
+
+
+
+<div class="editing-div-bio">
+    <form method="post" action="{% url 'HGcity:update_profile' %}" class="editing-div-bio" id="form-biography">
+        {% csrf_token %}
+        <input type="hidden" name="field" value="biography">
+        <textarea name="value" rows="5" style="width: 100%; border: 1px solid rgb(136, 136, 136); padding: 10px; height: 96px; color: #ffffff; background: rgba(0, 0, 0, 0.3);">
+            {{ user.biography|linebreaksbr }}
+        </textarea>
+        <button type="submit" class="editing-button">Сохранить</button>
+    </form>
+</div>
+
+
+
+<button onclick="window.location.href='{% url 'HGcity:profile' %}'" class="editing-button" style="margin-top: 35px;"> Вернутсья в Профиль </button>
+
+</div>
+
+
+
+<script>
+    function toggleEdit(field) {
+        const form = document.getElementById(`form-${field}`);
+        form.style.display = form.style.display === "none" ? "block" : "none";
+    }
+</script>
+
+
+
+
+{% endblock %}
+
+
+{% block footer %}
+{% endblock %}

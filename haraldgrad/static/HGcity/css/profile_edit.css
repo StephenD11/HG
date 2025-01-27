@@ -1,0 +1,35 @@
+.editing-div {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 25px;
+}
+
+.editing-button {
+    padding: 2px 15px;
+    font-size:15px;
+}
+
+.profile-card-edit {
+    display:flex;
+    padding-top: 155px;
+    margin: 0 auto;
+    flex-direction: column;
+    font-size:25px;
+}
+
+
+input[name="value"] {
+    margin-bottom: 15px; /* Увеличивает промежуток между input и button */
+}
+
+button.editing-button {
+    margin-left: 15px; /* Дополнительно увеличивает отступ сверху */
+}
+
+
+.editing-div-bio {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}

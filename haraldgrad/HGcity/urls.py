@@ -22,6 +22,7 @@ urlpatterns = [
 
     # Профиль и лого
     path('profile/', views.profile, name='profile'),
+    path('profile_edit/', views.profile_edit, name='profile_edit'),
     path('choose_logo/', views.choose_logo, name='choose_logo'),
 
     path('update/', views.update, name='update'),  # Правила

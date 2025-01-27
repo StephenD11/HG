@@ -49,7 +49,8 @@ class User(AbstractUser):
     ROLE_CHOICES = [
         ('Житель', 'Житель'),
         ('ГОХ', 'ГОХ'),
-        ('Правительство', 'Правительство'),
+        ('Капитан Гох', 'Капитан Гох'),
+        ('Система', 'Система'),
     ]
 
     role = models.CharField(
@@ -59,6 +60,14 @@ class User(AbstractUser):
         blank=False,
         verbose_name='Роль'
 
+    )
+
+    biography = models.TextField(
+        max_length=1000,
+        blank=True,
+        null=True,
+        default='Здесь может быть ваша биография...',
+        verbose_name='Биография'
     )
 
     def __str__(self):

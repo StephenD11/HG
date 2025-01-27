@@ -2,24 +2,46 @@
 .profile-card {
     border: 1px solid #6d1313;
     border-radius: 8px;
-    padding: 25px;
-    max-width: 400px;
+    padding: 35px;
+    max-width: 800px;
     margin: 0 auto;
     background-color: #00000059;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    gap: 25px;
+    display: flex;
+    flex-direction: column;
 }
 
+.profile-button-logo {
+    padding: 2px 15px;
+    font-size:15px;
+}
+
+
 .profile-section {
-    margin-bottom: 16px;
+    margin-bottom: 5px;
     display: flex;
+    flex-direction: column;
 }
 
 .profile-logo {
     display: block;
     margin: 0 auto 8px;
-    width: 100px;
-    height: 100px;
+    width: 250px;
+    height: 250px;
     object-fit: cover;
+}
+
+.profile-logo-editing-button {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.profile-block-high {
+    display:flex;
+    gap: 15px;
 }
 
 .messages {
@@ -36,3 +58,69 @@
 .button-profile {
     padding: 0px 10px; font-size: 30px; margin-bottom: 5%;
 }
+
+/* Только для списка логотипов */
+.logo-list {
+    display: flex;
+    flex-wrap: wrap; /* Разрешает перенос строк */
+    justify-content: space-between; /* Распределяет элементы равномерно */
+    list-style-type: none; /* Убирает маркеры списка */
+    padding: 0;
+    margin: 0;
+}
+
+.logo-list li {
+    flex: 0 0 30%; /* Ширина каждого элемента около 30% */
+    display: flex;
+    justify-content: center; /* Центрирует содержимое */
+    margin-bottom: 15px; /* Отступ между строками */
+}
+
+.logo-list img {
+    width: 100px; /* Фиксированная ширина изображения */
+    height: auto; /* Сохраняет пропорции */
+}
+
+.logo-label {
+    cursor: default;
+    text-align: center;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    flex-direction: column-reverse;
+
+}
+
+.biography-card {
+    margin-top: 20px;
+    padding: 15px;
+    border: 2px dashed #aaa;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.biography-card textarea {
+    width: 100%;
+    border: none;
+    resize: none;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.save-button {
+    display: block;
+    margin-top: 10px;
+    padding: 5px 15px;
+    font-size: 14px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.save-button:hover {
+    background-color: #0056b3;
+}
+
+
