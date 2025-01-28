@@ -22,6 +22,15 @@
     margin-top: -25px;
 }
 
+
+/* Стили для placeholder */
+.form-group input::placeholder {
+    font-family: 'GOST type A';
+    color: gray; /* Цвет placeholder */
+    font-style: italic; /* Дополнительно можно сделать курсивным */
+}
+
+
 .special-text-G {
     font-family: 'GOST Type AU', sans-serif;
     font-size: 24px;
@@ -53,13 +62,36 @@ body {
 }
 
 
-
-
-button {
-    font-family: 'GOST Type AU', Arial, sans-serif;
-    font-size: 20px;
+.door-container {
+    display: flex;
+    justify-content: center; /* Центрирует по горизонтали */
+    align-items: center;    /* Центрирует по вертикали (если нужно) */
+    flex-direction: column; /* Элементы друг под другом */
 }
 
+.door-image, .door-video {
+    width: 700px; /* Общая ширина */
+    border-radius: 15px;
+}
+
+.door-video {
+    display: none; /* Скрыть по умолчанию */
+}
+
+
+.music-button {
+    font-size: 10px;
+    position: fixed;
+    right: 15%;
+    top: 84%;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
 
 #ЧАТ
 .chat-rules {
@@ -126,20 +158,21 @@ button {
 .container {
     max-width: 1200px;
     text-align: center;
-    display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 5%
 }
 
-.container-confirm-email{
-    max-width: 1200px;
-    text-align: center;
-    display: flex;
+.container-confirm-email {
+    display: flex;            /* Включаем Flexbox */
+    justify-content: center;  /* Центрируем по горизонтали */
+    align-items: center;      /* Центрируем по вертикали */
+    height: 100vh;            /* Высота контейнера на весь экран */
+    margin: 0;                /* Убираем отступы */
     flex-direction: column;
-    align-items: center;
-    margin-top: 50%
 }
+
+
 
 /* Блоки с контентом */
 .content-block {
@@ -160,10 +193,11 @@ button {
 
 /* Стили для кнопок */
 button {
+    font-family: 'GOST Type AU', Arial, sans-serif;
     background-color: #bc4141; /* Чуть более красный цвет фона */
     color: rgb(252, 251, 251); /* Белый цвет текста */
     border: none; /* Убираем рамку у самой кнопки */
-    padding: 10px 20px;
+    padding: 4px 20px;
     margin-top: 10px;
     cursor: pointer;
     position: relative;
@@ -254,6 +288,13 @@ a:hover {
 
 }
 
+.titl-guide-page {
+ font-size:55px;
+ display:flex;
+ align-items: center;
+ justify-content: center
+ }
+
 /* Централизуем навигацию */
 header nav {
     position: sticky; /* Меню будет прилипать к верхней части экрана */
@@ -313,6 +354,10 @@ header nav ul li a:active {
     transform: scale(0.95); /* Немного уменьшаем ссылку при нажатии */
 }
 
+.img-about-top {
+width: 700px;
+border-radius:25px;
+}
 
 
 

@@ -1,0 +1,314 @@
+/* === Мобильные устройства (до 480px) === */
+@media (max-width: 480px) {
+    /* Стили для мобильных устройств */
+    body {
+    font-family: 'GOST Type AU', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Центрируем контент сверху */
+    min-height: 100vh;
+    font-size: 20px;
+    color: rgb(247, 242, 242); /* Белый цвет текста по умолчанию для всего тела */
+    background-color: #130909;
+}
+}
+
+/* === Планшеты (от 481px до 768px) === */
+@media (min-width: 481px) and (max-width: 768px) {
+    /* Стили для планшетов */
+    body {
+    font-family: 'GOST Type AU', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Центрируем контент сверху */
+    min-height: 100vh;
+    font-size: 20px;
+    color: rgb(247, 242, 242); /* Белый цвет текста по умолчанию для всего тела */
+    background-color: #130909;
+}
+}
+
+/* === Десктопы (от 769px до 1024px) === */
+@media (min-width: 769px) and (max-width: 1024px) {
+    /* Стили для средних десктопов */
+    body {
+    font-family: 'GOST Type AU', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Центрируем контент сверху */
+    min-height: 100vh;
+    font-size: 20px;
+    color: rgb(247, 242, 242); /* Белый цвет текста по умолчанию для всего тела */
+    background-color: #130909;
+}
+}
+
+/* === Большие десктопы (от 1025px до 1440px) === */
+@media (min-width: 1025px) and (max-width: 1637px) {
+    /* Стили для больших десктопов */
+    body {
+    font-family: 'GOST Type AU', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Центрируем контент сверху */
+    min-height: 100vh;
+    font-size: 20px;
+    color: rgb(247, 242, 242); /* Белый цвет текста по умолчанию для всего тела */
+    background-color: #130909;
+}
+
+.door-image, .door-video {
+    width: 400px; /* Общая ширина */
+}
+
+.door-video {
+    display: none; /* Скрыть по умолчанию */
+}
+
+.special-text-K-home {
+    font-family: 'Kroftsmann', sans-serif;
+    font-size: 60px;
+    color: white; /* Белый цвет текста */
+    margin-bottom: 20px;
+    letter-spacing: 15px; /* Увеличиваем расстояние между буквами */
+    margin-top: 1%;
+}
+
+
+.residents-count {
+   font-size: 15px;
+
+}
+
+button::after {
+    content: ''; /* Пустой элемент для создания пространства */
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border: 3px solid #b43434; /* Красная рамка вокруг кнопки */
+    pointer-events: none; /* Чтобы рамка не мешала нажимать на кнопку */
+    z-index: 0; /* Рамка будет за кнопкой */
+}
+
+/* Меняем цвет рамки при наведении */
+button:hover::after {
+    border: 3px solid #772020; /* Темно-красная рамка при наведении */
+
+}
+
+/* Меняем цвет рамки при нажатии */
+button:active::after {
+    border: 3px solid white; /* Белая рамка при нажатии */
+}
+
+button {
+    font-size: 12px;
+    padding: 2px 12px;
+    margin-top: 0px;
+}
+
+.div-login-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 13%;
+}
+
+.topic-login {
+   font-size: 18px;
+
+}
+
+input {
+    width: 200px;
+    max-width: 1800px;
+    border-bottom: 1px solid #ccc;
+    font-size: 11px;
+}
+
+
+
+label {
+    font-size: 13px;
+}
+
+.forgot-password {
+    font-size: 13px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+    }
+
+
+.button-login {
+    padding: 0px 10px;
+    font-size: 15px;
+
+}
+
+.button-login-main {
+    padding: 1px 5px;
+    font-size: 8px;
+    margin-top: 15px;
+
+}
+
+.select-wrapper select {
+    padding: 2px;
+    font-size: 11px;
+
+}
+
+.button-reg {
+    padding: 3px 12px;
+    font-size: 11px;
+    margin-top: 25px;
+}
+
+.button-reg-main {
+    padding: 3px 10px;
+    font-size: 10px;
+    margin-top: 15px;
+    margin-bottom: 240px;
+}
+
+.forgot-password-reg {
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+/* Поля ввода */
+.form-group input {
+    width: 200px;
+    border-bottom: 1px solid #ccc;
+}
+
+header nav ul li a {
+    font-size: 20px;
+}
+
+.titl-guide-page {
+    font-size:30px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+ }
+
+/* Контейнер для каждого изображения */
+.image-container {
+    width: 130px;
+    height: 130px;
+
+}
+
+.text-guide-page {
+font-size:16px;
+}
+
+.img-about-top {
+width: 90%;
+border-radius:15px;
+}
+
+.content-container {
+    width: 45%;
+}
+
+.welcome-text {
+    font-size: 35px;
+}
+
+.description-text {
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+.features-list {
+    font-size: 14px;
+}
+
+.features-wrapper-update {
+    border: 1px solid #581010;
+    padding: 10px;
+}
+
+
+.history-title {
+    font-size: 30px;
+}
+
+.download-links a {
+    font-size: 20px;
+}
+
+.description-text-update {
+    font-size: 18px;
+    line-height: 1.4;
+    display: flex;
+    text-align: center;
+}
+
+.features-list-update {
+    list-style-type: none;
+    text-align: center;
+}
+
+.features-list-update li {
+    font-size: 14px;
+
+}
+
+
+.contact-section {
+font-size: 17px;
+}
+
+
+.excel-header {
+    font-size: 25px;
+}
+
+.excel-table, .excel-cell, .excel-cell-header {
+    font-size: 14px;
+}
+
+.excel-table-container {
+    padding: 5px 20px;
+    margin-top: 10%;
+    width: 70%;
+}
+
+.donate-text {
+width:700px;
+font-size: 15px;
+}
+
+}
+
+
+
+/* === Очень большие экраны (больше 1440px) === */
+@media (min-width: 1638px) {
+
+}
+
+
+
+
+}

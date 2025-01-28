@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/static/HGcity/css/style.css">
     <link rel="stylesheet" href="{% static 'HGcity/css/background.css' %}">
     <link rel="stylesheet" href="{% static 'HGcity/css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'HGcity/css/media.css' %}">
 
 
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.png' %}">
@@ -16,7 +17,7 @@
 <img src="{% static '/images/background_reg.png' %}" alt="Свет" id="background-image-reg">
 
 <div class="div-register">
-    <h1>РЕГИСТРАЦИЯ</h1>
+    <h1 class="topic-login">РЕГИСТРАЦИЯ</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
@@ -106,7 +107,7 @@
 </div>
 
 
-<button onclick="window.location.href='{% url 'HGcity:home' %}'" class="button-reg">
+<button onclick="window.location.href='{% url 'HGcity:home' %}'" class="button-reg-main">
     Главная
 </button>
 

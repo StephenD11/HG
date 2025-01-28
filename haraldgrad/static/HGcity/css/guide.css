@@ -68,3 +68,12 @@
     transform: scale(0.8); /* Дополнительное уменьшение изображения при нажатии */
     filter: brightness(0.9); /* Легкое затемнение изображения */
 }
+
+.text-guide-page {
+font-size:25px;
+display:flex;
+align-items: center;
+justify-content: center;
+margin-top:-7%;
+color:#f23b3b;
+}

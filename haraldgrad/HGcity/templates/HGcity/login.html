@@ -9,14 +9,15 @@
     <link rel="stylesheet" href="{% static 'HGcity/css/background.css' %}">
     <link rel="stylesheet" href="{% static 'HGcity/css/login.css' %}">
     <link rel="stylesheet" href="{% static 'HGcity/css/guide.css' %}">
+    <link rel="stylesheet" href="{% static 'HGcity/css/media.css' %}">
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.png' %}">
 </head>
 <body>
 
 <img src="{% static '/images/background_login.png' %}" alt="Свет" id="background-image-login">
 
-<div class="div-login-login">
-    <h1 style="color:#ffffff;">ВОЙТИ В АККАУНТ</h1>
+<div class="div-login-main">
+    <h1 style="color:#ffffff;" class="topic-login">ВОЙТИ В АККАУНТ</h1>
 
         <!-- Отображение только сообщений о бане -->
     {% if messages %}
@@ -59,6 +60,8 @@
 
     <a href="{% url 'HGcity:password_reset' %}" class="forgot-password">ЗАБЫЛ ПАРОЛЬ</a>
     <button type="submit" class="button-login">Войти</button>
+       <br>
+       <button onclick="window.location.href='{% url 'HGcity:home' %}'" class="button-login-main">НА ГЛАВНУЮ</button>
 </form>
 
 
@@ -72,11 +75,7 @@
     {% endif %}
 
 
-<!--    <p>Нет аккаунта? <a href="{% url 'HGcity:register' %}">ЗАРЕГИСТРИРОВАТЬСЯ</a></p>-->
-    <br>
-    <button onclick="window.location.href='{% url 'HGcity:home' %}'" class="button-login-main" style="margin-top: 10px;">
-        НА ГЛАВНУЮ
-    </button>
+
 
 </div>
 

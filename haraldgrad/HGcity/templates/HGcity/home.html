@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'HGcity/css/background.css' %}">
     <link rel="stylesheet" href="{% static 'HGcity/css/login.css' %}">
     <link rel="stylesheet" href="{% static 'HGcity/css/guide.css' %}">
+    <link rel="stylesheet" href="{% static 'HGcity/css/media.css' %}">
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.png' %}">
 
 
@@ -18,25 +19,24 @@
 <div class="container">
     <!-- Блок с заголовком -->
     <div>
-        <p class="special-text-K-home"  style="color:#c41d1d66;">ХАРАЛЫДГРАД</p>
+        <p class="special-text-K-home" style="color:#c41d1d66;">ХАРАЛЫДГРАД</p>
     </div>
 
     <!-- Начальные изображения -->
     <img id="lightImage" src="{% static 'animations/doors/lights.webp' %}" alt="Свет"
          style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 9999; display: none; opacity: 0.2;">
 
-    <img id="doorImage" src="{% static 'animations/doors/bunker_1.png' %}" alt="Букнер"
-         style="width: 700px; border-radius:25px;">
-
-    <!-- Видео -->
-    <video id="doorVideo" style="width: 700px; border-radius:25px; display: none;" muted>
-        <source src="{% static 'animations/doors/doors_high_open.mp4' %}" type="video/mp4">
-        Ваш браузер не поддерживает видео.
-    </video>
+    <div class="door-container">
+        <img id="doorImage" class="door-image" src="{% static 'animations/doors/bunker_1.png' %}" alt="Бункер">
+        <video id="doorVideo" class="door-video" muted>
+            <source src="{% static 'animations/doors/doors_high_open.mp4' %}" type="video/mp4">
+            Ваш браузер не поддерживает видео.
+        </video>
+    </div>
 
     <!-- Блок с количеством жителей -->
     <div>
-        <p><b style="color:#CD5C5C;">КОЛИЧЕСТВО ЖИТЕЛЕЙ:</b> {{ user_count }}</p>
+        <p class="residents-count"><b style="color:#CD5C5C;">КОЛИЧЕСТВО ЖИТЕЛЕЙ:</b> {{ user_count }}</p>
     </div>
 
     <!-- Блок с навигацией -->
@@ -47,11 +47,11 @@
             <button onclick="openDoors()">Открыть Двери</button>
             {% else %}
             <!-- Показываем ссылки для гостей -->
-            <button onclick="window.location.href='{% url 'HGcity:register' %}'" style="margin-bottom: 10px;">
+            <button onclick="window.location.href='{% url 'HGcity:register' %}'">
                 РЕГИСТРАЦИЯ
             </button>
-            <p></p>
-            <button onclick="window.location.href='{% url 'HGcity:login' %}'" style="margin-top: 10px; font-size:14px;">
+
+            <button onclick="window.location.href='{% url 'HGcity:login' %}'">
                 ВХОД
             </button>
             {% endif %}
@@ -68,10 +68,10 @@
 
 {% if user.is_authenticated %}
 <!-- Показываем ссылки для авторизованных пользователей -->
-<button style="font-size:15px; margin-left:68%; margin-top:2.5%;" id="toggle-music" onclick="toggleMusic()">🔈</button>
+<button class="music-button" id="toggle-music" onclick="toggleMusic()">🔈</button>
 {% else %}
 <!-- Показываем ссылки для гостей -->
-<button style="font-size:15px; margin-left:68%; margin-top: -1%;" id="toggle-music" onclick="toggleMusic()">🔈</button>
+<button class="music-button" id="toggle-music" onclick="toggleMusic()">🔈</button>
 {% endif %}
 
 
