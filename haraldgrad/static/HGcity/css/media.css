@@ -14,6 +14,307 @@
     color: rgb(247, 242, 242); /* Белый цвет текста по умолчанию для всего тела */
     background-color: #130909;
 }
+
+.special-text-K-home {
+    font-size: 32px;
+}
+
+.door-image, .door-video {
+    width: 300px;
+    border-radius: 15px;
+}
+
+.music-button {
+    right: 43%;
+}
+
+.container {
+    margin-top: 24%;
+}
+
+input {
+    width: 200px;
+}
+
+.container-confirm-email {
+    width: 100%;
+    font-size: 16px;
+    text-align: center;
+    justify-content: center;
+}
+
+.div-reset-password {
+    width: 300px;
+    text-align: center;
+}
+
+header nav ul {
+    display: flex;
+    flex-wrap: wrap; /* Позволяет элементам переноситься на следующую строку */
+    gap: 10px; /* Расстояние между элементами */
+}
+
+header nav ul li {
+    width: calc(50% - 5px); /* Задает ширину каждого элемента (по 2 на строку) */
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #fefbfb;
+    position: relative;
+    padding: 5px 10px;
+    transition: color 0.3s, transform 0.3s;
+    font-size: 18px;
+}
+
+
+.titl-guide-page {
+    font-size: 35px;
+}
+
+.text-guide-page {
+    font-size: 20px;
+    margin-top: -6%;
+}
+
+
+.image-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.image-container {
+    width: calc(42% - 10px);
+    display: flex;
+    justify-content: center;
+    height: calc(30% - 10px);
+}
+
+.image-container img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.img-about-top {
+    width: 300px;
+    border-radius: 15px;
+    margin-top: 10%;
+}
+
+.content-container {
+    width: 80%;
+}
+
+.welcome-text {
+    font-size: 33px;
+    margin-bottom: -2px;
+}
+
+.description-text {
+    font-size: 0.9em;
+}
+
+.features-list {
+    font-size: 17px;
+}
+
+.history-title {
+    font-size: 34px;
+    text-align: center;
+}
+
+.download-links {
+    text-align: center;
+}
+
+
+.description-text-update {
+    font-size: 18px;
+}
+
+.features-list-update {
+    width: 79%;
+}
+
+.features-list-update li {
+    font-size: 17px;
+}
+
+.excel-header {
+    font-size: 22px;
+}
+
+
+.excel-table-container {
+    max-width: 300px;
+    font-size: 16px;
+    margin-top: 5%;
+
+}
+
+.donate-text {
+    width: 300px;
+    font-size: 18px;
+}
+
+
+.sup-button {
+margin-top: 10px;
+    padding: 0px 10px;
+    width: 200px;
+    margin-bottom: 35%;
+    font-size: 19px;
+}
+
+.chats {
+    border: 1px solid #a40c0c;
+    height: 250px;
+    width: 300px;
+    overflow-y: scroll;
+    padding: 10px;
+}
+
+.div-chat-end {
+    display: flex;
+    margin-bottom: 30%;
+    gap: 30px;
+    flex-direction: column;
+    width: 250px;
+}
+
+.chat-title {
+    font-size: 25px;
+    margin-top: 30px;
+}
+
+.chat-message {
+    font-size: 16px;
+}
+
+
+.features-list {
+    font-size: 17px;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.features-wrapper-chat-rules {
+    width: 300px;
+
+}
+
+.features-wrapper-chat-rules-2 {
+    width: 300px;
+}
+
+.fixed-button {
+    font-size: 20px;
+}
+
+
+.profile-logo {
+    width: 150px;
+    height: 150px;
+}
+
+.profile-name-secondname {
+    font-size: 30px;
+}
+
+.profile-card {
+    max-width: 250px;
+}
+
+.profile-block-high {
+    gap: 15px;
+    flex-direction: column;
+}
+
+.profile-section {
+    flex-direction: column;
+}
+
+.profile-name-secondname {
+    font-size: 35px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-name-top {
+    margin-top: 35px;
+    font-size: 32px;
+}
+
+.logo-list {
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    flex-wrap: wrap;
+    width: 200px;
+}
+
+.logo-list img {
+    width: 160px;
+    height: auto;
+}
+
+.choose_logo_many {
+    margin-top: 25px;
+    color: #e71e1e;
+}
+
+.profile-button-logo-2 {
+    margin-bottom: 200px;
+}
+
+.profile-card-edit {
+    display: flex;
+    padding-top: 55px;
+    margin: 0 auto;
+    font-size: 25px;
+    width: 250px;
+    flex-direction: column;
+}
+
+.editing-div {
+    flex-direction: column;
+    align-items: baseline;
+    gap: 10px;
+
+}
+
+.editing-div {
+    align-items: center;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+}
+
+button.editing-button {
+     margin-left: 1px;
+}
+
+.prof-edit-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+
+
+
 }
 
 /* === Планшеты (от 481px до 768px) === */
@@ -32,6 +333,79 @@
     color: rgb(247, 242, 242); /* Белый цвет текста по умолчанию для всего тела */
     background-color: #130909;
 }
+
+.errorlist {
+    margin: 0px 0 0;
+    padding: 0;
+    list-style: none;
+    width: 60%;
+    text-align: center;
+}
+
+.image-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+header nav ul li a {
+    font-size: 25px;
+}
+
+.img-about-top {
+    width: 640px;
+
+}
+
+input[name="value"] {
+    width: 50%;
+}
+
+.editing-div {
+    gap: 10px;
+}
+
+.content-container {
+    width: 80%;
+}
+
+.image-container {
+    width: calc(35% - 10px);
+    display: flex;
+    justify-content: center;
+    height: calc(30% - 10px);
+}
+
+.image-container img {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.door-image, .door-video {
+    width: 560px;
+}
+
+
+.special-text-K-home {
+    font-size: 80px;
+    margin-bottom: 40px;
+    margin-top: 50px;
+}
+
+.music-button {
+    right: 47%;
+}
+
+.div-login-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 35%;
+}
+
 }
 
 /* === Десктопы (от 769px до 1024px) === */
@@ -50,6 +424,161 @@
     color: rgb(247, 242, 242); /* Белый цвет текста по умолчанию для всего тела */
     background-color: #130909;
 }
+
+.profile-button-logo {
+    padding: 2px 15px;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.image-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.image-container {
+    width: calc(35% - 10px);
+    display: flex;
+    justify-content: center;
+    height: calc(30% - 10px);
+   }
+
+.features-list {
+    font-size: 23px;
+    line-height: 1.6;
+}
+
+.logo-list li {
+    flex: 0 0 50%;
+}
+
+.profile-card-edit {
+    width: 90%;
+}
+
+
+
+.logo-list img {
+    width: 180px;
+}
+
+.features-wrapper-chat-rules-2 {
+     padding: 0px;
+
+}
+
+input[name="value"] {
+    margin-bottom: 20px;
+    font-size:15px;
+    width: 60%;
+}
+
+.editing-button-back {
+    display: flex;
+    margin-top: 30px;
+}
+
+.features-wrapper-chat-rules {
+    border: 0px solid #581010;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+    padding: 0px;
+}
+
+.chat-input {
+    font-size: 20px;
+}
+
+.button-chat {
+    font-size: 29px;
+}
+
+.button-chat-rules {
+    font-size: 30px;
+}
+
+.img-about-top {
+    width: 610px;
+    margin-top: 5%;
+}
+
+
+.content-container {
+    width: 81%;
+}
+
+.button-password-reset {
+    font-size: 25px;
+}
+
+.image-container img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.container {
+    margin-top: 15%;
+}
+
+.footer-block {
+    margin-top: 10px;
+}
+
+.form-label {
+    font-size: 35px;
+}
+
+.residents-count {
+    font-size: 25px;
+}
+button {
+    font-size: 30px;
+}
+
+
+.forgot-password {
+    font-size: 21px;
+    margin-bottom: 30px;
+}
+
+input {
+    font-size: 24px;
+}
+
+header nav ul li a {
+    font-size: 24px;
+}
+
+.select-wrapper select {
+    width: 80%;
+    padding: 5px;
+    font-size: 18px;
+}
+
+.div-login-main {
+    margin-top: 35%;
+}
+
+.music-button {
+    top: 89%;
+    right: 47%;
+}
+
+.special-text-K-home {
+    font-family: 'Kroftsmann', sans-serif;
+    font-size: 80px;
+    color: white;
+    letter-spacing: 15px;
+    margin-top: 1%;
+}
+
+label {
+    font-size: 30px;
+}
+
 }
 
 /* === Большие десктопы (от 1025px до 1440px) === */
@@ -171,7 +700,6 @@ label {
 .select-wrapper select {
     padding: 2px;
     font-size: 11px;
-
 }
 
 .button-reg {
@@ -299,7 +827,91 @@ width:700px;
 font-size: 15px;
 }
 
+
+
+.chats {
+    height: 220px;
+    width: 450px;
 }
+
+.button-chat-rules {
+    padding: 3px 10px;
+    font-size: 15px;
+}
+
+.chat-title {
+    font-size: 15px;
+    margin-top:5%;
+}
+
+
+.chat-input {
+width: 85%;
+height: 20px;
+padding: 5px;
+}
+
+.button-chat {
+    padding: 3px 10px;
+    font-size: 14px;
+}
+
+.chat-message {
+  font-size: 14px;
+}
+
+.div-chat-rules {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30%;
+}
+
+.profile-logo {
+width: 150px;
+height: 150px;
+}
+
+.profile-name-secondname {
+    font-weight: bold;
+    font-size:30px;
+    margin-bottom: 20px;
+}
+
+.profile-button-logo {
+    padding: 2px 15px;
+    font-size: 12px;
+}
+
+.profile-text-all {
+  font-size:14px;
+  margin-top: -14px;
+}
+
+.profile-card-edit {
+    font-size: 14px;
+    width: 70%;
+    gap: 13px;
+    padding-top: 75px;
+}
+
+.editing-button {
+    padding: 2px 15px;
+    font-size: 10px;
+}
+
+.logo-list img {
+    width: 100px;
+    height: auto;
+}
+
+.editing-div-rules {
+    margin-top: 3%;
+}
+
+
+}
+
 
 
 

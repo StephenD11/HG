@@ -30,6 +30,14 @@
     </ul>
     {% endif %}
 
+    {% if form.non_field_errors %}
+    <ul class="errorlist">
+        {% for error in form.non_field_errors %}
+        <li style="color: red;">{{ error }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
     <br>
    <form method="post" class="login-form">
     {% csrf_token %}
@@ -66,13 +74,7 @@
 
 
 
-    {% if form.non_field_errors %}
-    <ul class="errorlist">
-        {% for error in form.non_field_errors %}
-        <li style="color: red;">{{ error }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+
 
 
 

@@ -14,7 +14,8 @@
 
 .profile-button-logo {
     padding: 2px 15px;
-    font-size:15px;
+    font-size:18px;
+    margin-bottom: 20px;
 }
 
 
@@ -27,9 +28,10 @@
 .profile-logo {
     display: block;
     margin: 0 auto 8px;
-    width: 250px;
-    height: 250px;
+    width: 270px;
+    height: 270px;
     object-fit: cover;
+    margin-bottom: 15px;
 }
 
 .profile-logo-editing-button {
@@ -37,6 +39,14 @@
     flex-direction: column;
     align-items: center;
     gap: 5px;
+}
+
+.editing-div {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    width: 900px;
+    gap: 25px;
 }
 
 .profile-block-high {
@@ -77,8 +87,8 @@
 }
 
 .logo-list img {
-    width: 100px; /* Фиксированная ширина изображения */
-    height: auto; /* Сохраняет пропорции */
+    width: 160px;
+    height: auto;
 }
 
 .logo-label {
@@ -89,6 +99,14 @@
     align-items: center;
     flex-direction: column-reverse;
 
+}
+
+.profile-name-top {
+display:flex;
+flex-direction: column;
+align-items: center;
+margin-top: 55px;
+font-size:55px;
 }
 
 .biography-card {
@@ -107,6 +125,13 @@
     line-height: 1.5;
 }
 
+.prof-edit-center {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+}
+
 .save-button {
     display: block;
     margin-top: 10px;
@@ -123,4 +148,21 @@
     background-color: #0056b3;
 }
 
+.profile-name-secondname {
+    font-weight: bold;
+    font-size:40px;
+}
+
+.profile-text-all {
+  font-size:20px;
+  margin-top: -16px;
+}
+
+.prof-bio-place {
+margin-top: -18px;
+display: flex;
+flex-direction: column;
+align-items: center;
+margin-bottom: 30%;
+}
 

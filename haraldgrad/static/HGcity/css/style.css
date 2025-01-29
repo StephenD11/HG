@@ -130,15 +130,7 @@ nav {
     margin-bottom: 10px;
 }
 
-#chat-box {
-    width: 650px;
-    height: 500px;
-    padding: 10px;
-    overflow-y: scroll;
-    border: 1px solid #ccc;
-    border-radius: 8px; /* Скругленные углы */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0); /* Легкая тень для глубины */
-}
+
 
 #chat-box::-webkit-scrollbar {
     width: 8px; /* Толщина полосы прокрутки */
@@ -278,15 +270,7 @@ a:hover {
 }
 
 /* чат */
-#chat-box {
-    border: 1px solid #ccc;
-    height: 500px;
-    width: 650px;
-    overflow-y: scroll;
-    padding: 10px;
-    word-wrap: break-word; /* Для длинных слов */
 
-}
 
 .titl-guide-page {
  font-size:55px;
@@ -359,6 +343,71 @@ width: 700px;
 border-radius:25px;
 }
 
+.chats {
+    border: 1px solid #ccc;
+    height: 450px;
+    width: 650px;
+    overflow-y: scroll;
+    padding: 10px;
+    word-wrap: break-word; /* Переносит слова, если они слишком длинные */
+    overflow-wrap: break-word; /* Дополнительно разрывает длинные слова */
+}
 
 
+.message {
+    white-space: normal; /* Позволяет тексту переноситься */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
 
+.button-chat-rules {
+    padding: 3px 10px;
+    font-size: 20px;
+}
+
+.profile-button-logo-2 {
+    margin-bottom: 200px;
+}
+
+.chat-title {
+    font-size: 35px;
+}
+
+.chat-input {
+width: 95%;
+height: 50px;
+padding: 10px;
+}
+
+.chat-message {
+  font-size: 24px;
+}
+
+.div-chat-end {
+display:flex;
+margin-bottom: 30%;
+gap: 40px;
+}
+
+.choose_logo_many {
+display:flex;
+flex-direction:
+column;
+align-items:
+center;
+margin-top:55px;
+}
+
+.div-chat-rules {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20%;
+}
+
+.fixed-button {
+    position: fixed; /* Закрепляем кнопку на экране */
+    bottom: 10vh; /* Отступ от нижнего края, адаптируется под высоту экрана */
+    left: 50%; /* Центрируем по горизонтали */
+    transform: translateX(-50%); /* Корректируем центрирование */
+}

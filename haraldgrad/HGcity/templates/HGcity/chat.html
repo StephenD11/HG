@@ -10,31 +10,32 @@
 <img src="{% static 'images/background_chat.png' %}" alt="Свет" id="background-image-chat">
 
 <link rel="stylesheet" href="{% static 'HGcity/css/style.css' %}">
+<link rel="stylesheet" href="{% static 'HGcity/css/media.css' %}">
 
 <div id="chat-container" class="div-login-login">
-    <button onclick="window.location.href='{% url 'HGcity:chat_rules' %}'" style="margin-top: 10px; font-size:25px;" class="button-login-main">
+    <button onclick="window.location.href='{% url 'HGcity:chat_rules' %}'" class="button-chat-rules">
         Правила чата
     </button>
 
-    <h2><span style="color:#CD5C5C;">ТАВЕРНА</span> "ПЬЯНАЯ КРЫСА"</h2>
+    <h2 class="chat-title"><span>ТАВЕРНА</span> "ПЬЯНАЯ КРЫСА"</h2>
 
     {% if user.is_authenticated %}
-    <div id="chat-box" style="border: 1px solid #ccc; height: 400px; width: 650px; overflow-y: scroll; padding: 10px;">
+    <div id="chat-box" class='chats'>
         <!-- Сообщения будут добавляться сюда -->
     </div>
     <br>
     Ваш никнейм:
-    <input type="text" id="username" value="{{ user.username }}" readonly style="margin-top: 10px; width: 20%;"><br>
-    <textarea id="message" placeholder="Введите сообщение" style="margin-top: 10px; width: 95%; height: 50px; padding: 10px;"></textarea>
+    <input type="text" id="username" value="{{ user.username }}" readonly style="width: 20%;"><br>
+    <textarea id="message" placeholder="Введите сообщение" class="chat-input"></textarea>
     <br>
-    <div style="display:flex;">
-        <button onclick="sendMessage()" style="margin-top: 10px; margin-right: 11%;" class="button-chat">
+    <div class="div-chat-end">
+        <button onclick="sendMessage()" class="button-chat">
             Отправить
         </button>
-        {% if user.role == 'ГОХ' or user.role == 'Система' %}
-        <button onclick="clearChat()" style="margin-top: 10px; margin-right: 11%;" class="button-chat">Очистить чат</button>
+        {% if user.role == 'ГОХ' or user.role == 'Система' or user.role == 'Капитан Гох' %}
+        <button onclick="clearChat()" class="button-chat">Очистить чат</button>
         {% endif %}
-        <button onclick="window.location.href='{% url 'HGcity:guide_page' %}'" style="margin-top: 10px;" class="button-chat">
+        <button onclick="window.location.href='{% url 'HGcity:guide_page' %}'" class="button-chat">
             Вернуться на главную
         </button>
     </div>
@@ -87,14 +88,17 @@
                             usernameColor = 'blue';
                         } else if (msg.role === 'Система') {
                             usernameColor = 'red';
+                        } else if (msg.role === 'Капитан Гох') {
+                            usernameColor = '#4d80ff';
                         }
 
                         const messageHTML = `
                             <div id="message-${msg.id}" class="message">
-                                <b style="font-size:15px;">${msg.timestamp}</b> |
-                                <strong style="color:${usernameColor}; font-size:20px;">${msg.first_name} ${msg.last_name}: </strong>
-                                <span style="font-size:20px;">${msg.message}</span>
-                                <span style="font-size:15px;">[ ${msg.username} ]</span>
+                                <span class='chat-message'>${msg.timestamp}</span>
+                               <span class='chat-message' style="color:#effc94;">  [ ${msg.username} ]  </span>
+                                <strong class='chat-message' style="color:${usernameColor};"> ${msg.first_name} ${msg.last_name}: </strong>
+                                <span class='chat-message'>${msg.message}</span>
+                                <span class='chat-message'> </span>
                             </div>
                         `;
                         chatBox.insertAdjacentHTML('beforeend', messageHTML);

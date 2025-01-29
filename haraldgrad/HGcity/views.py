@@ -316,12 +316,12 @@ def chat_view(request):
     current_time = datetime.now(msk_timezone).time()  # Текущее время в МСК
 
     # Ограничения на время доступа
-    start_time = time(16, 0)  # 18:00
+    start_time = time(12, 0)  # 18:00
     end_time = time(23, 0)  # 23:00
 
     # Проверяем роль пользователя
     sender = request.user
-    allowed_roles = ['ГОХ', 'Система']
+    allowed_roles = ['Капитан Гох','ГОХ', 'Система']
     entrance = request.user.chat_verified
 
     # Ограничиваем доступ по времени, кроме определенных ролей
@@ -351,7 +351,7 @@ def send_message(request):
         if message_text.startswith('/mute '):
             # Проверяем права отправителя
             sender = request.user
-            if sender.role not in ['ГОХ', 'Система']:
+            if sender.role not in ['ГОХ', 'Капитан Гох', 'Система']:
                 return JsonResponse({'status': 'error', 'message': 'У вас нет прав для выполнения этой команды.'})
 
             # Извлекаем логин и время мута
@@ -411,7 +411,7 @@ def send_message(request):
 
             # Проверяем права отправителя
             sender = request.user
-            if sender.role not in ['ГОХ', 'Капитан ГОХ', 'Система']:
+            if sender.role not in ['ГОХ', 'Капитан Гох', 'Система']:
                 return JsonResponse({'status': 'error', 'message': 'У вас нет прав для выполнения этой команды.'})
 
             # Извлекаем логин пользователя, с которого нужно снять бан
@@ -448,7 +448,7 @@ def send_message(request):
         if message_text.startswith('/ban '):
             # Проверяем права отправителя
             sender = request.user
-            if sender.role not in ['Капитан ГОХ', 'Система']:
+            if sender.role not in ['Капитан Гох', 'Система']:
                 return JsonResponse({'status': 'error', 'message': 'У вас нет прав для выполнения этой команды.'})
 
             # Извлекаем логин и причину
@@ -525,7 +525,7 @@ def get_messages(request):
 def clear_chat(request):
     if request.method == 'POST':
         # Проверка роли пользователя
-        if request.user.role not in ['ГОХ', 'Система']:
+        if request.user.role not in ['ГОХ', 'Капитан Гох','Система']:
             return JsonResponse({'status': 'error', 'message': 'У вас нет прав для выполнения этой операции.'})
 
         # Очистка всех сообщений чата

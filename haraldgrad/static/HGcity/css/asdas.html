@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 9: Функции в Python</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; }
+        pre { background: #f4f4f4; padding: 15px; border-radius: 5px; }
+        .comment { color: green; font-style: italic; }
+        .string { color: brown; }
+        .number { color: blue; }
+    </style>
+</head>
+<body>
+    <h2>Урок 9: Функции в Python</h2>
+
+    <h3>1. Что такое функция?</h3>
+    <p>Функция — это блок кода, который можно вызвать несколько раз.</p>
+
+    <pre>
+<span class="comment"># Определение функции</span>
+def greet():
+    print(<span class="string">"Привет! Добро пожаловать в программу."</span>)
+
+<span class="comment"># Вызов функции</span>
+greet()
+    </pre>
+
+    <h3>2. Функция с аргументами</h3>
+    <pre>
+<span class="comment"># Функция с аргументами</span>
+def introduce(name, age):
+    print(f<span class="string">"Меня зовут {name}, мне {age} лет."</span>)
+
+introduce(<span class="string">"Анна"</span>, <span class="number">25</span>)
+introduce(<span class="string">"Иван"</span>, <span class="number">30</span>)
+    </pre>
+
+    <h3>3. Функция с возвращаемым значением</h3>
+    <pre>
+<span class="comment"># Функция, возвращающая значение</span>
+def add_numbers(a, b):
+    return a + b
+
+result = add_numbers(<span class="number">5</span>, <span class="number">3</span>)
+print(<span class="string">"Результат сложения:"</span>, result)
+    </pre>
+
+    <h3>4. Аргументы по умолчанию</h3>
+    <pre>
+<span class="comment"># Аргумент по умолчанию</span>
+def greet(name=<span class="string">"Гость"</span>):
+    print(f<span class="string">"Привет, {name}!"</span>)
+
+greet()
+greet(<span class="string">"Анна"</span>)
+    </pre>
+
+    <h3>Что нужно запомнить:</h3>
+    <ul>
+        <li><b>Функция</b> — это блок кода, который можно вызывать несколько раз.</li>
+        <li><b>Аргументы</b> позволяют передавать данные в функцию.</li>
+        <li><b>return</b> позволяет вернуть значение из функции.</li>
+        <li><b>Аргументы по умолчанию</b> используются, если значение не передано.</li>
+    </ul>
+
+</body>
+</html>

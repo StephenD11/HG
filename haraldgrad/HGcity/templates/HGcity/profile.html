@@ -6,7 +6,7 @@
 {% block content %}
 <img src="{% static '/images/background_profile.png' %}" alt="Свет" id="background-image-profile">
 
-<h1 style="display:flex; flex-direction: column; align-items: center; margin-top: 55px;">ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ</h1>
+<h1 class="profile-name-top">ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ</h1>
 <!-- Сообщения -->
 {% if messages %}
 <ul class="messages">
@@ -38,35 +38,35 @@
 
         <div class="profile-section">
             <div style="margin-top: -30px;">
-                <p style="font-weight: bold; font-size:35px;">{{ user.first_name }} {{ user.last_name }}</p>
+                <p class="profile-name-secondname">{{ user.first_name }} {{ user.last_name }}</p>
             </div>
 
-            <div style="margin-top: -45px; ">
-                <p>Email: {{ user.email }}</p>
+            <div>
+                <p class="profile-text-all"><b style="color:red">Email</b>: {{ user.email }}</p>
             </div>
 
-            <div style="margin-top: -35px;">
-                <p>Логин: {{ user.username }}</p>
+            <div>
+                <p class="profile-text-all"><b style="color:red">Логин</b>: {{ user.username }}</p>
             </div>
 
-            <div style="margin-top: -35px;">
-                <p>Роль: {{ user.role }}</p>
+            <div>
+                <p class="profile-text-all"><b style="color:red">Роль</b>: {{ user.role }}</p>
             </div>
 
-            <div style="margin-top: -35px;">
-                <p>Идеология: {{ user.ideology }}</p>
+            <div>
+                <p class="profile-text-all"><b style="color:red">Идеология</b>: {{ user.ideology }}</p>
             </div>
 
-            <div style="margin-top: -35px;">
-                <p>Социальный рейтинг: {{ user.social_rating }}</p>
+            <div>
+                <p class="profile-text-all"><b style="color:red">Социальный рейтинг</b>: {{ user.social_rating }}</p>
             </div>
 
-            <div style="margin-top: -35px;">
-                <p>Жизни: {{ user.hp }} хп</p>
+            <div>
+                <p class="profile-text-all"><b style="color:red">Жизни</b>: {{ user.hp }} хп</p>
             </div>
 
-            <div style="margin-top: -35px;">
-                <p>Кошелек: {{ user.wallet }}</p>
+            <div>
+                <p class="profile-text-all"><b style="color:red">Кошелек</b>: {{ user.wallet }}</p>
             </div>
 
 
@@ -74,14 +74,14 @@
     </div>
 
 
-    <button onclick="window.location.href='{% url 'HGcity:profile_edit' %}'" style="margin-bottom: 10px;"
+    <button onclick="window.location.href='{% url 'HGcity:profile_edit' %}'" style="margin-bottom: -10px;"
             class="profile-button-logo"> Редактировать данные
     </button>
 
 </div>
 
 
-<div style="margin-top: -18px;display: flex; flex-direction: column; align-items: center;">
+<div class="prof-bio-place">
     <p>Биография: {{ user.biography }}</p>
 </div>
 

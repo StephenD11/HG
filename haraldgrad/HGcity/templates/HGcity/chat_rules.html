@@ -35,15 +35,15 @@
         <ol class="features-list">
             <li><b style="color:red;">/drink</b> - выпить рюмку водки</li>
 
-            {% if user.role == 'ГОХ' or user.role == 'Капитан ГОХ' or user.role == 'Система' %}
+            {% if user.role == 'ГОХ' or user.role == 'Капитан Гох' or user.role == 'Система' %}
             <li><b style="color:red;">/mute</b> 30, 60, 3600 - мут пользователя (Пример: /mute dima 60). Время указывается в секундах</li>
             {% endif %}
 
-            {% if user.role == 'Капитан ГОХ' or user.role == 'Система' %}
+            {% if user.role == 'Капитан Гох' or user.role == 'Система' %}
             <li><b style="color:red;">/ban</b> - забанить пользователя (Только ролям "Капитан ГОХ" и "Система")</li>
             {% endif %}
 
-            {% if user.role == 'ГОХ' or user.role == 'Капитан ГОХ' or user.role == 'Система' %}
+            {% if user.role == 'ГОХ' or user.role == 'Капитан Гох' or user.role == 'Система' %}
             <li><b style="color:red;">/unban</b> - разбанить пользователя (Только ролям "ГОХ", "Капитан ГОХ" и "Система")</li>
             {% endif %}
         </ol>
@@ -53,7 +53,7 @@
 
 
 <br>
-<div class="div-login">
+<div class="div-chat-rules">
     <button onclick="window.location.href='{% url 'HGcity:chat' %}'">
         Вернуться в чат
     </button>
