@@ -5,14 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Харальдград</title>
     {% load static %}
+
+    <!-- Описание и ключевые слова для поисковых систем -->
+    <meta name="description" content="{% block description %}🔻 Харальдград — Виртуальный город [WRP] 🔻{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}GAME, WRP, ADVANTURE, HG{% endblock %}">
+
+    <!-- Open Graph для социальных сетей -->
+    <meta property="og:title" content="Харальдград">
+    <meta property="og:description" content="🔻 Харальдград — Виртуальный город [WRP] 🔻">
+    <meta property="og:image" content="{% static '/images/hg.png' %}">
+    <meta property="og:url" content="http://xaraldgrad.ru/">
+    <meta property="og:type" content="website">
+
     <link rel="stylesheet" href="{% static 'HGcity/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'HGcity/css/background.css' %}">
     <link rel="stylesheet" href="{% static 'HGcity/css/login.css' %}">
     <link rel="stylesheet" href="{% static 'HGcity/css/guide.css' %}">
     <link rel="stylesheet" href="{% static 'HGcity/css/media.css' %}">
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.png' %}">
-
-
 </head>
 <body id="home-page">
 <!-- Контейнер для всего контента -->
@@ -28,7 +38,7 @@
 
     <div class="door-container">
         <img id="doorImage" class="door-image" src="{% static 'animations/doors/bunker_1.png' %}" alt="Бункер">
-        <video id="doorVideo" class="door-video" muted>
+        <video id="doorVideo" class="door-video" muted playsinline webkit-playsinline>
             <source src="{% static 'animations/doors/doors_high_open.mp4' %}" type="video/mp4">
             Ваш браузер не поддерживает видео.
         </video>
@@ -43,14 +53,11 @@
     <div class="navigation-block">
         <nav>
             {% if user.is_authenticated %}
-            <!-- Показываем ссылки для авторизованных пользователей -->
             <button onclick="openDoors()">Открыть Двери</button>
             {% else %}
-            <!-- Показываем ссылки для гостей -->
             <button onclick="window.location.href='{% url 'HGcity:register' %}'">
                 РЕГИСТРАЦИЯ
             </button>
-
             <button onclick="window.location.href='{% url 'HGcity:login' %}'">
                 ВХОД
             </button>
@@ -58,24 +65,20 @@
         </nav>
     </div>
 
-
     <!-- Звук для открытия дверей -->
     <audio id="door-sound" src="{% static 'HGcity/music/doors_sound.mp3' %}"></audio>
-    <audio id="alarm-doors" src="{% static 'HGcity/music/alarm_doors.mp3    ' %}"></audio>
+    <audio id="alarm-doors" src="{% static 'HGcity/music/alarm_doors.mp3' %}"></audio>
 
 </div>
-<audio id="background-music" src="{% static 'HGcity/music/music_guide_page.mp3' %}" autoplay loop></audio>
+
+<audio id="background-music" src="{% static 'HGcity/music/music_guide_page.mp3' %}" loop></audio>
 
 {% if user.is_authenticated %}
-<!-- Показываем ссылки для авторизованных пользователей -->
 <button class="music-button" id="toggle-music" onclick="toggleMusic()">🔈</button>
 {% else %}
-<!-- Показываем ссылки для гостей -->
 <button class="music-button" id="toggle-music" onclick="toggleMusic()">🔈</button>
 {% endif %}
 
-
-<!-- Скрипт для управления музыкой и звуком -->
 <script>
     const lightImage = document.getElementById('lightImage');
     const audioElement = document.getElementById('background-music');
@@ -87,7 +90,7 @@
     doorSound.volume = 0.5;
     doorAlertSound.volume = 0.8;
 
-    let isPlaying = true;
+    let isPlaying = false;
 
     function toggleMusic() {
         if (isPlaying) {
@@ -100,31 +103,34 @@
         isPlaying = !isPlaying;
     }
 
+    // Включаем музыку при первом клике
+    document.addEventListener("click", function() {
+        if (audioElement.paused) {
+            audioElement.play();
+            isPlaying = true;
+            toggleButton.textContent = '🔈';
+        }
+    }, { once: true }); // Только одно срабатывание
+
     function openDoors() {
-        // Воспроизводим звуки
         doorSound.play();
         doorAlertSound.play();
 
-        // Показать анимацию света через 1 секунду
         setTimeout(function() {
-        lightImage.style.display = 'block';
-        }, 0000);
+            lightImage.style.display = 'block';
+        }, 0);
 
-        // Останавливаем фоновую музыку
         audioElement.pause();
 
-        // Скрываем изображение и показываем видео
-        doorImage.style.display = 'none'; // Скрыть картинку
-        doorVideo.style.display = 'block'; // Показать видео
-        doorVideo.play(); // Запустить видео
+        doorImage.style.display = 'none';
+        doorVideo.style.display = 'block';
+        doorVideo.play();
 
-        // Устанавливаем задержку перед переходом
         setTimeout(function () {
             window.location.href = '{% url 'HGcity:guide_page' %}';
         }, 4500); // Подгоняй время под длину видео
     }
 </script>
-
 
 <!-- Футер -->
 <footer class="footer-block">

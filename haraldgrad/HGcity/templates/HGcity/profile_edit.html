@@ -12,7 +12,7 @@
 
     <!-- Имя -->
     <div class="editing-div">
-        <p>Имя: <span id="first-name-display">{{ user.first_name }}</span></p>
+        <p style='text-align: center;'>Имя: <span id="first-name-display">{{ user.first_name }}</span></p>
         <button onclick="toggleEdit('first_name')" class="editing-button">Редактировать имя</button>
         <form method="post" action="{% url 'HGcity:update_profile' %}" style="display:none; text-align: center;" id="form-first_name" >
             {% csrf_token %}
@@ -38,7 +38,7 @@
     <div class="editing-div">
         <p>Идеология: {{ user.ideology }}</p>
         <button onclick="toggleEdit('ideology')" class="editing-button">Редактировать идеологию</button>
-        <form method="post" action="{% url 'HGcity:update_profile' %}" style="display:none; text-align: center;" id="form-ideology">
+        <form method="post" action="{% url 'HGcity:update_profile' %}" id="form-ideology" class="prof-edit-bio-center">
             {% csrf_token %}
             <input type="hidden" name="field" value="ideology">
             <select name="value">
@@ -56,7 +56,7 @@
         <form method="post" action="{% url 'HGcity:update_profile' %}" class="editing-div-bio" id="form-biography">
             {% csrf_token %}
             <input type="hidden" name="field" value="biography">
-            <textarea name="value" rows="5" style="width: 100%; border: 1px solid #f23b3b; padding: 5px; height: 96px; color: #ffffff; background: rgba(0, 0, 0, 0.3);">
+            <textarea name="value" rows="5" style="width: 100%; border: 1px solid #f23b3b; height: 96px; color: #ffffff; background: rgba(0, 0, 0, 0.3);">
                 {{ user.biography|linebreaksbr }}
             </textarea>
             <button type="submit" class="editing-button">Сохранить Биографию</button>
@@ -85,6 +85,7 @@
     <button onclick="window.location.href='{% url 'HGcity:profile' %}'">Вернуться в Профиль</button>
 </div>
 
+<p style="margin-bottom:100px;">
 <script>
     // Функция для открытия/закрытия списка правил с анимацией
     function toggleRules() {

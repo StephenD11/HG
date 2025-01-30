@@ -70,12 +70,14 @@ body {
 }
 
 .door-image, .door-video {
-    width: 700px; /* Общая ширина */
+    width: 700px; /* Общая ширина для больших экранов */
     border-radius: 15px;
+    margin: 0 auto; /* Центрируем изображения и видео */
 }
 
+/* Скрыть видео по умолчанию */
 .door-video {
-    display: none; /* Скрыть по умолчанию */
+    display: none;
 }
 
 
@@ -277,6 +279,7 @@ a:hover {
  display:flex;
  align-items: center;
  justify-content: center
+ text-align: center;
  }
 
 /* Централизуем навигацию */
@@ -373,10 +376,21 @@ border-radius:25px;
     font-size: 35px;
 }
 
+.prof-edit-bio-center {
+display:none;
+text-align: center;
+}
+
 .chat-input {
 width: 95%;
 height: 50px;
 padding: 10px;
+}
+
+.reg-mid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .chat-message {

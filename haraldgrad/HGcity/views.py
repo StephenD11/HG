@@ -348,7 +348,7 @@ def send_message(request):
             return JsonResponse({'status': 'error', 'message': 'Сообщение слишком длинное! Максимум 250 символов.'})
 
         # Если это команда /mute
-        if message_text.startswith('/mute '):
+        if message_text.startswith('/mute'):
             # Проверяем права отправителя
             sender = request.user
             if sender.role not in ['ГОХ', 'Капитан Гох', 'Система']:

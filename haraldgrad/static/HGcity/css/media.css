@@ -15,6 +15,8 @@
     background-color: #130909;
 }
 
+
+
 .special-text-K-home {
     font-size: 32px;
 }
@@ -70,6 +72,7 @@ header nav ul li a {
 
 .titl-guide-page {
     font-size: 35px;
+    text-align: center;
 }
 
 .text-guide-page {
@@ -250,6 +253,7 @@ margin-top: 10px;
 .profile-name-top {
     margin-top: 35px;
     font-size: 32px;
+    text-align: center;
 }
 
 .logo-list {
@@ -278,7 +282,7 @@ margin-top: 10px;
 
 .profile-card-edit {
     display: flex;
-    padding-top: 55px;
+    padding-top: 25px;
     margin: 0 auto;
     font-size: 25px;
     width: 250px;
@@ -302,6 +306,7 @@ margin-top: 10px;
 
 button.editing-button {
      margin-left: 1px;
+     margin-bottom: 25px;
 }
 
 .prof-edit-center {
@@ -311,9 +316,20 @@ button.editing-button {
 }
 
 
+.prof-edit-bio-center {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 20px;
+}
 
-
-
+#rules-list ul {
+    font-size: 18px;
+    list-style: none;
+    text-align: left;
+}
 
 }
 
@@ -736,6 +752,7 @@ header nav ul li a {
     align-items: center;
     justify-content: center;
     margin-top: 40px;
+    text-align: center;
  }
 
 /* Контейнер для каждого изображения */
@@ -857,7 +874,7 @@ padding: 5px;
 }
 
 .chat-message {
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .div-chat-rules {

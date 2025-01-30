@@ -148,11 +148,11 @@ LOGIN_REDIRECT_URL = '/'
 
 # Для восстановления почты
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_HOST = 'smtp.yandex.kz'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'system.haraldgrad@yandex.com'  # Твоя почта
-EMAIL_HOST_PASSWORD = 'nrqcukhhdbvfnlbk'  # Пароль приложения, если используется двухфакторка
+EMAIL_HOST_PASSWORD = 'gezluovmqkagcnfp'  # Пароль приложения, если используется двухфакторка
 DEFAULT_FROM_EMAIL = "Система Харальдграда <system.haraldgrad@yandex.com>"
 
 LOGIN_URL = 'HGcity:login'  # или 'login' если твой путь к логину так называется
