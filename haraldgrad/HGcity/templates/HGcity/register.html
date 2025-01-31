@@ -19,90 +19,106 @@
 <div class="div-register">
     <h1 class="topic-login">РЕГИСТРАЦИЯ</h1>
     <form method="post" enctype="multipart/form-data" class="reg-mid">
-        {% csrf_token %}
+    {% csrf_token %}
 
-        <!-- Вывод ошибок -->
-        {% if form.non_field_errors %}
+    <!-- Вывод ошибок -->
+    {% if form.non_field_errors %}
+    <ul class="errorlist">
+        {% for error in form.non_field_errors %}
+        <li style="color: red;">{{ error }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <!-- Логин -->
+    <div class="for-all-center">
+        <label for="id_username">Логин</label>
+        {{ form.username }}
+        {% if form.username.errors %}
         <ul class="errorlist">
-            {% for error in form.non_field_errors %}
+            {% for error in form.username.errors %}
             <li style="color: red;">{{ error }}</li>
             {% endfor %}
         </ul>
         {% endif %}
+    </div>
+    <br>
 
-        <!-- Логин -->
-        <div>
-            <label for="id_username">Логин</label>
-            {{ form.username }}
-            {% if form.username.errors %}
-            <ul class="errorlist">
-                {% for error in form.username.errors %}
-                <li style="color: red;">{{ error }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-        </div>
+    <!-- Email -->
+    <div class="for-all-center">
+        <label for="id_email">Почта</label>
+        {{ form.email }}
+        {% if form.email.errors %}
+        <ul class="errorlist">
+            {% for error in form.email.errors %}
+            <li style="color: red;">{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <br>
+
+    <!-- Пароль -->
+    <div class="for-all-center">
+        <label for="id_password1">Пароль</label>
+        {{ form.password1 }}
+        {% if form.password1.errors %}
+        <ul class="errorlist">
+            {% for error in form.password1.errors %}
+            <li style="color: red;">{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <br>
+
+    <!-- Подтверждение пароля -->
+    <div class="for-all-center">
+        <label for="id_password2">Подтверждение пароля</label>
+        {{ form.password2 }}
+        {% if form.password2.errors %}
+        <ul class="errorlist">
+            {% for error in form.password2.errors %}
+            <li style="color: red;">{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <br>
+
+    <!-- Пин код -->
+    <div class="for-all-center">
+        <label for="id_pin_code">Пин код (4 цифры)</label>
+        {{ form.pin_code }}
+        {% if form.pin_code.errors %}
+        <ul class="errorlist">
+            {% for error in form.pin_code.errors %}
+            <li style="color: red; text-align: center;">{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <br>
+
+    <div class="div-ideology">
+        <label for="id_ideology">Ваша Идеология</label>
         <br>
-        <!-- Email -->
-        <div>
-            <label for="id_email">Email</label>
-            {{ form.email }}
-            {% if form.email.errors %}
-            <ul class="errorlist">
-                {% for error in form.email.errors %}
-                <li style="color: red;">{{ error }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
+        <div class="select-wrapper">
+            {{ form.ideology }}
         </div>
-        <br>
-        <!-- Пароль -->
-        <div>
-            <label for="id_password1">Пароль</label>
-            {{ form.password1 }}
-            {% if form.password1.errors %}
-            <ul class="errorlist">
-                {% for error in form.password1.errors %}
-                <li style="color: red;">{{ error }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-        </div>
-        <br>
-        <!-- Подтверждение пароля -->
-        <div>
-            <label for="id_password2">Подтверждение пароля</label>
-            {{ form.password2 }}
-            {% if form.password2.errors %}
-            <ul class="errorlist">
-                {% for error in form.password2.errors %}
-                <li style="color: red;">{{ error }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-        </div>
-        <br>
-        <div class="div-ideology">
-            <label for="id_ideology">Ваша Идеология</label>
-            <br>
-            <div class="select-wrapper">
-                {{ form.ideology }}
-            </div>
-            {% if form.ideology.errors %}
-            <ul class="errorlist">
-                {% for error in form.ideology.errors %}
-                <li class="error">{{ error }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-            <button type="submit" class="button-reg">ЗАРЕГИСТРИРОВАТЬСЯ</button>
-        </div>
+        {% if form.ideology.errors %}
+        <ul class="errorlist">
+            {% for error in form.ideology.errors %}
+            <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <button type="submit" class="button-reg">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+    </div>
 
+    <a href="{% url 'HGcity:login' %}" class="forgot-password-reg">Уже есть аккаунт</a>
+</form>
 
-        <a href="{% url 'HGcity:login' %}" class="forgot-password-reg">Уже есть аккаунт</a>
-
-
-    </form>
 
 </div>
 

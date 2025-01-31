@@ -121,17 +121,58 @@ nav {
 }
 
 .rules-list {
-    list-style-type: decimal;
-    padding-left: 20px;
-    font-size: 22px;
-
-    line-height: 1.8;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .rules-list li {
     margin-bottom: 10px;
 }
 
+.reg-all-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 58%;
+}
+
+
+.container-password-reset{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 15%;
+    width: 90%;
+}
+
+.for-all-center {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 5px;
+}
+
+.container-password-reset-complete {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 20%;
+    font-size: 35px;
+    width: 100%;
+}
+
+.rules-list.open {
+    max-height: 300px; /* Ограничиваем высоту */
+    overflow-y: auto;  /* Добавляем прокрутку */
+}
 
 
 #chat-box::-webkit-scrollbar {
@@ -271,14 +312,70 @@ a:hover {
     color: #FF0000;  /* Красный цвет при наведении */
 }
 
+.confirm-acc {
+display:flex;
+text-align:center;
+flex-direction: column;
+justify-content: center;
+}
+
+.confirm-acc-button{
+display: flex;
+text-align: center;
+flex-direction: row;
+justify-content: center;
+gap:45px;
+}
+
+.container-acc-confirm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Центрирует по вертикали */
+    align-items: center; /* Центрирует по горизонтали */
+    text-align: center;
+    height: 90vh; /* Растягивает контейнер на весь экран */
+}
+
+.reg-rules {
+display:flex;
+text-align:center;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+}
+
+.title-confirm {
+font-size:45px;
+font-weight: bold;
+}
+
+.text-confirm {
+font-size:20px;
+}
+
+.reg-button {
+    font-family: 'GOST Type AU', Arial, sans-serif;
+    background-color: #bc4141;
+    color: rgb(252, 251, 251);
+    border: none;
+    padding: 4px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    font-size: 25px;
+    width: 39%;
+    font-size: 16px;
+    margin-top: 5%;
+}
+
+
 /* чат */
-
-
 .titl-guide-page {
  font-size:55px;
  display:flex;
  align-items: center;
- justify-content: center
+ justify-content: center;
  text-align: center;
  }
 

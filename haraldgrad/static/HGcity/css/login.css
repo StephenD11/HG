@@ -121,7 +121,7 @@ input::placeholder {
 .button-password-reset {
     padding: 3px 10px;
     font-size: 15px;
-    margin-top:8%;
+    margin-top:12%;
 }
 
 
@@ -187,6 +187,8 @@ label {
 .errorlist {
     margin: 5px 0 0;
     padding: 0;
+    width: 200px;
+    text-align: center;
     list-style: none;
 }
 

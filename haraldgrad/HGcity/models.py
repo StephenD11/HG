@@ -4,12 +4,13 @@ from django.conf import settings
 
 
 class User(AbstractUser):
-    first_name = models.CharField(max_length=100, blank=True, null=True, default='Без Имени', verbose_name='Имя персонажа')
-    last_name = models.CharField(max_length=100, blank=True, null=True, default='Без Фамилии',verbose_name='Фамилия персонажа')
+    first_name = models.CharField(max_length=100, blank=True, null=True, default='Имя', verbose_name='Имя персонажа')
+    last_name = models.CharField(max_length=100, blank=True, null=True, default='Фамилия',verbose_name='Фамилия персонажа')
     email = models.EmailField(unique=True,verbose_name='Почта')
     hp = models.IntegerField(default=100, blank=True, null=True,verbose_name='Жизни')
     social_rating = models.IntegerField(default=0, blank=True, null=True,verbose_name='Соц.рейтинг')
     wallet = models.IntegerField(default=0, blank=True, null=True,verbose_name='Кошелек')
+    pin_code = models.CharField(max_length=4, blank=True, null=True, verbose_name='Пин код')
     ideology = models.CharField(
         max_length=20,
         choices=[

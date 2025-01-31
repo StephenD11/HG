@@ -1,21 +1,18 @@
+from django.contrib.auth.forms import SetPasswordForm
+from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.views import LoginView
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth import login, logout, authenticate, get_user_model
-from django.core.mail import EmailMultiAlternatives
-from django.contrib.auth.forms import PasswordResetForm
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+
 from .forms import UserRegisterForm
 from .models import User, Message, Banneded
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-from django.core.exceptions import PermissionDenied
+from django.http import JsonResponse, Http404
+from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.contrib import messages
 import time, random, re
 from django.core.cache import cache  # Для временного хранения мута
-
-from django.contrib.sites.shortcuts import get_current_site
-from django.template.loader import render_to_string
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.contrib.auth.tokens import default_token_generator
 
 from datetime import datetime, time
 from zoneinfo import ZoneInfo
@@ -55,88 +52,89 @@ class CustomLoginView(LoginView):
         return reverse('HGcity:home')
 
 
+
+def password_reset_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+
+        try:
+            user = User.objects.get(username=username, email=email)
+        except ObjectDoesNotExist:
+            return render(request, 'HGcity/registration/password_reset.html', {'error': 'Пользователь с таким логином и почтой не найден.'})
+
+        # Запрос пин-кода
+        if request.POST.get('pin_code') == user.pin_code:
+            uid = urlsafe_base64_encode(str(user.pk).encode())
+            token = default_token_generator.make_token(user)
+            return redirect('HGcity:password_reset_confirm', uidb64=uid)
+        else:
+            return render(request, 'HGcity/registration/password_reset.html', {'error': 'Неверный пин-код'})
+
+    return render(request, 'HGcity/registration/password_reset.html')
+
+
+def password_reset_confirm_view(request, uidb64):
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        raise Http404("Пользователь не найден")
+
+    if request.method == 'POST':
+        form = SetPasswordForm(user, request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('HGcity:password_reset_complete')
+
+    form = SetPasswordForm(user)
+    return render(request, 'HGcity/registration/password_reset_confirm.html', {'form': form, 'user': user})
+
+
+def password_reset_complete_view(request):
+    return render(request, 'HGcity/registration/password_reset_complete.html')
+
+
+
 # Логин
 def logout_view(request):
     logout(request)
     return redirect('HGcity:login')  # Перенаправляем на страницу логина после выхода
 
 
-# Восстановление пароля
-def password_reset_view(request):
-    if request.method == 'POST':
-        form = PasswordResetForm(request.POST)
-        if form.is_valid():
-            form.save(request=request)
-            return redirect('registration:password_reset_done')  # или нужный URL
-    else:
-        form = PasswordResetForm()
-    return render(request, 'registration/password_reset_form.html', {'form': form})
-
-
 # Регистрация
 def register(request):
     if request.method == 'POST':
-        form = UserRegisterForm(request.POST, request.FILES)
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password1'])
-            user.is_active = False
+            user.set_password(form.cleaned_data['password1'])  # Устанавливаем пароль
+            user.is_active = False  # Можно установить, что пользователь не активен
             user.save()
 
-            # Отправляем письмо
-            current_site = get_current_site(request)
-            send_confirmation_email(user, current_site.domain)
+            return redirect("HGcity:confirm_registration", user_id=user.id)
 
-            return redirect('HGcity:confirm_email_page')
     else:
         form = UserRegisterForm()
 
     return render(request, 'HGcity/register.html', {'form': form})
 
 
-# Подтверждение почты
-def confirm_email(request, uidb64, token):
-    try:
-        uid = urlsafe_base64_decode(uidb64).decode()
-        user = get_user_model().objects.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, user.DoesNotExist):
-        user = None
+def confirm_registration(request, user_id):
+    user = get_object_or_404(User, id=user_id, is_active=False)
 
-    if user and default_token_generator.check_token(user, token):
-        user.is_active = True  # Активируем пользователя
-        user.save()
-        return redirect('HGcity:login')  # Перенаправляем на страницу входа
-    else:
-        return render(request, 'HGcity/invalid_link.html')  # Показать ошибку, если токен невалиден
+    if request.method == "POST":
+        action = request.POST.get("action")
+        if action == "confirm":
+            user.is_active = True
+            user.save()
+            return redirect("HGcity:login")
+        elif action == "cancel":
+            user.delete()
+            return redirect("HGcity:register")
 
+    return render(request, "HGcity/registration/confirm_registration.html", {"user": user})
 
-# Страница с уведомлением о необходимости подтверждения почты
-def confirm_email_page(request):
-    return render(request, 'registration/confirm_your_email.html')
-
-
-# Функция отправки письма с подтверждением
-def send_confirmation_email(user, domain):
-    uid = urlsafe_base64_encode(str(user.pk).encode())
-    token = default_token_generator.make_token(user)
-    subject = 'Подтвердите вашу почту'
-    from_email = 'Система Харальдграда <system.haraldgrad@yandex.com>'
-    to_email = [user.email]
-
-    protocol = 'http'  # или 'https', если настроено на https
-
-    text_content = f"Здравствуйте, {user.username}!\nПодтвердите почту: http://{domain}/confirm_email/{uid}/{token}/"
-    html_content = render_to_string('registration/confirmation_email.html', {
-        'user': user,
-        'domain': domain,
-        'uid': uid,
-        'token': token,
-        'protocol': protocol,  # Добавляем протокол в контекст
-    })
-
-    email = EmailMultiAlternatives(subject, text_content, from_email, to_email)
-    email.attach_alternative(html_content, "text/html")
-    email.send()
 
 
 def home(request):

@@ -19,6 +19,8 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', views.logout_view, name='logout'),
+    path("confirm_registration/<int:user_id>/", views.confirm_registration, name="confirm_registration"),
+
 
     # Профиль и лого
     path('profile/', views.profile, name='profile'),
@@ -31,10 +33,10 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),  # Контакты
 
     # Восстановление пароля
-    path('password_reset/', auth_views.PasswordResetView.as_view(template_name='registration/password_reset_form.html', success_url='/password_reset/done/'), name='password_reset'),
-    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'), name='password_reset_done'),
-    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm.html', success_url='/reset/done/'), name='password_reset_confirm'),
-    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html'), name='password_reset_complete'),
+    path('password_reset/', views.password_reset_view, name='password_reset'),
+    path('password_reset_confirm/<uidb64>/', views.password_reset_confirm_view, name='password_reset_confirm'),
+    path('password_reset_complete/', views.password_reset_complete_view, name='password_reset_complete'),
+
 
     #Чат
     path('chat/', views.chat_view, name='chat'),
@@ -43,9 +45,8 @@ urlpatterns = [
     path('clear_chat/', views.clear_chat, name='clear_chat'),
     path('chat_rules/', views.chat_rules, name='chat_rules'),
 
-    #Подтверждение почты
-    path('confirm_email/<uidb64>/<token>/', views.confirm_email, name='confirm_email'),
-    path('confirm-your-email/', views.confirm_email_page, name='confirm_email_page'),
+
+
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

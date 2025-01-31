@@ -1,0 +1,95 @@
+{% extends 'HGcity/base.html' %}
+
+{% load static %}
+
+{% block title %}Подтверждение Аккаунта{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+<img src="{% static '/images/background_reg.png' %}" alt="Свет" id="background-image-reg">
+
+
+<div class="container-acc-confirm">
+    <p class="title-confirm">ПОДТВЕРЖДЕНИЕ РЕГИСТРАЦИИ</p>
+    <p class="text-confirm">ПРЕЖДЕ ЧЕМ ПОДТВЕРДИТЬ АККАУНТ ПРОВЕРЬТЕ ДАННЫЕ ЧТО ВЫ УКАЗАЛИ ПРИ РЕГИСТРАЦИИ</p>
+    <p class="text-confirm">ЗАПОМНИТЕ ВСЕ ДАННЫЕ <span style="color:yellow;">[ СДЕЛАЙТЕ СКРИН ]</span>, ОНИ ПОНАДОБЯТЬСЯ НА СЛУЧАЙ ВОССТАНОВЛЕНИЯ </p>
+    <div class="confirm-acc">
+        <p class="text-confirm"><span style="color:red;">ВАШ ЛОГИН</span>: {{ user.username }}</p>
+        <p class="text-confirm"><span style="color:red;">ВАША ПОЧТА</span>: {{ user.email }}</p>
+        <p class="text-confirm"><span style="color:red;">ВАША КОД</span>: {{ user.pin_code }}</p>
+    </div>
+    <p class="text-confirm">ВЫ ДЕЙСТВИТЕЛЬНО ХОТИТЕ АКТИВИРОВАТЬ АККАУНТ?</p>
+
+    <form method="post" class="confirm-acc-button">
+        {% csrf_token %}
+        <button type="submit" name="action" value="confirm">АКТИВИРОВАТЬ</button>
+        <button type="submit" name="action" value="cancel">УДАЛИТЬ</button>
+    </form>
+
+    <!-- Правила -->
+    <div class="reg-rules">
+        <button onclick="toggleRules()" class="reg-button">ПРАВИЛА РЕГИСТРАЦИИ АККАУНТА</button>
+        <div id="rules-list" class="rules-list">
+            <ul>
+                <li><b style="color:#5cca5c;">Правило 1</b>: Запрещены оскорбления и неуважительные выражения. Ваше имя
+                    пользователя и другие данные не должны содержать нецензурную лексику, оскорбления или уничижительные
+                    термины.
+                </li>
+                <li><b style="color:#5cca5c;">Правило 2</b>: Запрещены дискриминационные и экстремистские имена. Имена,
+                    содержащие намеки на расизм, национализм, религиозную или политическую ненависть, а также
+                    экстремизм, запрещены.
+                </li>
+                <li><b style="color:#5cca5c;">Правило 3</b>: Не допускаются непонятные символы и случайные наборы
+                    букв/цифр.
+                    Имя пользователя должно быть читабельным и осмысленным. Запрещены бессмысленные наборы символов
+                    (например, "xXx_123ASD_xXx").
+                </li>
+                <li><b style="color:#5cca5c;">Правило 4</b>: Запрещено использовать вводящие в заблуждение имена.
+                    Нельзя регистрировать аккаунты с именами вроде "Администратор", "Мэр", "Полиция", "Судья", если вы
+                    не занимаете соответствующую должность.
+                </li>
+                <li><b style="color:#5cca5c;">Правило 5</b>: Запрещены имена, нарушающие законы. Запрещено использовать
+                    имена, связанные с преступной деятельностью, терроризмом, пропагандой насилия, наркотиков и других
+                    незаконных действий.
+                </li>
+                <li><b style="color:#5cca5c;">Правило 6</b>: Один человек — один аккаунт. Запрещено создавать несколько
+                    учетных записей для обхода правил или получения преимуществ.
+                </li>
+                <li><b style="color:#5cca5c;">Правило 7</b>: Запрещено выдавать себя за другого игрока. Ваш ник и другие
+                    данные не должны копировать чужие учетные записи или вводить других пользователей в заблуждение.
+                </li>
+                <li><b style="color:#5cca5c;">Правило 8</b>: Аккаунты с неподтвержденной регистрацией удаляются. Если вы
+                    не подтвердите регистрацию, ваш аккаунт будет удален.
+                </li>
+                <li><b style="color:#5cca5c;">Правило 9</b>: Администрация имеет право удалить или заблокировать
+                    аккаунт.
+                    В случае нарушения правил администрация вправе удалить или заблокировать вашу учетную запись без
+                    возможности восстановления.
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Функция для открытия/закрытия списка правил с анимацией
+function toggleRules() {
+    const rules = document.getElementById("rules-list");
+    rules.classList.toggle("open");
+    rules.scrollIntoView({ behavior: "smooth", block: "nearest" });
+
+    if (rules.style.maxHeight) {
+        rules.style.maxHeight = null;
+    } else {
+        rules.style.maxHeight = rules.scrollHeight + "px";
+        button.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+}
+
+</script>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
