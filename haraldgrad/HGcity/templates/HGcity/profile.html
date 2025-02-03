@@ -4,88 +4,92 @@
 {% block title %}Профиль{% endblock %}
 
 {% block content %}
-<img src="{% static '/images/background_profile.png' %}" alt="Свет" id="background-image-profile">
 
-<h1 class="profile-name-top">ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ</h1>
-<!-- Сообщения -->
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    {% if "error" in message.tags and message == "Для вашей идеологии нет доступных логотипов." %}
-    <li class="{{ message.tags }}" style="font-size:25px; color: red;">{{ message }}</li>
+<div class="for-all-center">
+    <img src="{% static '/images/background_profile.png' %}" alt="Свет" id="background-image-profile">
+
+    <h1 class="profile-name-top">ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ</h1>
+    <!-- Сообщения -->
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        {% if "error" in message.tags and message == "Для вашей идеологии нет доступных логотипов." %}
+        <li class="{{ message.tags }}" style="font-size:25px; color: red;">{{ message }}</li>
+        {% endif %}
+        {% endfor %}
+    </ul>
     {% endif %}
-    {% endfor %}
-</ul>
-{% endif %}
 
-<!--Верхний общий блок-->
-<div class="profile-card" style="margin-bottom: 25px;">
+    <!--Верхний общий блок-->
+    <div class="profile-card" style="margin-bottom: 25px;">
 
-    <!-- Блок с Лого и ФИО -->
-    <div class="profile-block-high">
+        <!-- Блок с Лого и ФИО -->
+        <div class="profile-block-high">
 
-        <div class="profile-logo-editing-button">
-            {% if user.logo %}
-            <img src="{% static user.logo %}" alt="Ваш логотип" class="profile-logo">
-            {% else %}
-            <p>Логотип не выбран.</p>
-            {% endif %}
+            <div class="profile-logo-editing-button">
+                {% if user.logo %}
+                <img src="{% static user.logo %}" alt="Ваш логотип" class="profile-logo">
+                {% else %}
+                <p>Логотип не выбран.</p>
+                {% endif %}
 
-            <button onclick="window.location.href='{% url 'HGcity:choose_logo' %}'" class="profile-button-logo">Выбрать
-                логотип
-            </button>
+                <button onclick="window.location.href='{% url 'HGcity:choose_logo' %}'" class="profile-button-logo">
+                    Выбрать
+                    логотип
+                </button>
+            </div>
+
+            <div class="profile-section">
+                <div style="margin-top: -30px;">
+                    <p class="profile-name-secondname">{{ user.first_name }} {{ user.last_name }}</p>
+                </div>
+
+                <div>
+                    <p class="profile-text-all"><b style="color:red">Email</b>: {{ user.email }}</p>
+                </div>
+
+                <div>
+                    <p class="profile-text-all"><b style="color:red">Логин</b>: {{ user.username }}</p>
+                </div>
+
+                <div>
+                    <p class="profile-text-all"><b style="color:red">Роль</b>: {{ user.role }}</p>
+                </div>
+
+                <div>
+                    <p class="profile-text-all"><b style="color:red">Идеология</b>: {{ user.ideology }}</p>
+                </div>
+
+                <div>
+                    <p class="profile-text-all"><b style="color:red">Социальный рейтинг</b>: {{ user.social_rating }}
+                    </p>
+                </div>
+
+                <div>
+                    <p class="profile-text-all"><b style="color:red">Жизни</b>: {{ user.hp }} хп</p>
+                </div>
+
+                <div>
+                    <p class="profile-text-all"><b style="color:red">Кошелек</b>: {{ user.wallet }}</p>
+                </div>
+
+
+            </div>
         </div>
 
-        <div class="profile-section">
-            <div style="margin-top: -30px;">
-                <p class="profile-name-secondname">{{ user.first_name }} {{ user.last_name }}</p>
-            </div>
 
-            <div>
-                <p class="profile-text-all"><b style="color:red">Email</b>: {{ user.email }}</p>
-            </div>
+        <button onclick="window.location.href='{% url 'HGcity:profile_edit' %}'" style="margin-bottom: -10px;"
+                class="profile-button-logo"> Редактировать данные
+        </button>
 
-            <div>
-                <p class="profile-text-all"><b style="color:red">Логин</b>: {{ user.username }}</p>
-            </div>
-
-            <div>
-                <p class="profile-text-all"><b style="color:red">Роль</b>: {{ user.role }}</p>
-            </div>
-
-            <div>
-                <p class="profile-text-all"><b style="color:red">Идеология</b>: {{ user.ideology }}</p>
-            </div>
-
-            <div>
-                <p class="profile-text-all"><b style="color:red">Социальный рейтинг</b>: {{ user.social_rating }}</p>
-            </div>
-
-            <div>
-                <p class="profile-text-all"><b style="color:red">Жизни</b>: {{ user.hp }} хп</p>
-            </div>
-
-            <div>
-                <p class="profile-text-all"><b style="color:red">Кошелек</b>: {{ user.wallet }}</p>
-            </div>
-
-
-        </div>
     </div>
 
 
-    <button onclick="window.location.href='{% url 'HGcity:profile_edit' %}'" style="margin-bottom: -10px;"
-            class="profile-button-logo"> Редактировать данные
-    </button>
+    <div class="prof-bio-place">
+        <p style='text-align: center;'>Биография: {{ user.biography }}</p>
+    </div>
 
 </div>
-
-
-<div class="prof-bio-place">
-    <p style='text-align: center;'>Биография: {{ user.biography }}</p>
-</div>
-
-
 
 <script>
     function toggleEdit(field) {

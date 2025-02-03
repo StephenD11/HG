@@ -86,9 +86,14 @@ def password_reset_confirm_view(request, uidb64):
         if form.is_valid():
             form.save()
             return redirect('HGcity:password_reset_complete')
+        else:
+            # Если форма содержит ошибки, они передаются обратно в шаблон
+            return render(request, 'HGcity/registration/password_reset_confirm.html', {'form': form, 'user': user})
 
+    # GET-запрос — отображаем пустую форму
     form = SetPasswordForm(user)
     return render(request, 'HGcity/registration/password_reset_confirm.html', {'form': form, 'user': user})
+
 
 
 def password_reset_complete_view(request):

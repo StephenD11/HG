@@ -2,7 +2,7 @@
 @media (max-width: 480px) {
     /* Стили для мобильных устройств */
     body {
-    font-family: 'GOST Type AU', Arial, sans-serif;
+    font-family: 'GOST Type AU', Courier New;
     margin: 0;
     padding: 0;
     display: flex;
@@ -13,6 +13,48 @@
     font-size: 20px;
     color: rgb(247, 242, 242); /* Белый цвет текста по умолчанию для всего тела */
     background-color: #130909;
+}
+
+.profile-button-logo {
+    padding: 2px 15px;
+    font-size: 16px;
+}
+
+@font-face {
+    font-family: 'GOST type A';
+    src: url('/static/fonts/GOST Type AU.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Kroftsmann';
+    src: url('/static/fonts/Kroftsmann.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+.container-password-reset-complete {
+    margin-top: 50%;
+}
+
+.image-container img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.errorlist {
+    width: 80%;
+}
+
+.button-login-main {
+    padding: 1px 5px;
+    font-size: 15px;
+    margin-top: 15px;
 }
 
 .container-password-reset {
@@ -78,7 +120,7 @@ button {
 }
 
 .music-button {
-    right: 43%;
+    right: 44%;
 }
 
 .container {
@@ -146,12 +188,7 @@ header nav ul li a {
     height: calc(30% - 10px);
 }
 
-.image-container img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
+
 
 .img-about-top {
     width: 300px;
@@ -187,7 +224,9 @@ header nav ul li a {
 
 
 .description-text-update {
-    font-size: 18px;
+    font-size: 16px;
+    text-align: justify;
+    text-align-last: center;
 }
 
 .features-list-update {
@@ -206,7 +245,7 @@ header nav ul li a {
 .excel-table-container {
     max-width: 300px;
     font-size: 16px;
-    margin-top: 5%;
+    margin-top: 15%;
 
 }
 
@@ -273,8 +312,8 @@ margin-top: 10px;
 
 
 .profile-logo {
-    width: 150px;
-    height: 150px;
+    width: 210px;
+    height: 210px;
 }
 
 .profile-name-secondname {
@@ -292,6 +331,9 @@ margin-top: 10px;
 
 .profile-section {
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
 }
 
 .profile-name-secondname {
@@ -358,6 +400,7 @@ margin-top: 10px;
 button.editing-button {
      margin-left: 1px;
      margin-bottom: 25px;
+     font-size:20px;
 }
 
 .prof-edit-center {
@@ -388,7 +431,7 @@ button.editing-button {
 @media (min-width: 481px) and (max-width: 768px) {
     /* Стили для планшетов */
     body {
-    font-family: 'GOST Type AU', Arial, sans-serif;
+    font-family: 'GOST Type AU', Courier New;
     margin: 0;
     padding: 0;
     display: flex;
@@ -400,8 +443,6 @@ button.editing-button {
     color: rgb(247, 242, 242); /* Белый цвет текста по умолчанию для всего тела */
     background-color: #130909;
 }
-
-
 
 .title-confirm {
     font-size: 35px;
@@ -507,13 +548,49 @@ input[name="value"] {
     margin-top: 35%;
 }
 
+.form-label {
+    font-size: 30px;
 }
+
+
+.button-login-main {
+    padding: 1px 5px;
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #13090900 inset;
+    -webkit-text-fill-color: #ffffff;
+    transition: background-color 5000s ease-in-out 0s;
+    font-size: 18px;
+}
+
+.container-password-reset-complete {
+    margin-top: 50%;
+}
+
+.button-login {
+    font-size: 38px;
+}
+
+.container-password-reset {
+    margin-top: 35%;
+}
+
+label {
+    font-size: 28px;
+
+
+}
+}
+
 
 /* === Десктопы (от 769px до 1024px) === */
 @media (min-width: 769px) and (max-width: 1024px) {
     /* Стили для средних десктопов */
     body {
-    font-family: 'GOST Type AU', Arial, sans-serif;
+    font-family: 'GOST Type AU', Courier New;
     margin: 0;
     padding: 0;
     display: flex;
@@ -526,14 +603,24 @@ input[name="value"] {
     background-color: #130909;
 }
 
+.special-text-K-home {
+    font-size: 90px;
+    margin-top: 135px;
+}
+
 .container-password-reset {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    margin-top: 15%;
-    width: 90%;
+    margin-top: 32%;
+}
+
+.button-login-main {
+    font-size: 25px;
+    margin-top: 19%;
+}
+
+
+
+.container-password-reset-complete {
+    margin-top: 45%;
 }
 
 .profile-button-logo {
@@ -566,7 +653,8 @@ input[name="value"] {
 }
 
 .profile-card-edit {
-    width: 90%;
+    width: 100%;
+    padding-top: 45px;
 }
 
 
@@ -582,8 +670,12 @@ input[name="value"] {
 
 input[name="value"] {
     margin-bottom: 20px;
-    font-size:15px;
-    width: 60%;
+    font-size:20px;
+    width: 90%;
+}
+
+.text-area-prof-edit {
+    font-size: 25px;
 }
 
 .editing-button-back {
@@ -647,13 +739,42 @@ input[name="value"] {
 }
 button {
     font-size: 30px;
+    margin-top: 20px;
 }
 
+.button-login {
+    padding: 0px 10px;
+    font-size: 45px;
+    margin-bottom: 0%;
+}
 
 .forgot-password {
     font-size: 21px;
     margin-bottom: 30px;
 }
+
+.button-reg {
+    padding: 3px 10px;
+    font-size: 30px;
+    margin-top: 70px;
+}
+
+.button-reg-main {
+    font-size: 30px;
+}
+
+.forgot-password-reg {
+    font-size: 28px;
+}
+
+.text-confirm {
+    font-size: 25px;
+}
+
+.contact-section {
+    font-size: 30px;
+}
+
 
 input {
     font-size: 24px;
@@ -690,13 +811,32 @@ label {
     font-size: 30px;
 }
 
+.prof-bio-place {
+    width: 500px;
+    font-size: 32px;
 }
 
-/* === Большие десктопы (от 1025px до 1440px) === */
-@media (min-width: 1025px) and (max-width: 1637px) {
+button.editing-button {
+    font-size: 24px;
+}
+
+.editing-div {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-bottom: 35px;
+    align-items: center;
+}
+
+
+
+}
+
+/* === Большие десктопы (от 1025px до 1360px) === */
+@media (min-width: 1025px) and (max-width: 1366px) {
     /* Стили для больших десктопов */
     body {
-    font-family: 'GOST Type AU', Arial, sans-serif;
+    font-family: 'GOST Type AU', Courier New;
     margin: 0;
     padding: 0;
     display: flex;
@@ -709,17 +849,37 @@ label {
     background-color: #130909;
 }
 
+.music-button {
+    top: 80%;
+}
+
+
+
+
+.forgot-password-reg {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.div-login-main {
+    display: flex
+;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 12%;
+}
+
 .title-confirm {
 font-size:35px;
 font-weight: bold;
 }
 
-.text-confirm {
-font-size:15px;
-}
-
 .container-password-reset {
     margin-top: 10%;
+}
+
+.text-confirm {
+font-size:15px;
 }
 
 .reg-button {
@@ -732,13 +892,13 @@ font-size:15px;
     position: relative;
     z-index: 1;
     width: 44%;
-    font-size: 9px;
+    font-size: 16px;
     margin-top: 6%;
 }
 
 .rules-list li {
     margin-bottom: 10px;
-    font-size: 13px;
+    font-size: 18px;
 }
 
 .container-acc-confirm {
@@ -752,7 +912,7 @@ font-size:15px;
 }
 
 .door-image, .door-video {
-    width: 400px; /* Общая ширина */
+    width: 500px; /* Общая ширина */
 }
 
 .door-video {
@@ -770,7 +930,7 @@ font-size:15px;
 
 
 .residents-count {
-   font-size: 15px;
+   font-size: 25px;
 
 }
 
@@ -798,10 +958,11 @@ button:active::after {
 }
 
 button {
-    font-size: 12px;
+    font-size: 21px;
     padding: 2px 12px;
     margin-top: 0px;
 }
+
 
 .div-login-login {
     display: flex;
@@ -811,9 +972,20 @@ button {
 }
 
 .topic-login {
-   font-size: 18px;
+   font-size: 30px;
 
 }
+
+    .form-label {
+        font-size: 25px;
+        color: #ffffff;
+        margin-bottom: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
 
 input {
     width: 200px;
@@ -843,12 +1015,6 @@ label {
 
 }
 
-.button-login-main {
-    padding: 1px 5px;
-    font-size: 8px;
-    margin-top: 15px;
-
-}
 
 .select-wrapper select {
     padding: 2px;
@@ -857,26 +1023,55 @@ label {
 
 .button-reg {
     padding: 3px 12px;
-    font-size: 11px;
-    margin-top: 25px;
+    font-size: 20px;
+    margin-top: 45px;
 }
 
 .button-reg-main {
     padding: 3px 10px;
-    font-size: 10px;
+    font-size: 20px;
     margin-top: 15px;
     margin-bottom: 240px;
 }
 
 .forgot-password-reg {
-    font-size: 12px;
+    font-size: 20px;
     margin-bottom: 5px;
 }
+
+
 
 /* Поля ввода */
 .form-group input {
     width: 200px;
     border-bottom: 1px solid #ccc;
+    font-size: 20px;
+}
+
+label {
+    font-size: 20px;
+}
+
+input {
+    width: 200px;
+    max-width: 1800px;
+    border-bottom: 1px solid #ccc;
+    font-size: 15px;
+}
+
+.button-login-main {
+    padding: 1px 5px;
+    font-size: 15px;
+    margin-top: 20px;
+}
+
+.forgot-password {
+    font-size: 17px;
+}
+
+.button-login {
+    padding: 0px 10px;
+    font-size: 25px;
 }
 
 header nav ul li a {
@@ -892,12 +1087,6 @@ header nav ul li a {
     text-align: center;
  }
 
-/* Контейнер для каждого изображения */
-.image-container {
-    width: 130px;
-    height: 130px;
-
-}
 
 .text-guide-page {
 font-size:16px;
@@ -908,9 +1097,6 @@ width: 90%;
 border-radius:15px;
 }
 
-.content-container {
-    width: 45%;
-}
 
 .welcome-text {
     font-size: 35px;
@@ -939,12 +1125,7 @@ border-radius:15px;
     font-size: 20px;
 }
 
-.description-text-update {
-    font-size: 18px;
-    line-height: 1.4;
-    display: flex;
-    text-align: center;
-}
+
 
 .features-list-update {
     list-style-type: none;
@@ -970,23 +1151,6 @@ font-size: 17px;
     font-size: 14px;
 }
 
-.excel-table-container {
-    padding: 5px 20px;
-    margin-top: 10%;
-    width: 70%;
-}
-
-.donate-text {
-width:700px;
-font-size: 15px;
-}
-
-
-
-.chats {
-    height: 220px;
-    width: 450px;
-}
 
 .button-chat-rules {
     padding: 3px 10px;
@@ -1021,10 +1185,6 @@ padding: 5px;
     margin-bottom: 30%;
 }
 
-.profile-logo {
-width: 150px;
-height: 150px;
-}
 
 .profile-name-secondname {
     font-weight: bold;
@@ -1032,21 +1192,20 @@ height: 150px;
     margin-bottom: 20px;
 }
 
-.profile-button-logo {
-    padding: 2px 15px;
-    font-size: 12px;
-}
+
 
 .profile-text-all {
-  font-size:14px;
+  font-size:20px;
   margin-top: -14px;
 }
 
-.profile-card-edit {
-    font-size: 14px;
-    width: 70%;
-    gap: 13px;
-    padding-top: 75px;
+button.editing-button {
+    font-size: 15px;
+}
+
+.chats {
+    height: 300px;
+    width: 550px;
 }
 
 .editing-button {
@@ -1065,8 +1224,6 @@ height: 150px;
 
 
 }
-
-
 
 
 /* === Очень большие экраны (больше 1440px) === */

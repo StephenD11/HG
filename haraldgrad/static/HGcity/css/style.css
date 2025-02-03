@@ -40,7 +40,7 @@
 
 
 body {
-    font-family: 'GOST Type AU', Arial, sans-serif;
+    font-family: 'GOST Type AU', Courier New;
     margin: 0;
     padding: 0;
     display: flex;
@@ -156,6 +156,19 @@ display: flex;
 flex-direction: column;
 align-items: center;
 gap: 5px;
+}
+
+.p-profile-editing{
+text-align: center;
+font-size:29px;
+}
+
+.text-area-prof-edit {
+width: 100%;
+border: 1px solid #f23b3b;
+height: 96px;
+color: #ffffff;
+background: rgba(0, 0, 0, 0.3);
 }
 
 .container-password-reset-complete {

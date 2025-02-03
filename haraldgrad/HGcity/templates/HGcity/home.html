@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="{% static 'HGcity/css/guide.css' %}">
     <link rel="stylesheet" href="{% static 'HGcity/css/media.css' %}">
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.png' %}">
+
+
 </head>
 <body id="home-page">
 <!-- Контейнер для всего контента -->
@@ -73,11 +75,14 @@
 
 <audio id="background-music" src="{% static 'HGcity/music/music_guide_page.mp3' %}" loop></audio>
 
-{% if user.is_authenticated %}
-<button class="music-button" id="toggle-music" onclick="toggleMusic()">🔈</button>
-{% else %}
-<button class="music-button" id="toggle-music" onclick="toggleMusic()">🔈</button>
-{% endif %}
+<div>
+    {% if user.is_authenticated %}
+    <button class="music-button" id="toggle-music" onclick="toggleMusic()">🔈</button>
+    {% else %}
+    <button class="music-button" id="toggle-music" onclick="toggleMusic()">🔈</button>
+    {% endif %}
+</div>
+
 
 <script>
     const lightImage = document.getElementById('lightImage');
@@ -87,9 +92,9 @@
     const doorVideo = document.getElementById('doorVideo');
     const doorSound = document.getElementById('door-sound');
     const doorAlertSound = document.getElementById('alarm-doors');
-    doorSound.volume = 0.5;
-    doorAlertSound.volume = 0.8;
-    audioElement.volume = 0.4;
+    doorSound.volume = 0.4;
+    doorAlertSound.volume = 0.3;
+    audioElement.volume = 0.3;
 
     let isPlaying = false;
 

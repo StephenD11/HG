@@ -1,13 +1,5 @@
 /* Контейнер таблицы */
 .excel-table-container {
-    margin: 20px auto;
-    padding: 5px 20px;
-    max-width: 1000px;
-    background-color: #00000037;
-    border: 1px solid #6013138f;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(158, 51, 51, 0.28);
-    margin-top: 15%;
 }
 
 /* Заголовок */

@@ -36,7 +36,8 @@
     line-height: 1.6;
     margin-bottom: 20px;
     color: #dcdcdc;
-    text-align: center;
+    text-align: justify;
+    text-align-last: center;
 }
 
 .description-text-update {
@@ -44,7 +45,8 @@
     line-height: 1.6;
     margin-bottom: 20px;
     color: #dcdcdc;
-    text-align: center;
+    text-align: justify;
+    text-align-last: center;
 }
 
 /* Список характеристик */
