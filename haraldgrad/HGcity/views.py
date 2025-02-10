@@ -1,10 +1,11 @@
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.views import LoginView
+from django.db.models import Count
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth import login, logout, authenticate, get_user_model
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-
+import json
 from .forms import UserRegisterForm
 from .models import User, Message, Banneded
 from django.contrib.auth.decorators import login_required
@@ -584,3 +585,36 @@ def chat_rules(request):
 def permission_denied_view(request, exception):
     messages.error(request, "ВАШ АККАУНТ ЗАБЛОКИРОВАН | ЗАЯВКИ НА РАЗБЛОКИРОВКУ: SYSTEM.HARALDGRAD@GMAIL.COM")
     return redirect('HGcity:login')
+
+
+def statistics_view(request):
+    search_query = request.GET.get("search", "").strip()
+
+    # Поиск будет происходить только если введен текст
+    if search_query:
+        users = User.objects.filter(username__icontains=search_query)
+    else:
+        users = User.objects.none()  # Если нет поиска, не показывать пользователей
+
+    # Собираем данные для графика
+    ideology_stats = list(User.objects.values("ideology").annotate(count=Count("id")))
+
+    stats = {
+        "total_users": User.objects.count(),
+        "ideology_stats": ideology_stats,
+        "users": users,  # Передаем только найденных пользователей
+    }
+
+    context = {
+        "stats": stats,
+        "ideology_labels": json.dumps([item["ideology"] for item in ideology_stats]),
+        "ideology_data": json.dumps([item["count"] for item in ideology_stats]),
+    }
+
+    return render(request, "HGcity/statistics.html", context)
+
+
+
+def user_detail_view(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    return render(request, "HGcity/user_detail.html", {"user": user})

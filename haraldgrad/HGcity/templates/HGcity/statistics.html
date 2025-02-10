@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Статистика</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'HGcity/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'HGcity/css/background.css' %}">
+    <link rel="stylesheet" href="{% static 'HGcity/css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'HGcity/css/media.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.png' %}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <img src="{% static 'images/background_reg.png' %}" alt="Свет" id="background-image-reg">
+
+    <div class="div-statistics">
+        <h1>КАРТОТЕКА ХАРАЛЬДГРАДА</h1>
+        <p>Всего пользователей: {{ stats.total_users }}</p>
+
+        <button onclick="window.location.href='{% url 'HGcity:guide_page' %}'" style="margin-bottom: -10px;"
+                class="profile-button-logo"> ВЕРНУТЬСЯ НА ПЛОЩАДЬ
+        </button>
+
+        <br>
+        <br>
+        <h2>ИДЕОЛОГИИ</h2>
+        <canvas id="ideologyChart" class="graph"></canvas>
+
+        <h2>Поиск Жителей</h2>
+        <form class="search-bar" method="get" action="{% url 'HGcity:statistics' %}">
+            <input type="text" name="search" placeholder="Поиск по логину" value="{{ request.GET.search }}">
+            <button type="submit">Найти</button>
+        </form>
+
+        {% if request.GET.search %}
+            {% if stats.users %}
+                <h2>Найденные пользователи</h2>
+                <ol class="user-list">
+                    {% for user in stats.users %}
+                        <li><a href="{% url 'HGcity:user_detail' user.id %}">{{ user.username }}</a></li>
+                    {% endfor %}
+                </ol>
+            {% else %}
+                <p>Пользователи не найдены.</p>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <!-- Передача данных из Django в JavaScript -->
+    <script id="ideology_labels" type="application/json">{{ ideology_labels|safe }}</script>
+    <script id="ideology_data" type="application/json">{{ ideology_data|safe }}</script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const labels = JSON.parse(document.getElementById('ideology_labels').textContent);
+            const data = JSON.parse(document.getElementById('ideology_data').textContent);
+
+            // Устанавливаем индивидуальные цвета для каждой идеологии
+            const backgroundColors = {
+                'Социализм': 'rgba(255, 99, 132, 0.2)',   // Красный
+                'Демократия': 'rgba(54, 162, 235, 0.2)',  // Синий
+                'Национализм': 'rgba(139, 69, 19, 0.2)',  // Коричневый
+                'Монархизм': 'rgba(169, 169, 169, 0.2)'    // Серый
+            };
+
+            const borderColors = {
+                'Социализм': 'rgba(255, 99, 132, 1)',
+                'Демократия': 'rgba(54, 162, 235, 1)',
+                'Национализм': 'rgba(139, 69, 19, 1)',
+                'Монархизм': 'rgba(169, 169, 169, 1)'
+            };
+
+            // Подготовим массив цветов для каждого элемента
+            const colors = labels.map(label => backgroundColors[label]);
+            const border = labels.map(label => borderColors[label]);
+
+            const ctx = document.getElementById('ideologyChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Количество пользователей по идеологиям',
+                        data: data,
+                        backgroundColor: colors,
+                        borderColor: border,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

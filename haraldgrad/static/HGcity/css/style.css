@@ -6,6 +6,44 @@
 
 }
 
+/* Стили для списка пользователей в 3 колонки */
+.div-statistics{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top:7%;
+    margin-bottom:15%;
+}
+
+.graph {
+width: 700px;
+height:200px;
+}
+
+.user-list {
+    display: flex;
+    gap: 80px;
+    padding: 0;
+    font-size: 35px;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.user-list li {
+    text-align: center;
+}
+
+/* Стили для строки поиска */
+.search-bar {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
 @font-face {
     font-family: 'Kroftsmann';
     src: url('/static/fonts/Kroftsmann.woff2') format('woff2');

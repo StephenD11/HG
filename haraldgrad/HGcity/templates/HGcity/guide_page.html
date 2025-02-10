@@ -17,6 +17,10 @@
             <img src="{% static '/images/guide_page_logos/profile.png' %}" alt="Image">
         </div>
 
+        <div class="image-container" onclick="delayedRedirect('{% url 'HGcity:statistics' %}')">
+            <img src="{% static '/images/guide_page_logos/cartoteca.png' %}" alt="Image">
+        </div>
+
         <div class="image-container" onclick="delayedRedirect('{% url 'HGcity:logout' %}')">
             <img src="{% static '/images/guide_page_logos/exit.png' %}" alt="Image">
         </div>

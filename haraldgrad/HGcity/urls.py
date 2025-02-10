@@ -45,6 +45,10 @@ urlpatterns = [
     path('clear_chat/', views.clear_chat, name='clear_chat'),
     path('chat_rules/', views.chat_rules, name='chat_rules'),
 
+    #Статистика
+    path('statistics/', views.statistics_view, name='statistics'),
+    path('user/<int:user_id>/', views.user_detail_view, name='user_detail'),
+
 
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,0 +1,107 @@
+{% extends 'HGcity/base.html' %}
+{% load static %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+
+<div class="for-all-center">
+    <img src="{% static '/images/background_profile.png' %}" alt="Свет" id="background-image-profile">
+
+    <h1 class="profile-name-top">ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ</h1>
+    <!-- Сообщения -->
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        {% if "error" in message.tags and message == "Для вашей идеологии нет доступных логотипов." %}
+        <li class="{{ message.tags }}" style="font-size:25px; color: red;">{{ message }}</li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <!--Верхний общий блок-->
+    <div class="profile-card" style="margin-bottom: 25px;">
+
+        <!-- Блок с Лого и ФИО -->
+        <div class="profile-block-high">
+
+            <div class="profile-logo-editing-button">
+                {% if user.logo %}
+                <img src="{% static user.logo %}" alt="Ваш логотип" class="profile-logo">
+                {% else %}
+                <p>Логотип не выбран.</p>
+                {% endif %}
+            </div>
+
+            <div class="profile-section">
+                <div style="margin-top: -30px;">
+                    <p class="profile-name-secondname">{{ user.first_name }} {{ user.last_name }}</p>
+                </div>
+
+                <div>
+                    <p class="profile-text-all"><b style="color:red">Логин</b>: {{ user.username }}</p>
+                </div>
+
+                <div>
+                    <p class="profile-text-all"><b style="color:red">Роль</b>: {{ user.role }}</p>
+                </div>
+
+                <div>
+                    <p class="profile-text-all"><b style="color:red">Идеология</b>: {{ user.ideology }}</p>
+                </div>
+
+                <div>
+                    <p class="profile-text-all"><b style="color:red">Социальный рейтинг</b>: {{ user.social_rating }}
+                    </p>
+                </div>
+
+                <div>
+                    <p class="profile-text-all"><b style="color:red">Жизни</b>: {{ user.hp }} хп</p>
+                </div>
+
+                <div>
+                    <p class="profile-text-all"><b style="color:red">Кошелек</b>: {{ user.wallet }}</p>
+                </div>
+
+
+            </div>
+        </div>
+        <button onclick="window.location.href='{% url 'HGcity:statistics' %}'" style="margin-bottom: -10px;"
+                class="profile-button-logo"> НАЗАД
+        </button>
+    </div>
+
+
+    <div class="prof-bio-place">
+        <p style='text-align: center;'>Биография: {{ user.biography }}</p>
+    </div>
+
+</div>
+
+
+<script>
+    function toggleEdit(field) {
+        const form = document.getElementById(`form-${field}`);
+        if (form.style.display === "none") {
+            form.style.display = "block";
+        } else {
+            form.style.display = "none";
+        }
+    }
+</script>
+
+<script>
+    function resizeTextarea(textarea) {
+        textarea.style.height = "auto";
+        textarea.style.height = `${textarea.scrollHeight}px`;
+    }
+</script>
+
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+
