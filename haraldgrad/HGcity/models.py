@@ -11,6 +11,7 @@ class User(AbstractUser):
     social_rating = models.IntegerField(default=0, blank=True, null=True,verbose_name='Соц.рейтинг')
     wallet = models.IntegerField(default=0, blank=True, null=True,verbose_name='Кошелек')
     pin_code = models.CharField(max_length=4, blank=True, null=True, verbose_name='Пин код')
+    registration_ip = models.GenericIPAddressField(null=True, blank=True, verbose_name='IP адрес')
     ideology = models.CharField(
         max_length=20,
         choices=[
@@ -64,7 +65,7 @@ class User(AbstractUser):
     )
 
     biography = models.TextField(
-        max_length=1000,
+        max_length=5000,
         blank=False,
         null=True,
         default='Здесь может быть ваша биография...',

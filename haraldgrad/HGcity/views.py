@@ -13,7 +13,7 @@ from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.contrib import messages
 import time, random, re
 from django.core.cache import cache  # Для временного хранения мута
-
+from django.http import HttpRequest
 from datetime import datetime, time
 from zoneinfo import ZoneInfo
 
@@ -106,15 +106,29 @@ def logout_view(request):
     logout(request)
     return redirect('HGcity:login')  # Перенаправляем на страницу логина после выхода
 
+def get_client_ip(request: HttpRequest) -> str:
+    """ Получаем IP-адрес пользователя """
+    x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(",")[0]
+    else:
+        ip = request.META.get("REMOTE_ADDR")
+    return ip
+
 
 # Регистрация
 def register(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = UserRegisterForm(request.POST)
         if form.is_valid():
+            ip = get_client_ip(request)
+            if User.objects.filter(registration_ip=ip).exists():
+                return redirect("HGcity:home")  # Или можно просто проигнорировать регистрацию
+
             user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password1'])  # Устанавливаем пароль
-            user.is_active = False  # Можно установить, что пользователь не активен
+            user.set_password(form.cleaned_data["password1"])
+            user.is_active = False
+            user.registration_ip = ip  # Сохраняем IP
             user.save()
 
             return redirect("HGcity:confirm_registration", user_id=user.id)
@@ -122,7 +136,7 @@ def register(request):
     else:
         form = UserRegisterForm()
 
-    return render(request, 'HGcity/register.html', {'form': form})
+    return render(request, "HGcity/register.html", {"form": form})
 
 
 def confirm_registration(request, user_id):
@@ -188,31 +202,35 @@ def contact(request):
 def choose_logo(request):
     # Инициализируем список логотипов
     logos = []
-
     # Определяем логотипы в зависимости от идеологии
-    if request.user.ideology == 'Социализм':
+    if request.user.username == 'Xarald':
         logos = [
-            'logos/1level/cum_s_1 lvl_1.png',
+            'logos/1level/xarald_logo.png'
+        ]
+
+    elif request.user.ideology == 'Социализм':
+        logos = [
             'logos/1level/cum_m_1 lvl_1.png',
             'logos/1level/cum_b_1 lvl_1.png',
+            'logos/1level/cum_b_2 lvl_1.png',
         ]
     elif request.user.ideology == 'Национализм':
         logos = [
-            'logos/1level/nac_s_1 lvl_1.png',
             'logos/1level/nac_m_1 lvl_1.png',
             'logos/1level/nac_b_1 lvl_1.png',
+            'logos/1level/nac_b_2 lvl_1.png',
         ]
     elif request.user.ideology == 'Демократия':
         logos = [
-            'logos/1level/dem_s_1 lvl_1.png',
             'logos/1level/dem_m_1 lvl_1.png',
             'logos/1level/dem_b_1 lvl_1.png',
+            'logos/1level/dem_b_2 lvl_1.png',
         ]
     elif request.user.ideology == 'Монархизм':
         logos = [
-            'logos/1level/mon_s_1 lvl_1.png',
             'logos/1level/mon_m_1 lvl_1.png',
             'logos/1level/mon_b_1 lvl_1.png',
+            'logos/1level/mon_b_2 lvl_1.png',
         ]
     else:
         messages.error(request, "Для вашей идеологии нет доступных логотипов.")
@@ -319,7 +337,7 @@ def chat_view(request):
     current_time = datetime.now(msk_timezone).time()  # Текущее время в МСК
 
     # Ограничения на время доступа
-    start_time = time(12, 0)  # 18:00
+    start_time = time(17, 0)  # 17:00
     end_time = time(23, 0)  # 23:00
 
     # Проверяем роль пользователя

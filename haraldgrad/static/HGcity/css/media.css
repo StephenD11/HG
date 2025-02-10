@@ -15,6 +15,11 @@
     background-color: #130909;
 }
 
+
+.prof-bio-place {
+    width: 340px;
+}
+
 .profile-button-logo {
     padding: 2px 15px;
     font-size: 16px;
@@ -285,7 +290,7 @@ margin-top: 10px;
 }
 
 .chat-message {
-    font-size: 16px;
+    font-size: 11px;
 }
 
 
@@ -321,7 +326,7 @@ margin-top: 10px;
 }
 
 .profile-card {
-    max-width: 250px;
+    max-width: 350px;
 }
 
 .profile-block-high {
@@ -832,8 +837,8 @@ button.editing-button {
 
 }
 
-/* === Большие десктопы (от 1025px до 1360px) === */
-@media (min-width: 1025px) and (max-width: 1366px) {
+/* === Большие десктопы (от 1025px до 1535px) === */
+@media (min-width: 1025px) and (max-width: 1536px) {
     /* Стили для больших десктопов */
     body {
     font-family: 'GOST Type AU', Courier New;
@@ -1205,7 +1210,7 @@ button.editing-button {
 
 .chats {
     height: 300px;
-    width: 550px;
+    width: 650px;
 }
 
 .editing-button {
@@ -1227,7 +1232,7 @@ button.editing-button {
 
 
 /* === Очень большие экраны (больше 1440px) === */
-@media (min-width: 1638px) {
+@media (min-width: 1537px) {
 
 }
 

@@ -1,0 +1,22 @@
+{% extends 'HGcity/base.html' %}
+
+{% block content %}
+    <h1>Доступные вакансии</h1>
+
+    {% if jobs %}
+        <ul>
+            {% for job in jobs %}
+                <li>
+                    <strong>{{ job.title }}</strong> - {{ job.description }} <br>
+                    {% if job.has_space %}
+                        <a href="{% url 'HGcity:apply_for_job' job.id %}">Устроиться</a>
+                    {% else %}
+                        <span>Нет мест</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Нет доступных вакансий.</p>
+    {% endif %}
+{% endblock %}

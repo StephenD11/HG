@@ -56,9 +56,8 @@
         <form method="post" action="{% url 'HGcity:update_profile' %}" class="editing-div-bio" id="form-biography">
             {% csrf_token %}
             <input type="hidden" name="field" value="biography">
-            <textarea name="value" rows="5" class='text-area-prof-edit'>
-                {{ user.biography|linebreaksbr }}
-            </textarea>
+           <textarea name="value" rows="5" class='text-area-prof-edit' maxlength="5000">{{ user.biography }}</textarea>
+
             <button type="submit" class="editing-button">Сохранить Биографию</button>
         </form>
     </div>

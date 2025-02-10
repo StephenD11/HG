@@ -5,8 +5,8 @@ from .models import User, Banneded
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('id','is_active','username', 'first_name', 'last_name','chat_verified', 'hp', 'social_rating', 'ideology', 'logo','role','is_banned')
-    search_fields = ('username', 'first_name', 'is_banned', 'role', 'last_name', 'email')
+    list_display = ('username', 'registration_ip', 'id', 'is_active', 'first_name', 'last_name','chat_verified', 'social_rating', 'ideology','role','is_banned')
+    search_fields = ('username', 'first_name', 'is_banned', 'role', 'last_name', 'email', 'registration_ip')
     list_filter = ('ideology', 'role','is_banned','is_active')
 
 
