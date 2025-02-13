@@ -1,0 +1,87 @@
+/* КЛАССЫ ПЛОЩАДИ */
+
+/* Контейнер для фона */
+#background {
+    background-image: url("/static/images/Back_guide_page.png");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+
+/* Основной контейнер с содержимым */
+#guide_page-page {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    z-index: 1;
+    margin-top: 30px;
+}
+
+.errorlist {
+    margin: 0px 0 0;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+}
+
+/* Контейнер для строки изображений */
+.image-row {
+    display: flex;
+    gap: 5px; /* Расстояние между картинками */
+    justify-content: center;
+}
+
+
+/* Контейнер для каждого изображения */
+.image-container {
+    width: 220px;
+    height: 220px;
+    overflow: hidden;
+    transition: transform 0.3s ease; /* Плавность эффекта */
+
+}
+
+/* Изображение */
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease; /* Плавность уменьшения */
+}
+
+/* Эффект при наведении */
+.image-container:hover {
+    transform: scale(0.9); /* Уменьшение контейнера при наведении */
+}
+
+.image-container:hover img {
+    transform: scale(0.9); /* Уменьшение изображения при наведении */
+}
+
+/* Эффект при нажатии */
+.image-container:active {
+    transform: scale(0.8); /* Дополнительное уменьшение контейнера при нажатии */
+}
+
+.image-container:active img {
+    transform: scale(0.8); /* Дополнительное уменьшение изображения при нажатии */
+    filter: brightness(0.9); /* Легкое затемнение изображения */
+}
+
+.text-guide-page {
+font-size:25px;
+display:flex;
+align-items: center;
+justify-content: center;
+margin-top:-7%;
+color:#f23b3b;
+}

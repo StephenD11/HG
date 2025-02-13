@@ -1,0 +1,30 @@
+.contact-section {
+    background-color: #00000049;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(151, 9, 9, 0.314);
+    margin-top: 20px;
+}
+
+.a {
+    text-decoration: underline;
+    color: #352828;
+
+}
+
+
+.social-links {
+    list-style-type: none;
+    padding: 0;
+}
+
+.social-links li {
+    margin-bottom: 10px;
+}
+
+.social-links a {
+    color: #e42525;
+    text-decoration: none;
+    font-size: 22px;
+}
+

@@ -131,8 +131,10 @@ STATIC_URL = '/static/'
 
 # Путь для статических файлов
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    BASE_DIR / "static",  # или путь к твоей папке с файлами
 ]
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

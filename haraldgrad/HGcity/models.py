@@ -1,7 +1,8 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
 from django.conf import settings
-
+from datetime import timedelta
+from django.utils.timezone import now
 
 class User(AbstractUser):
     first_name = models.CharField(max_length=100, blank=True, null=True, default='Имя', verbose_name='Имя персонажа')
@@ -30,6 +31,27 @@ class User(AbstractUser):
     is_banned = models.BooleanField(default=False,verbose_name='Бан')
     is_email_verified = models.BooleanField(default=False,verbose_name='Подтверждение почты')
     chat_verified = models.BooleanField(default=True,verbose_name='Доступ к чату')
+    last_entry = models.DateTimeField(blank=True, null=True, verbose_name='Последний вход')
+    factory_visits = models.IntegerField(default=0, verbose_name='Количество входов в фабрику')
+
+    def can_enter(self):
+        """Разрешает вход не более 3 раз за 24 часа"""
+        if self.last_entry:
+            delta = now() - self.last_entry
+            if delta < timedelta(hours=24) and self.factory_visits >= 3:
+                return False  # Уже 3 входа за 24 часа
+        return True  # Вход разрешен
+
+    def update_entry(self):
+        """Обновляет время входа и счетчик посещений"""
+        if self.last_entry is None or (now() - self.last_entry) >= timedelta(hours=24):
+            self.factory_visits = 0  # Сбрасываем, если прошло больше 24 часов
+
+        self.factory_visits += 1
+        self.last_entry = now()
+        self.save(update_fields=['last_entry', 'factory_visits'])
+
+
 
 
     # Уникальные обратные связи

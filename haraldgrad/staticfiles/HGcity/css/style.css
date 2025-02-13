@@ -1,0 +1,575 @@
+@font-face {
+    font-family: 'GOST type A';
+    src: url('/static/fonts/GOST Type AU.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+/* Стили для списка пользователей в 3 колонки */
+.div-statistics{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top:7%;
+    margin-bottom:15%;
+}
+
+.graph {
+width: 700px;
+height:200px;
+}
+
+.user-list {
+    display: flex;
+    gap: 80px;
+    padding: 0;
+    font-size: 35px;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.user-list li {
+    text-align: center;
+}
+
+/* Стили для строки поиска */
+.search-bar {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+@font-face {
+    font-family: 'Kroftsmann';
+    src: url('/static/fonts/Kroftsmann.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.special-text-K-home {
+    font-family: 'Kroftsmann', sans-serif;
+    font-size: 140px;
+    color: white; /* Белый цвет текста */
+    margin-bottom: 40px;
+    letter-spacing: 15px; /* Увеличиваем расстояние между буквами */
+    margin-top: -25px;
+}
+
+
+/* Стили для placeholder */
+.form-group input::placeholder {
+    font-family: 'GOST type A';
+    color: gray; /* Цвет placeholder */
+    font-style: italic; /* Дополнительно можно сделать курсивным */
+}
+
+
+.special-text-G {
+    font-family: 'GOST Type AU', sans-serif;
+    font-size: 24px;
+    color: white; /* Белый цвет текста */
+
+}
+
+
+body {
+    font-family: 'GOST Type AU', Courier New;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Центрируем контент сверху */
+    min-height: 100vh;
+    font-size: 20px;
+    color: rgb(247, 242, 242); /* Белый цвет текста по умолчанию для всего тела */
+    background-color: #130909;
+}
+
+#home-page {
+    background-image: url("/static/images/background1.png");
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    background-color: #130909;
+}
+
+
+.door-container {
+    display: flex;
+    justify-content: center; /* Центрирует по горизонтали */
+    align-items: center;    /* Центрирует по вертикали (если нужно) */
+    flex-direction: column; /* Элементы друг под другом */
+}
+
+.door-image, .door-video {
+    width: 700px; /* Общая ширина для больших экранов */
+    border-radius: 15px;
+    margin: 0 auto; /* Центрируем изображения и видео */
+}
+
+/* Скрыть видео по умолчанию */
+.door-video {
+    display: none;
+}
+
+
+.music-button {
+    font-size: 10px;
+    position: fixed;
+    right: 15%;
+    top: 84%;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+#ЧАТ
+.chat-rules {
+        margin: 20px auto;
+        padding: 20px;
+        max-width: 800px;
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        margin-top: 10%;
+}
+
+.button-chat {
+    padding: 3px 10px;
+    font-size: 20px;
+}
+
+.chat-title {
+    text-align: center;
+    font-size: 28px;
+
+    margin-bottom: 20px;
+}
+
+.rules-list {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.rules-list li {
+    margin-bottom: 10px;
+}
+
+.reg-all-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 58%;
+}
+
+
+.container-password-reset{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 15%;
+    width: 90%;
+}
+
+.for-all-center {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 5px;
+}
+
+.p-profile-editing{
+text-align: center;
+font-size:29px;
+}
+
+.text-area-prof-edit {
+width: 100%;
+border: 1px solid #f23b3b;
+height: 96px;
+color: #ffffff;
+background: rgba(0, 0, 0, 0.3);
+}
+
+.container-password-reset-complete {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 20%;
+    font-size: 35px;
+    width: 100%;
+}
+
+.rules-list.open {
+    max-height: 300px; /* Ограничиваем высоту */
+    overflow-y: auto;  /* Добавляем прокрутку */
+}
+
+
+#chat-box::-webkit-scrollbar {
+    width: 8px; /* Толщина полосы прокрутки */
+}
+
+#chat-box::-webkit-scrollbar-thumb {
+    background-color: #ccc; /* Цвет полосы прокрутки */
+    border-radius: 10px; /* Скругленные углы полосы прокрутки */
+}
+
+#chat-box::-webkit-scrollbar-thumb:hover {
+    background-color: #aaa; /* Цвет при наведении */
+}
+
+
+/* Общий контейнер для всего контента */
+.container {
+    max-width: 1200px;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5%
+}
+
+.container-confirm-email {
+    display: flex;            /* Включаем Flexbox */
+    justify-content: center;  /* Центрируем по горизонтали */
+    align-items: center;      /* Центрируем по вертикали */
+    height: 100vh;            /* Высота контейнера на весь экран */
+    margin: 0;                /* Убираем отступы */
+    flex-direction: column;
+}
+
+
+
+/* Блоки с контентом */
+.content-block {
+    background-color: white;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Блок с заголовком */
+.header-block {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+}
+
+
+/* Стили для кнопок */
+button {
+    font-family: 'GOST Type AU', Arial, sans-serif;
+    background-color: #bc4141; /* Чуть более красный цвет фона */
+    color: rgb(252, 251, 251); /* Белый цвет текста */
+    border: none; /* Убираем рамку у самой кнопки */
+    padding: 4px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1; /* Поднимаем кнопку над рамкой */
+    font-size: 25px;
+}
+
+button:hover {
+    background-color: #772020; /* Темно-красный цвет при наведении */
+}
+
+button:active {
+    background-color: white; /* Белый фон при нажатии */
+    color: black; /* Черный текст при нажатии */
+}
+
+/* Внешняя рамка вокруг кнопки */
+button::after {
+    content: ''; /* Пустой элемент для создания пространства */
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    right: -12px;
+    bottom: -12px;
+    border: 5px solid #b43434; /* Красная рамка вокруг кнопки */
+    pointer-events: none; /* Чтобы рамка не мешала нажимать на кнопку */
+    z-index: 0; /* Рамка будет за кнопкой */
+}
+
+/* Меняем цвет рамки при наведении */
+button:hover::after {
+    border: 5px solid #772020; /* Темно-красная рамка при наведении */
+
+}
+
+/* Меняем цвет рамки при нажатии */
+button:active::after {
+    border: 5px solid white; /* Белая рамка при нажатии */
+}
+
+
+
+/* Блок с музыкой */
+.music-block {
+    margin-top: 20px;
+}
+
+/* Блок навигации */
+.navigation-block {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+}
+
+/* Блок с количеством жителей */
+.content-block p {
+    font-size: 18px;
+    color: #666;
+}
+
+/* Стили для футера */
+.footer-block {
+    font-size: 14px;
+    color: #777;
+    text-align: center;
+    margin-top: 20px;
+}
+
+a {
+     color: white; /* Белый цвет текста по умолчанию для всего тела */
+     text-decoration: none;
+}
+
+a:hover {
+    color: #FF0000;  /* Красный цвет при наведении */
+}
+
+.confirm-acc {
+display:flex;
+text-align:center;
+flex-direction: column;
+justify-content: center;
+}
+
+.confirm-acc-button{
+display: flex;
+text-align: center;
+flex-direction: row;
+justify-content: center;
+gap:45px;
+}
+
+.container-acc-confirm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Центрирует по вертикали */
+    align-items: center; /* Центрирует по горизонтали */
+    text-align: center;
+    height: 90vh; /* Растягивает контейнер на весь экран */
+}
+
+.reg-rules {
+display:flex;
+text-align:center;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+}
+
+.title-confirm {
+font-size:45px;
+font-weight: bold;
+}
+
+.text-confirm {
+font-size:20px;
+}
+
+.reg-button {
+    font-family: 'GOST Type AU', Arial, sans-serif;
+    background-color: #bc4141;
+    color: rgb(252, 251, 251);
+    border: none;
+    padding: 4px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    font-size: 25px;
+    width: 39%;
+    font-size: 16px;
+    margin-top: 5%;
+}
+
+
+/* чат */
+.titl-guide-page {
+ font-size:55px;
+ display:flex;
+ align-items: center;
+ justify-content: center;
+ text-align: center;
+ }
+
+/* Централизуем навигацию */
+header nav {
+    position: sticky; /* Меню будет прилипать к верхней части экрана */
+    top: 0; /* Меню будет закреплено в верхней части экрана */
+    left: 50%; /* Центрируем меню по горизонтали */
+    z-index: 1000; /* Меню всегда будет поверх содержимого */
+    margin-top:15%;
+}
+
+/* Стиль для списка навигации */
+header nav ul {
+    list-style-type: none; /* Убираем маркеры списка */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Делаем элементы списка в строчку */
+    gap: 20px; /* Расстояние между пунктами меню */
+    justify-content: center; /* Центрируем пункты внутри списка */
+    text-align: center; /* Выравниваем текст внутри пунктов */
+}
+
+/* Стили для ссылок */
+header nav ul li a {
+    text-decoration: none; /* Убираем стандартное подчеркивание */
+    color: #fefbfb; /* Цвет текста */
+    position: relative; /* Для работы с псевдоэлементом */
+    padding: 5px 10px; /* Внутренние отступы */
+    transition: color 0.3s, transform 0.3s; /* Плавное изменение цвета и трансформации */
+    font-size: 29px;
+}
+
+/* Эффект полосы при наведении */
+header nav ul li a::after {
+    content: ""; /* Пустое содержимое для псевдоэлемента */
+    position: absolute;
+    left: 0;
+    bottom: 0; /* Полоса внизу */
+    width: 0; /* Начальная ширина полосы */
+    height: 1px; /* Высота полосы */
+    background-color: #f23b3b; /* Цвет полосы */
+    transition: width 0.3s; /* Плавное появление */
+}
+
+/* При наведении увеличиваем ширину полосы */
+header nav ul li a:hover::after {
+    width: 100%; /* Полоса заполняет всю ширину ссылки */
+}
+
+/* При наведении увеличиваем ссылку */
+header nav ul li a:hover {
+    color: #f23b3b; /* Цвет текста при наведении */
+    transform: scale(1.1); /* Увеличиваем ссылку */
+}
+
+/* При нажатии меняем цвет на белый */
+header nav ul li a:active {
+    color: white; /* Белый цвет текста при нажатии */
+    transform: scale(0.95); /* Немного уменьшаем ссылку при нажатии */
+}
+
+.img-about-top {
+width: 700px;
+border-radius:25px;
+}
+
+.chats {
+    border: 1px solid #ccc;
+    height: 450px;
+    width: 650px;
+    overflow-y: scroll;
+    padding: 10px;
+    word-wrap: break-word; /* Переносит слова, если они слишком длинные */
+    overflow-wrap: break-word; /* Дополнительно разрывает длинные слова */
+}
+
+
+.message {
+    white-space: normal; /* Позволяет тексту переноситься */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.button-chat-rules {
+    padding: 3px 10px;
+    font-size: 20px;
+}
+
+.profile-button-logo-2 {
+    margin-bottom: 200px;
+}
+
+.chat-title {
+    font-size: 35px;
+}
+
+.prof-edit-bio-center {
+display:none;
+text-align: center;
+}
+
+.chat-input {
+width: 95%;
+height: 50px;
+padding: 10px;
+}
+
+.reg-mid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chat-message {
+  font-size: 24px;
+}
+
+.div-chat-end {
+display:flex;
+margin-bottom: 30%;
+gap: 40px;
+}
+
+.choose_logo_many {
+display:flex;
+flex-direction:
+column;
+align-items:
+center;
+margin-top:55px;
+}
+
+.div-chat-rules {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20%;
+}
+
+.fixed-button {
+    position: fixed; /* Закрепляем кнопку на экране */
+    bottom: 10vh; /* Отступ от нижнего края, адаптируется под высоту экрана */
+    left: 50%; /* Центрируем по горизонтали */
+    transform: translateX(-50%); /* Корректируем центрирование */
+}

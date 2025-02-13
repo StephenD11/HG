@@ -31,6 +31,7 @@ urlpatterns = [
     path('profile/update/', views.update_profile, name='update_profile'),
     path('about/', views.about, name='about'),  # О проекте
     path('contact/', views.contact, name='contact'),  # Контакты
+    path('about_close/', views.about_close, name='about_close'),  # О проекте
 
     # Восстановление пароля
     path('password_reset/', views.password_reset_view, name='password_reset'),
@@ -49,9 +50,11 @@ urlpatterns = [
     path('statistics/', views.statistics_view, name='statistics'),
     path('user/<int:user_id>/', views.user_detail_view, name='user_detail'),
 
-
-
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    #Работы
+    path('factory/', views.factory_view, name='factory_view'),
+    path('result/', views.result_page, name='result_page'),
+    path('access_denied/', views.access_denied, name='access_denied'),  # Дополнительно, если доступ запрещен
+]
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

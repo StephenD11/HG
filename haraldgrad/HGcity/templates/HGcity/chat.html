@@ -94,8 +94,10 @@
 
                         const messageHTML = `
                             <div id="message-${msg.id}" class="message">
-                                <span class='chat-message'>${msg.timestamp}</span>
-                               <span class='chat-message' style="color:#effc94;">  [ ${msg.username} ]  </span>
+                                <span href="{% url 'HGcity:statistics' %}" style="color:grey;">
+                                    ${msg.username} |
+                                </span>
+
                                 <strong class='chat-message' style="color:${usernameColor};"> ${msg.first_name} ${msg.last_name}: </strong>
                                 <span class='chat-message'>${msg.message}</span>
                                 <span class='chat-message'> </span>

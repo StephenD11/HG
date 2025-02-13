@@ -1,0 +1,65 @@
+/* Контейнер таблицы */
+.excel-table-container {
+}
+
+/* Заголовок */
+.excel-header {
+    text-align: center;
+    font-size: 35px;
+    color: #ffffff;
+}
+
+/* Таблица */
+.excel-table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 50px;
+}
+
+/* Границы для таблицы */
+.excel-table,
+.excel-cell,
+.excel-cell-header {
+    border: 2px solid #8d3232; /* Четкие границы таблицы */
+}
+
+/* Заголовок ячейки */
+.excel-cell-header {
+    background-color: #c13434;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    text-transform: uppercase;
+}
+
+/* Ячейки данных */
+.excel-cell {
+    text-align: center;
+    padding: 10px;
+    background-color: #00000000;
+
+}
+
+.donate-container {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.donate-text {
+width:700px;
+text-align: center;
+margin-bottom:-2%;
+font-size: 23px;
+}
+
+
+.sup-button {
+margin-top: 10px;
+padding: 0px 10px;
+width:400px;
+margin-bottom: 35%;
+}

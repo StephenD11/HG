@@ -15,6 +15,21 @@
     margin-bottom:15%;
 }
 
+.div-factory {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 4%;
+}
+
+.div-factory-res {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15%;
+}
+
+
 .graph {
 width: 700px;
 height:200px;
