@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фабрика</title>
+    <link rel="stylesheet" href="{% static 'HGcity/css/background.css' %}">
+    <link rel="stylesheet" href="{% static 'HGcity/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'HGcity/css/media.css' %}">
+
+</head>
+<body>
+    <!-- Можно удалить отладочный блок, если он больше не нужен -->
+    <img src="{% static '/images/background_rules.png' %}" alt="Свет" id="background-image-rules">
+
+    <div class="div-factory">
+        <div class="game-factory">
+            <iframe id="game-frame" src="{% static 'HGcity/game/index.html' %}" style="border: none; border-radius:15px;" width="100%" height="75%"></iframe>
+        </div>
+    </div>
+
+    <button onclick="window.location.href='{% url 'HGcity:guide_page' %}'" class="button-login-main">НА ГЛАВНУЮ</button>
+
+</body>
+</html>

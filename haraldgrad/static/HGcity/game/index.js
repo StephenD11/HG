@@ -906,14 +906,3 @@ const Engine = (function () {
 if (typeof window !== 'undefined') {
 	window['Engine'] = Engine;
 }
-
-
-let coins = 0;  // Изначально количество монет = 0
-
-// Пример обновления монет в процессе игры
-function earnCoins(amount) {
-    coins += amount;
-    console.log("Монеты заработаны:", coins);
-}
-
-

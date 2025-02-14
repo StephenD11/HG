@@ -3,6 +3,7 @@ from django.db import models
 from django.conf import settings
 from datetime import timedelta
 from django.utils.timezone import now
+from rest_framework import serializers
 
 class User(AbstractUser):
     first_name = models.CharField(max_length=100, blank=True, null=True, default='Имя', verbose_name='Имя персонажа')
@@ -35,18 +36,20 @@ class User(AbstractUser):
     factory_visits = models.IntegerField(default=0, verbose_name='Количество входов в фабрику')
 
     def can_enter(self):
-        """Разрешает вход не более 3 раз за 24 часа"""
-        if self.last_entry:
-            delta = now() - self.last_entry
-            if delta < timedelta(hours=24) and self.factory_visits >= 3:
-                return False  # Уже 3 входа за 24 часа
+        """Разрешает вход не более 3 раз за 24 часа, сбрасывая счетчик в 00:00"""
+        # Сбросить счетчик каждый день в 00:00
+        today_midnight = now().replace(hour=0, minute=0, second=0, microsecond=0)
+        if self.last_entry and self.last_entry >= today_midnight:
+            # Если последние посещения были в текущие сутки
+            if self.factory_visits > 3:
+                return False  # Превышен лимит посещений за день
         return True  # Вход разрешен
 
     def update_entry(self):
         """Обновляет время входа и счетчик посещений"""
-        if self.last_entry is None or (now() - self.last_entry) >= timedelta(hours=24):
-            self.factory_visits = 0  # Сбрасываем, если прошло больше 24 часов
-
+        today_midnight = now().replace(hour=0, minute=0, second=0, microsecond=0)
+        if self.last_entry is None or self.last_entry < today_midnight:
+            self.factory_visits = 0  # Сбрасываем, если новый день
         self.factory_visits += 1
         self.last_entry = now()
         self.save(update_fields=['last_entry', 'factory_visits'])
@@ -122,3 +125,4 @@ class Banneded(models.Model):
 
     def __str__(self):
         return f'{self.user.username} (Забанен: {self.banned_at} кем: {self.banned_by_username})'
+

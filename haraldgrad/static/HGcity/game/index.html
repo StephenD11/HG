@@ -64,7 +64,7 @@ body {
 
 #status-notice {
 	background-color: #5b3943;
-	border-radius: 0.1rem;
+	border-radius: 0.5rem;
 	border: 1px solid #9b3943;
 	color: #e0e0e0;
 	font-family: 'Noto Sans', 'Droid Sans', Arial, sans-serif;
@@ -78,13 +78,7 @@ body {
 		</style>
 		<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
 <link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
-    <script>
-        // Слушаем клики внутри iframe
-        document.addEventListener('mousedown', function() {
-            // Отправляем сообщение родительскому окну о клике
-            window.parent.postMessage('click', '*');
-        });
-    </script>
+
 	</head>
 	<body>
 		<canvas id="canvas">
@@ -103,7 +97,7 @@ body {
 
 		<script src="index.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":386992,"index.wasm":43016933},"focusCanvas":true,"gdextensionLibs":[]};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":386576,"index.wasm":43016933},"focusCanvas":true,"gdextensionLibs":[]};
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 

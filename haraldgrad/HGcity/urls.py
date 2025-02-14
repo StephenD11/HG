@@ -51,9 +51,10 @@ urlpatterns = [
     path('user/<int:user_id>/', views.user_detail_view, name='user_detail'),
 
     #Работы
-    path('factory/', views.factory_view, name='factory_view'),
-    path('result/', views.result_page, name='result_page'),
     path('access_denied/', views.access_denied, name='access_denied'),  # Дополнительно, если доступ запрещен
+    path('api/update_wallet/', views.update_wallet, name='update_wallet'),
+    path('zavod/', views.zavod_view, name='zavod'),
+
 ]
 
 if settings.DEBUG:

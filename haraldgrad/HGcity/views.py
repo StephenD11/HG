@@ -630,71 +630,40 @@ def user_detail_view(request, user_id):
 
 
 #Игра Завод
+
+@csrf_exempt
 @login_required
-def factory_view(request):
-    user = request.user
+def update_wallet(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        coins = data.get('coins')
 
-    # Проверяем возможность входа
-    if not user.can_enter() and user.username != 'Харальд':
-        return redirect('HGcity:access_denied')  # Если больше 3 раз — редирект
+        # Берем пользователя из сессии, а не из данных запроса
+        user = request.user
+        try:
+            user.wallet += coins
+            user.save()
+            return JsonResponse({'status': 'success', 'wallet': user.wallet})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
 
-    # Обновляем время входа и счетчик
+
+
+@login_required
+def zavod_view(request):
+    user = request.user  # Получаем текущего пользователя
+
+    # Обновляем информацию о входе и посещениях
     user.update_entry()
 
-    # Если сессия еще не началась, запускаем таймер
-    if 'start_time' not in request.session:
-        request.session['start_time'] = now().timestamp()
-        request.session['click_count'] = 0
+    # Проверяем, может ли пользователь зайти на страницу
+    if not user.can_enter() :
+        # Если лимит входов превышен, перенаправляем на страницу отказа
+        return render(request, 'HGcity/game/access_denied.html')
 
-    # Обработка кликов
-    if request.method == 'POST':
-        try:
-            clicks = int(request.body.decode('utf-8').split('=')[1].strip())
-        except (ValueError, IndexError):
-            clicks = 0  # Защита от ошибки парсинга
-
-        # Обновляем количество кликов в сессии
-        request.session['click_count'] += clicks
-
-        # Рассчитываем монеты
-        total_clicks = request.session['click_count']
-        if 0 <= total_clicks < 10:
-            coins = 0
-        elif 10 <= total_clicks < 31:
-            coins = 15
-        elif 31 <= total_clicks <= 60:
-            coins = 30
-        else:
-            coins = 35
-
-        # Сохраняем количество монет, заработанных за сессию
-        request.session['session_coins'] = coins
-
-        # Перенаправляем на страницу с результатами
-        return JsonResponse({'redirect_url': '/result/'})
-
-    return render(request, 'HGcity/game/factory.html', {'user': user})
-
-
-
-@login_required
-def result_page(request):
-    user = request.user
-
-    # Получаем монеты из сессии
-    coins = request.session.get('session_coins', 0)
-
-    # Сообщение в зависимости от монет
-    if coins == 0:
-        message = "Вы вообще работали сегодня? Такой план не годится! Вы заработали 0"
-    elif coins == 15:
-        message = "Работа не лучшая но сойдет. Ты еще и опоздал. Сегодня пол ставки! Вы заработали 15"
-    elif coins == 30:
-        message = "Хорошая работа! Отработал как нужно. Держи полную ставку! Вы заработали 30"
-    else:
-        message = "Отлично! Ты ударник труда! Держи премию за смену! Вы заработали 35 монет!"
-
-    return render(request, 'HGcity/game/result.html', {'user': user, 'message': message, 'coins': coins})
+    # Переходим на страницу фабрики, если все условия выполнены
+    return render(request, 'HGcity/game/zavod.html', {'user_id': user.id})
 
 
 def access_denied(request):
