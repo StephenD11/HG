@@ -1,0 +1,36 @@
+{% extends 'HGcity/base.html' %}
+{% block title %}Площадь{% endblock %}
+{% load static %}
+
+{% block content %}
+<!-- Контейнер для фона -->
+<div id="background"></div>
+<p class="titl-guide-page"> ВОЗМОЖНЫЕ РАБОТЫ</p>
+<div id="guide_page-page"> <!-- Основной контейнер с содержимым -->
+
+    <div class="image-row"> <!-- Контейнер для строк -->
+        <div class="image-container" onclick="delayedRedirect('{% url 'HGcity:zavod_info' %}')">
+            <img src="{% static '/images/guide_page_logos/zavod.png' %}" alt="Image">
+        </div>
+    </div>
+
+</div>
+
+
+
+<p style="margin-bottom:150px;"></p>
+
+
+<script>
+    function delayedRedirect(url) {
+        // Добавляем задержку в 1 секунду перед переходом
+        setTimeout(() => {
+            window.location.href = url;
+        }, 300); // Задержка 1000 мс = 1 секунда
+    }
+</script>
+{% endblock %}
+
+
+{% block footer %}
+{% endblock %}

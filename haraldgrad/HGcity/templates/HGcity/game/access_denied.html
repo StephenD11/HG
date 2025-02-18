@@ -13,7 +13,10 @@
 <body>
     <img src="{% static '/images/background_rules.png' %}" alt="Свет" id="background-image-rules">
     <div class="container">
-        <h1>Вы сегодня уже отработали 3 смены</h1>
+        <img src="{% static '/images/сlose_zavod.png' %}" alt="Свет" class="img-about-top">
+        <p class="text_access">Вы сегодня уже отработали 3 смены</p>
+        <p class="text_access">Иди Поспи!</p>
+        <button onclick="window.location.href='{% url 'HGcity:home' %}'" class="button-login-main">НА ГЛАВНУЮ</button>
     </div>
 </body>
 </html>

@@ -27,6 +27,20 @@
     </div>
 
 </div>
+
+<p class="titl-guide-page"> РАБОТА</p>
+<div id="guide_page-page"> <!-- Основной контейнер с содержимым -->
+
+    <div class="image-row"> <!-- Контейнер для строк -->
+        <div class="image-container" onclick="delayedRedirect('{% url 'HGcity:all_works' %}')">
+            <img src="{% static '/images/guide_page_logos/vaca.png' %}" alt="Image">
+        </div>
+
+    </div>
+
+</div>
+
+
 <p class="titl-guide-page">СКОРО В ГОРОДЕ</p>
 <br>
 <br>
@@ -34,13 +48,6 @@
 <div id="guide_page-page"> <!-- Основной контейнер с содержимым -->
 
     <div class="image-row"> <!-- Контейнер для строк -->
-        <div class="image-container" onclick="delayedRedirect('{% url 'HGcity:dont_work' %}')">
-            <img src="{% static '/images/guide_page_logos/kartoteka.png' %}" alt="Image">
-        </div>
-
-        <div class="image-container" onclick="delayedRedirect('{% url 'HGcity:dont_work' %}')">
-            <img src="{% static '/images/guide_page_logos/work.png' %}" alt="Image">
-        </div>
 
         <div class="image-container" onclick="delayedRedirect('{% url 'HGcity:dont_work' %}')">
             <img src="{% static '/images/guide_page_logos/gox.png' %}" alt="Image">

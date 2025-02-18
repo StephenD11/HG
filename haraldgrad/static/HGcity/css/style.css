@@ -28,6 +28,10 @@ width: 800px;
 height: 600px;
 }
 
+.text_access {
+font-size:25px;
+}
+
 .div-factory-res {
     display:flex;
     flex-direction: column;

@@ -1,3 +1,4 @@
+
 from django.urls import path
 from . import views
 from django.conf import settings
@@ -54,6 +55,8 @@ urlpatterns = [
     path('access_denied/', views.access_denied, name='access_denied'),  # Дополнительно, если доступ запрещен
     path('api/update_wallet/', views.update_wallet, name='update_wallet'),
     path('zavod/', views.zavod_view, name='zavod'),
+    path('zavod_info/', views.zavod_view, name='zavod_info'),
+    path('all_works/',views.all_works_view, name='all_works')
 
 ]
 

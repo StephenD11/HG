@@ -629,6 +629,12 @@ def user_detail_view(request, user_id):
     return render(request, "HGcity/user_detail.html", {"user": user})
 
 
+def all_works_view(request):
+    return render(request, 'HGcity/all_works.html')
+
+def zavod_info(request):
+    return render(request, 'HGcity/zavod_info.html')
+
 #Игра Завод
 
 @csrf_exempt
@@ -658,7 +664,7 @@ def zavod_view(request):
     user.update_entry()
 
     # Проверяем, может ли пользователь зайти на страницу
-    if not user.can_enter() :
+    if not user.can_enter() and user.username != 'Харальд' :
         # Если лимит входов превышен, перенаправляем на страницу отказа
         return render(request, 'HGcity/game/access_denied.html')
 
