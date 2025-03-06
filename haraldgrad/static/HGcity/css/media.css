@@ -211,7 +211,6 @@ header nav ul li a {
 }
 
 .image-container {
-    width: calc(42% - 10px);
     display: flex;
     justify-content: center;
     height: calc(30% - 10px);
